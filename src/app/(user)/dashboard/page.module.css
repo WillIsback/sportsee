@@ -1,0 +1,42 @@
+.page {
+    display: flex;
+    width: 1440px;
+    padding: 35px 150px 0 150px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.page main {
+    width: 1140px;
+    height: 1579px;
+}
+
+.AskAIbox {
+display: flex;
+    width: 1060px;
+    padding: 24px 52px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    background: var(--Tokens-Surface-White, #FFF);
+}
+
+.MyProfile {
+    display: flex;
+    width: 1052px;
+    padding: 32px 52px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) -8.38%, #FFF 100%);
+}
+
+.StatsPerformances {
+    display: flex;
+    width: 1052px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 71px;
+}

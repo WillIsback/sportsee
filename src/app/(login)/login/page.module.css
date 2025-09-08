@@ -1,0 +1,16 @@
+.page {
+  width: 1440px;
+  height: 1024px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+.bannerLogin {
+  width: 56%;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.SignInForm{
+  width: 44%;
+}
