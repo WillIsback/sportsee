@@ -1,0 +1,46 @@
+
+.Axis text {
+    color: var(--Tokens-Typographie-Secondary, #707070);
+    /* Caption */
+    font-family: var(--font-Inter-Regular);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.ComposedChart {
+    margin-top: 32px;
+}
+.ComposedChart svg {
+    position: inherit;
+    left: -40px;
+}
+
+.ComposedChart span {
+    color: #707070 !important;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.TooltipDate {
+    align-self: stretch;
+    color: #E7E7E7;
+    font-family: var(--font-Inter-Regular);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    white-space: nowrap;
+}
+.TooltipKm {
+    color: #E7E7E7;
+    align-self: stretch;
+    font-family: var(--font-Inter-Regular);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

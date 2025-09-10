@@ -6,7 +6,7 @@
     LastUpdate: 07/09/2025
 */
 
-const backendApiUrl = "http://localhost:8000/api/"
+const backendApiUrl =  "http://localhost:8000/api/"
 
 /*
     Fetch Error Message Handlers
@@ -51,7 +51,7 @@ const request = (endpoint, payload) => {
         body: body,
         Authorization: authorization,
     })
-    console.log('request : ', request)
+    // console.log('request : ', request)
     return request
 
 }
@@ -140,7 +140,7 @@ export async function getUserInfo(token) {
 
         // Succès
         const data = await response.json()
-        console.log('data reçu : ', data)
+        // console.log('data reçu : ', data)
         return { success: true, data }
 
     } catch (error) {
@@ -171,6 +171,7 @@ export async function getUserActivity(token, startWeek, endWeek) {
         return !isNaN(date.getTime()) && date.toISOString().split('T')[0] === dateString;
     }
     if(!(isISODate(startWeek)) || !(isISODate(endWeek))){
+        console.log("startWeek :", startWeek, "     endWeek :", endWeek);
         const error = {
             user: "Les dates sont invalides",
             dev: "Invalid parameters: DATE must be in ISO FORMAT"
@@ -180,6 +181,7 @@ export async function getUserActivity(token, startWeek, endWeek) {
     }
 
     const route = `user-activity?startWeek=${startWeek}&endWeek=${endWeek}`
+    // console.log("getUserActivity api route : ", route);
     // Validation des paramètres
     if (!token) {
         const error = {
@@ -199,7 +201,7 @@ export async function getUserActivity(token, startWeek, endWeek) {
         // Gestion des erreurs HTTP
         if (!response.ok) {
             const errorMessages = getErrorMessage(response.status)
-            console.error("[getUserActivity]", errorMessages.dev)
+            // console.error("[getUserActivity]", errorMessages.dev)
             return { success: false, error: errorMessages }
         }
 
@@ -319,7 +321,7 @@ export async function getUserFile(token, filename) {
 
         // Succès
         const data = await response.json()
-        console.log('data reçu : ', data)
+        // console.log('data reçu : ', data)
         return { success: true, data }
 
     } catch (error) {

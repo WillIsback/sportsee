@@ -1,3 +1,4 @@
+'use client';
 import SignInForm  from '@/components/SignInForm/SignInForm';
 import styles from "./page.module.css";
 

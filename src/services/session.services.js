@@ -1,3 +1,10 @@
+/*
+    auteur: William Derue
+    Projet P6 - SportSee
+    file : src/services/session.services.js
+    objectives: Mettre en place la gestion des session utilisateurs avec un wrapper du token externe dans un token interne
+    lastUpdate : 09/09/2025
+*/
 'use server'
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
@@ -49,7 +56,7 @@ export const verifySession = async () => {
     return { isAuth: false, error: "The user is not Authenfied" };
   }
 
-  return { isAuth: true, userId: Number(session.userId) };
+  return { isAuth: true, userId: Number(session.userId), token: session.token };
 }
 
 export const updateSession = async () => {
@@ -71,6 +78,5 @@ export const updateSession = async () => {
 }
 
 export const deleteSession = async () => {
-  cookies().delete('session');
-  redirect('/login');
+  (await cookies()).delete('session');
 }

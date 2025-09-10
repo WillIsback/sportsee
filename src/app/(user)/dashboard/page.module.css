@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    
 }
 
 .page main {
@@ -14,13 +15,14 @@
 }
 
 .AskAIbox {
-display: flex;
+    display: flex;
     width: 1060px;
     padding: 24px 52px;
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
     background: var(--Tokens-Surface-White, #FFF);
+    margin-top: 108px;
 }
 
 .MyProfile {
@@ -31,8 +33,36 @@ display: flex;
     align-items: center;
     border-radius: 20px;
     background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) -8.38%, #FFF 100%);
+    margin-top: 40px;
 }
-
+.achievementBox{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.achievementBox p {
+    color: var(--Tokens-Typographie-Secondary, #707070);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+.achievemenTag {
+    display: flex;
+    padding: 28px 27px;
+    align-items: center;
+    gap: 19px;
+    border-radius: 10px;
+    border: 1px solid var(--Tokens-Surface-Bleu, #0B23F4);
+    background: var(--Tokens-Surface-Bleu, #0B23F4);
+}
+.achievemenTag h3 {
+    color: var(--Tokens-Surface-White, #FFF);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
 .StatsPerformances {
     display: flex;
     width: 1052px;

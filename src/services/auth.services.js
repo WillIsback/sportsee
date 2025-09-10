@@ -5,7 +5,7 @@
     objectives: Mettre en place le code nécessaire à l'authenfication avec l'API REST backend.
     lastUpdate : 07/09/2025
 */
-'use server'
+'use server';
 
 import { postLogin } from '@/services/api.services';
 import { createSession, deleteSession } from '@/services/session.services';
@@ -20,6 +20,7 @@ export const login = async (prevState, queryData) => {
     console.log("username : ", username);
     console.log("password : ", password);
     const { success, data, error } = await postLogin(username, password);
+    console.log("postLogin success :", success);
     if (success) {
         // Redirection ou mise à jour de l'état
         const token = data?.token;
@@ -34,5 +35,5 @@ export const login = async (prevState, queryData) => {
 }
 
 export const logout = async () => {
-  deleteSession();
+  await deleteSession();
 }

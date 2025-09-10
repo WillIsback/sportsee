@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+
+
+/*
+  CONTENEUR FORMAT AND STYLE
+*/
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+  background: var(--Tokens-Surface-Secondary, #F2F3FF);
+}
+
+
+
+/*
+  TEXT FORMAT AND STYLE
+*/
 h1 {
   color: var(--Tokens-Typographie-Primary, #111);
   /* Heading 1 */

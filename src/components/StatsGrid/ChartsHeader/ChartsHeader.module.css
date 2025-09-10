@@ -1,0 +1,65 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10.5px;
+}
+
+.header p {
+    color: var(--Tokens-Typographie-Secondary, #707070);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.header div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+}
+
+.header div h3 {
+    color: var(--Tokens-Typographie-Bleu, #0B23F4);
+    /* Heading 4 */
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal; 
+    white-space: nowrap;
+}
+
+.header div nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 6px;
+}
+
+.header div nav button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--Tokens-Border-Secondary, #717171);
+    background: var(--Tokens-Surface-White, #FFF);
+    transition: 300ms;
+}
+
+.header div nav button:hover {
+    border-radius: 10px;
+    border: 1px solid var(--Tokens-Border-Primary, #0B23F4);
+    background: var(--Tokens-Surface-action-hover, #5465F7);
+}
+
+.header div nav label {
+    color: var(--Tokens-Typographie-Primary, #111);
+    text-align: right;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    white-space: nowrap;
+}
