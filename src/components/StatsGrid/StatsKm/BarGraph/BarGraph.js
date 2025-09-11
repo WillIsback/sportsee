@@ -1,50 +1,32 @@
 import { BarChart , CartesianGrid, XAxis, YAxis, Legend, Bar, Tooltip } from 'recharts';
-import { incrementWeek } from '@/lib/utils';
+import { incrementWeek, RoundedBar, regexDateISO, convertDateToDDMM } from '@/lib/utils';
 import styles from './BarGraph.module.css';
 import Loader from '@/components/Loader/Loader';
+import { useCallback, useMemo } from 'react';
 
 export default function BarGraph({ barFillColor, sessionData}) {
 
     if(sessionData === undefined || !sessionData) return <Loader />;
 
-    const RoundedBar = (props) => {
-        const { fill, x, y, width, height } = props;
-        const radius = Math.min(width / 2, 7); // Limite le rayon à 7px max
-        
-        return (
-            <rect 
-                x={x} 
-                y={y} 
-                width={width} 
-                height={height} 
-                rx={radius} 
-                ry={radius} 
-                fill={fill} 
-            />
-        );
-    };
-    const regex = /(\w+)(\W)(\w+)(\W)(\w+)/;
-    const updateSession = sessionData.map(({ date, ...rest }, index) => {
-            const IndiceDate = date.replace(regex, `S${index}`)
-            return{ ...rest, IndiceDate};
-        });
-    const convertDateToString = (date) => {
-        const fdate = new Date(date);
-        return fdate.toLocaleDateString('fr-FR', {
-            day: '2-digit',
-            month: '2-digit',
-        });
-    };
-    const getDateFromIndice = (IndiceDate) => sessionData.map(({ date, ...rest }, index) => {
+
+    const updateSession = useMemo(() => {
+            return sessionData.map(({ date, ...rest }, index) => {
+                const IndiceDate = date.replace(regexDateISO, `S${index}`)
+                return{ ...rest, IndiceDate};
+            });
+    }, [sessionData]);
+
+
+    const getDateFromIndice = useCallback((IndiceDate) => sessionData.map(({ date, ...rest }, index) => {
             if(String(index) === IndiceDate.slice(1).trim()){
-                const startPeriod = convertDateToString(date).replace('/', '.');
-                const endPeriod = convertDateToString(incrementWeek(date)).replace('/','.');
+                const startPeriod = convertDateToDDMM(date).replace('/', '.');
+                const endPeriod = convertDateToDDMM(incrementWeek(date)).replace('/','.');
                 return `${startPeriod} au ${endPeriod}` ;
             }
             else return null;
-    });
+    }), [sessionData]);
 
-    const CustomTooltip = ({ active, payload, label }) => {
+    const CustomTooltip = useCallback(({ active, payload, label }) => {
         const isVisible = active && payload && payload.length && getDateFromIndice(label);
         return (
             <div className="custom-tooltip" 
@@ -68,7 +50,7 @@ export default function BarGraph({ barFillColor, sessionData}) {
             )}
             </div>
         );
-    };
+    }, [sessionData]);
 
    
     return (        

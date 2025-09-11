@@ -25,22 +25,22 @@
     line-height: normal;
 }
 
-.TooltipDate {
-    align-self: stretch;
-    color: #E7E7E7;
+
+.Legend {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.Legend li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #707070;
     font-family: var(--font-Inter-Regular);
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
-    white-space: nowrap;
-}
-.TooltipKm {
-    color: #E7E7E7;
-    align-self: stretch;
-    font-family: var(--font-Inter-Regular);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
     line-height: normal;
 }

@@ -11,7 +11,7 @@ import { Suspense, useState } from 'react';
 export default function StatsKm(props) {
     const [isHovered, setIshovered] = useState(false);
     const [startWeek, setStartWeek, endWeek, setEndWeek, { error , loading, sessionData }] = useUserSessions();
-
+    // console.log("is it re-rendered during hover ?");
     const barFillColor = ( isHovered ? '#0B23F4' : '#B6BDFC' );
     return (
         <div className={styles.StatsKm}

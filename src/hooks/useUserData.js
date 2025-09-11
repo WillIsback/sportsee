@@ -38,6 +38,7 @@ export const useUserSessions = () => {
     const [endWeek, setEndWeek] = useState(convertDateToISO(incrementWeek(createdAt)));
 
     useEffect(() => {
+
         const fetchData = async () => {
             setLoading(true);
             try {
