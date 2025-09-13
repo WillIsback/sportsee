@@ -35,7 +35,9 @@ export default function Header() {
                         <p>Coach AI</p>
                     </li>
                     <li>
+                        <Link href='/profile'>
                         <p>Mon Profil</p>
+                        </Link>
                     </li>
                     <div className={styles.divider}></div>
                     <button type='button' onClick={onClick} disabled={isPending}>

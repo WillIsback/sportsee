@@ -99,3 +99,44 @@ export const convertDateToDDMM = (date) => {
         month: '2-digit',
     });
 };
+
+
+export const convertISODateToSlash = (date) => {
+    return date.replace(regexDateISO,"$5/$3/$1")
+
+}
+
+
+export const getDeltaDays = (startDate, endDate) => {
+    const start = new Date(startDate).getTime();
+    const stop = new Date(endDate).getTime();
+    return Math.round((stop - start) / 86_400_000);
+}
+
+
+export const convertMMTimeToHHMM = (time) => {
+    const hourQ = Math.floor(time / 60);
+    const minuteR = time % 60;
+    return {hourQ, minuteR};
+}
+
+export const convertCMHeightToMcM = (height) => {
+    const qMeter = Math.floor(height / 100);
+    const rCm = height % 100;
+    return `${qMeter}m${rCm}`
+}
+
+
+export const translateGender = (gender) => {
+    switch(gender){
+        case 'female': {
+            return 'Femme';
+        }
+        case 'male': {
+            return 'Homme';
+        }
+        default : {
+            return gender;
+        }
+    };
+}

@@ -92,7 +92,7 @@ export async function postLogin(username, password) {
 
         // Succès
         const data = await response.json()
-        console.log('data reçu : ', data)
+        // console.log('data reçu : ', data)
         return { success: true, data }
 
     } catch (error) {
@@ -255,7 +255,7 @@ export async function getUserProPic(token) {
 
         // Succès
         const data = await response.json()
-        console.log('data reçu : ', data)
+        // console.log('data reçu : ', data)
         return { success: true, data }
 
     } catch (error) {

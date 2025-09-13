@@ -5,6 +5,7 @@ import StatsGrid from '@/components/StatsGrid/StatsGrid';
 import ProfileBanner from "@/components/ProfilBanner/ProfileBanner";
 import Loader from '@/components/Loader/Loader';
 import { useUserStats } from '@hooks/useUserData';
+import { Suspense } from "react";
 
 export default function Dashboard() {
   const userData = useUserStats();
@@ -14,7 +15,7 @@ export default function Dashboard() {
   const { totalDistance, totalSessions, totalDuration } = userData?.userStatsData;
 
 
-  console.log("statistics :", userData);
+  // console.log("statistics :", userData);
   return (
     <div className={styles.page}>
       <main>
@@ -36,7 +37,9 @@ export default function Dashboard() {
             </div>
         </section>
         <article className={styles.StatsPerformances}>
-          <StatsGrid />
+          <Suspense>
+            <StatsGrid />
+          </Suspense>
         </article>
       </main>
     </div>

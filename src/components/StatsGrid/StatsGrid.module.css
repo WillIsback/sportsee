@@ -29,3 +29,26 @@
     gap: 24px;
     align-self: stretch;
 }
+
+.thisWeekTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+}
+.thisWeekTitle h2 {
+    color: var(--Tokens-Typographie-Primary, #111);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.thisWeekTitle p {
+    color: var(--Tokens-Typographie-Secondary, #707070);
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

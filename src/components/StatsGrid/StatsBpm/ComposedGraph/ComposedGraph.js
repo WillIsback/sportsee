@@ -28,7 +28,7 @@ export default function ComposedGraph({ lineStrokeColor, sessionData}) {
         );
     })
     const graphData = useMemo(() => {
-        console.log("sessionDatae :", sessionData);
+        // console.log("sessionDatae :", sessionData);
         const WeekHeartRate = sessionData.map((r) => {
             const days = [
                 'Dimanche',
@@ -45,7 +45,7 @@ export default function ComposedGraph({ lineStrokeColor, sessionData}) {
             const jourSemaine = days[dayIdx];
             return {jourSemaine, heartRate}
         });
-        console.log("WeekHeartRate :", WeekHeartRate);
+        // console.log("WeekHeartRate :", WeekHeartRate);
         return WeekHeartRate;
     }, [sessionData]);
 

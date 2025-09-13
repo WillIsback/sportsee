@@ -1,0 +1,42 @@
+.AttributesCard {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+}
+   
+.attributes_title {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+.attributes_title h2 {
+    color: var(--Tokens-Typographie-Primary, #111);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.divider {
+    border-top: 1px solid #E7E7E7;
+    width: 100%;
+}
+
+.attributes_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+
+.attributes_content p, .attributes_content span {
+    color: var(--Tokens-Typographie-Secondary, #707070);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+

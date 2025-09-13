@@ -17,10 +17,10 @@ export const login = async (prevState, queryData) => {
     if(!queryData){ return { success: false, error: "Echec de la récupération du Formadata" }};
     const username = queryData?.get("username");
     const password = queryData?.get("password",);
-    console.log("username : ", username);
-    console.log("password : ", password);
+    // console.log("username : ", username);
+    // console.log("password : ", password);
     const { success, data, error } = await postLogin(username, password);
-    console.log("postLogin success :", success);
+    // console.log("postLogin success :", success);
     if (success) {
         // Redirection ou mise à jour de l'état
         const token = data?.token;

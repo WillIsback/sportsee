@@ -1,0 +1,53 @@
+.PieGraph {
+    display: flex;
+    width: 450px;
+    height: 342px;
+    padding: 16px 38px 32px 38px;
+    flex-direction: column;
+    gap: 16px;
+    border-radius: 10px;
+    background: #FFF;
+    /* cards */
+    box-shadow: 0 4px 84px -40px rgba(157, 167, 251, 0.40);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 32px;
+    justify-content: start;
+}
+
+.header h3 {
+    color: var(--Tokens-Typographie-Bleu, #0B23F4);
+    /* Heading 3 */
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal; 
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.header h3 span {
+    color: var(--Tokens-Surface-Light-bleu, #B6BDFC);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.header p {
+    color: var(--Tokens-Typographie-Secondary, #707070);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.PieChart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

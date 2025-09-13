@@ -7,13 +7,13 @@ import { convertDateToString } from '@/lib/utils';
 export default function ProfileBanner() {
     const userData = useUserProfile();
     const pathname = usePathname();
-    console.log(pathname);
+    // console.log(pathname);
 
 
     if(userData?.loading) return <Loader />;
     if(userData?.error) return <div><p> Error : {userData?.error?.user || userData?.error?.dev} </p></div>;
     const { createdAt, lastName, firstName, profilePicture } = userData?.userProfileData;
-    console.log("profile :", userData);
+    // console.log("profile :", userData);
 
     return (
         <section className={styles.layout}>

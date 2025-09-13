@@ -1,0 +1,27 @@
+'use client';
+import styles from "./page.module.css";
+import ProfileBanner from "@/components/ProfilBanner/ProfileBanner";
+import AttributesCard from '@/components/AttributesCard/AttributesCard';
+import UserRecapGrid from '@/components/UserRecapGrid/UserRecapGrid';
+
+
+export default function Profile() {
+  // console.log("statistics :", userData);
+  return (
+    <div className={styles.page}>
+      <main>
+        <article className={styles.MyProfile}>
+            <section className={styles.section_profilebanner}>
+              <ProfileBanner/>
+            </section>
+            <section className={styles.section_attributescard}>
+              <AttributesCard />
+            </section>
+        </article>
+        <div className={styles.UserRecapGrid}>
+          <UserRecapGrid />
+        </div>
+      </main>
+    </div>
+  );
+}
