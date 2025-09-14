@@ -1,9 +1,9 @@
 .StatsGrid {
     margin-top: 108px;
     display: flex;
-    width: 1052px;
+    width: 100%;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: 71px;
 }
 .lastPerformances, .thisWeek  {
@@ -11,11 +11,13 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
-    align-self: stretch;
+}
+
+.lastPerformances {
+    width: 100%;
 }
 
 .lastPerformances h2 {
-    align-self: stretch;
     color: var(--Tokens-Typographie-Primary, #111);
     font-size: 22px;
     font-style: normal;
@@ -26,15 +28,23 @@
 .ChartsBox {
     display: flex;
     align-items: center;
+    width: 100%;
     gap: 24px;
-    align-self: stretch;
+}
+
+.thisWeek {
+    width: 100%;
 }
 
 .thisWeekTitle {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 9px;
-
+    width: 100%;
+}
+.thisWeek .ChartsBox div {
+    width: 42.3%;
 }
 .thisWeekTitle h2 {
     color: var(--Tokens-Typographie-Primary, #111);
@@ -51,4 +61,33 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+
+
+@media (max-width: 679px) and (min-width: 360px) {
+    .lastPerformances {    
+        h2 {
+            text-align: center;
+        }
+        .ChartsBox {
+            flex-direction: column;
+            div{
+                width: 100%;
+            }
+        }
+    }
+    .thisWeek{
+        width: 100%;
+        justify-content: center;
+        .ChartsBox{
+            flex-direction: column;
+            width: 100%;
+            div {
+                width: 100%;
+            }
+        }
+
+    }
+
 }

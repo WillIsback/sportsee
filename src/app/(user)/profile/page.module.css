@@ -1,25 +1,25 @@
-.page main {
+.page {
     display: flex;
+    margin: 0 auto;
     height: 778px;
     justify-content: center;
     align-items: flex-start;
     gap: 57px;
     margin-top: 108px;
-    width: 1140px;
+    width: 80%;
 }
 
 .MyProfile {
     display: flex;
-    width: 508px;
     height: 717px;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    width: 50%;
+    width: 45%;
 }
 .section_profilebanner {
     display: flex;
-    width: 508px;
+    width: 100%;
     padding: 24px 52px 24px 32px;
     justify-content: center;
     align-items: center;
@@ -34,7 +34,7 @@
 
 .section_attributescard {
     display: flex;
-    width: 508px;
+    width: 100%;
     padding: 40px 28px 60px 28px;
     flex-direction: column;
     align-items: flex-start;
@@ -46,5 +46,27 @@
 }
 
 .UserRecapGrid {
-    width: 100%;
+    width: 50%;
+}
+
+
+@media (max-width: 679px) and (min-width: 360px) {
+    .page {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        .MyProfile {
+            width: 100%;
+            height: auto;
+            .section_profilebanner{
+                padding: 0 0 0 0;
+                gap: 0;
+                width: 100%;
+            }
+        }
+        .UserRecapGrid {
+            width: 100%;
+
+        }
+    }
 }

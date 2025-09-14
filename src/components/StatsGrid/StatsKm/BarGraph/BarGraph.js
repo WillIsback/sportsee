@@ -1,4 +1,4 @@
-import { BarChart , CartesianGrid, XAxis, YAxis, Legend, Bar, Tooltip } from 'recharts';
+import { ResponsiveContainer, BarChart , CartesianGrid, XAxis, YAxis, Legend, Bar, Tooltip } from 'recharts';
 import { incrementWeek, RoundedBar, regexDateISO, convertDateToDDMM } from '@/lib/utils';
 import styles from './BarGraph.module.css';
 import Loader from '@/components/Loader/Loader';
@@ -53,26 +53,28 @@ export default function BarGraph({ barFillColor, sessionData}) {
     }, [sessionData]);
 
    
-    return (        
-        <BarChart width={330} height={262} 
-            data={updateSession}   
-            className={styles.BarGraph} 
-        >
-            <CartesianGrid strokeDasharray="2" vertical={false}/>
-            <XAxis dataKey={"IndiceDate"} tickLine={false} className={styles.Axis}/>
-            <YAxis tickCount={4} tickLine={false} className={styles.Axis}/>
-            <Legend align='left' iconSize={8}/>
-            <Tooltip wrapperStyle={{ zIndex: 1 }} 
-                cursor={false}  
-                content={CustomTooltip}
-            />
-            <Bar dataKey="distance" 
-            type='monotone'
-            fill={barFillColor} 
-            legendType='circle' 
-            name='Km' 
-            maxBarSize={14}
-            shape={<RoundedBar/>}/>
-        </BarChart>
+    return (
+        <ResponsiveContainer width={'100%'} height={262}>    
+            <BarChart  
+                data={updateSession}   
+                className={styles.BarGraph} 
+            >
+                <CartesianGrid strokeDasharray="2" vertical={false}/>
+                <XAxis dataKey={"IndiceDate"} tickLine={false} className={styles.Axis}/>
+                <YAxis tickCount={4} tickLine={false} className={styles.Axis}/>
+                <Legend align='left' iconSize={8}/>
+                <Tooltip wrapperStyle={{ zIndex: 1 }} 
+                    cursor={false}  
+                    content={CustomTooltip}
+                />
+                <Bar dataKey="distance" 
+                type='monotone'
+                fill={barFillColor} 
+                legendType='circle' 
+                name='Km' 
+                maxBarSize={14}
+                shape={<RoundedBar/>}/>
+            </BarChart> 
+    </ResponsiveContainer>    
     )
 }

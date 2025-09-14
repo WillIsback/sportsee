@@ -5,7 +5,7 @@ import StatsBpm from './StatsBpm/StatsBpm';
 import PieGraph from '@/components/StatsGrid/PieGraph/PieGraph';
 import WeeklyRecap from '@/components/StatsGrid/WeeklyRecap/WeeklyRecap';
 import { decrementWeek, convertDateToISO, convertISODateToSlash } from '@/lib/utils';
-import {  useRef } from 'react';
+import { useRef } from 'react';
 
 export default function StatsGrid() {
  
@@ -23,8 +23,14 @@ export default function StatsGrid() {
         <section className={styles.lastPerformances}>
             <h2>Vos dernières performances</h2>
             <div className={styles.ChartsBox}>
-                <StatsKm />
-                <StatsBpm />
+                <StatsKm 
+                    defStartWeek={(decrementWeek(convertDateToISO(Date.now()),4))}
+                    defEndWeek={(convertDateToISO(Date.now()))}
+                />
+                <StatsBpm 
+                    defStartWeek={(decrementWeek(convertDateToISO(Date.now()),4))}
+                    defEndWeek={(convertDateToISO(Date.now()))}
+                />
             </div>
         </section>
         <section className={styles.thisWeek}>

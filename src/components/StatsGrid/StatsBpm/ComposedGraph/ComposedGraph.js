@@ -1,4 +1,4 @@
-import { ComposedChart  , CartesianGrid, XAxis, YAxis, Legend, Bar, Tooltip, Line } from 'recharts';
+import { ResponsiveContainer, ComposedChart  , CartesianGrid, XAxis, YAxis, Legend, Bar, Tooltip, Line } from 'recharts';
 import { useCallback, useMemo } from 'react';
 import { RoundedBar, getSvgLegend } from '@/lib/utils';
 import styles from './ComposedGraph.module.css';
@@ -50,8 +50,9 @@ export default function ComposedGraph({ lineStrokeColor, sessionData}) {
     }, [sessionData]);
 
 
-    return (        
-        <ComposedChart  width={330} height={262} 
+    return ( 
+    <ResponsiveContainer width={'100%'} height={262}>      
+        <ComposedChart   
             data={graphData}   
             className={styles.ComposedChart} 
         >
@@ -96,5 +97,6 @@ export default function ComposedGraph({ lineStrokeColor, sessionData}) {
             />
 
         </ComposedChart >
+    </ResponsiveContainer> 
     )
 }

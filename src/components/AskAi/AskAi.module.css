@@ -1,0 +1,45 @@
+.askai_section {
+    display: flex;
+    width: 100%;
+    padding: 24px 5%;
+    border-radius: 10px;
+    background: var(--Tokens-Surface-White, #FFF);
+    /* margin-top: 108px; */
+    justify-content: space-between;
+}
+
+.askai_section__title {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 16px;
+}
+
+.askai_section__title svg {
+    min-width: 13px;
+    min-height: 21px;
+}
+.askai_section__title h2 {
+    color: var(--Tokens-Typographie-Bleu, #0B23F4);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.askai__button {
+    display: flex;
+    padding: 16px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: var(--Tokens-Surface-action, #0B23F4);
+}
+.askai__button span {
+    color: var(--Tokens-Surface-White, #FFF);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

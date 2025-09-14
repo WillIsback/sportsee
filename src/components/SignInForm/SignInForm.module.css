@@ -8,16 +8,6 @@
     width: 100%;
 }
 
-.logo {
-    width: 157px;
-    height: 23.4;
-    object-fit: contain;
-    box-sizing: border-box;
-    position: absolute;
-    top: 55;
-    left: 100px;
-    margin-bottom: 151px;
-}
 .form {
     color: black;
     display: flex;
@@ -71,7 +61,7 @@
 }
 .form button {
     display: flex;
-    width: 318px;
+    width: 100%;
     padding: 16px 40px;
     justify-content: center;
     align-items: center;
@@ -93,4 +83,17 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+
+@media (max-width: 679px) and (min-width: 360px) {
+    .body{
+      width: 100%;
+      height: auto;
+      .form {
+        width: 100%;
+        height: auto;
+      }
+    }
+
 }

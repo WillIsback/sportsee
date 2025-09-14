@@ -1,30 +1,26 @@
 import styles from './PieGraph.module.css';
-import Loader from '@/components/Loader/Loader';
 import { useUserSessions } from '@hooks/useUserData';
-import { Cell, PieChart, Pie } from 'recharts';
+import { Cell, PieChart, Pie, ResponsiveContainer } from 'recharts';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
 import { useMemo } from 'react';
-import { useEffect } from 'react';
 
 export default function PieGraph() {
-    const [startWeek, setStartWeek, endWeek, setEndWeek, { error , loading, sessionData }] = useUserSessions();
-    if(useUserSessions?.loading) return <Loader />;
-    if(useUserSessions?.error) return <div><p> Error : {useUserSessions?.error?.user || useUserSessions?.error?.dev} </p></div>;
-    useEffect(() => {
-        setStartWeek(decrementWeek(convertDateToISO(Date.now())));
-        setEndWeek(convertDateToISO(Date.now()));
-    }, []);
+    const startWeek = decrementWeek(convertDateToISO(Date.now()));
+    const endWeek = convertDateToISO(Date.now());
+    const { data, isPending } = useUserSessions(startWeek, endWeek)
     
-    const weeklyGoal = 3;
+    const weeklyGoal = 5;
 
     const getWeekNbSession = useMemo(() => {
-        if(sessionData) return Object.keys(sessionData).length;
-    },[sessionData]);
+        if(data) return Object.keys(data).length;
+        return 0;
+    }, [data, isPending]);
 
+    const sessionRestantes = (((weeklyGoal - getWeekNbSession) > 0) ? (weeklyGoal - getWeekNbSession) : 0);
 
     const pieObjData = [
         {name: 'réalisées', value: getWeekNbSession},
-        {name: 'restants', value: (weeklyGoal - getWeekNbSession)},
+        {name: 'restants', value: sessionRestantes},
     ]
 
 
@@ -32,16 +28,33 @@ export default function PieGraph() {
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, index, value }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 1.5;
-        const x = cx + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
-        const y = cy + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
-        const offset = ((x < cx )? 35 : 0 );
-        const x_adjusted = x - offset;
+        // console.log("midAngle :", midAngle, "cx :", cx, "cy :", cy);
+        const computeXY = (midAngle) => {
+            const x = cx + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
+            const y = cy + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
+            return {x, y};
+        };
+        const computeXY_deadzone = () => {
+            const { x, y } = computeXY(midAngle);
+            if(y > (cy * 2)){ // is in north dead zone
+                const midAngle_offset = ((x < cx )? midAngle-30 : midAngle+30 );
+                return computeXY(midAngle_offset)
+            }
+            else if((y < 0 )){// is in south dead zone
+                const midAngle_offset = ((x > cx )? midAngle-30 : midAngle+30 );
+                return computeXY(midAngle_offset)
+            }
+            else return { x, y }// no dead zone
+        };
+        const { x , y } = computeXY_deadzone();
+        const x_offset = ((x < cx )? 35 : 0 );
+        const x_adjusted = x - x_offset;
         const customLable = () => {
             if(index === 1){
 
                 return {
                     iconColor: '#B6BDFC',
-                    label: `${weeklyGoal - getWeekNbSession} restants`,
+                    label: `${sessionRestantes} restants`,
                 }
             }
             else{
@@ -55,7 +68,7 @@ export default function PieGraph() {
         // console.log("label, iconColor :", label, iconColor);
         return (
                 <g visibility={(value>0) ? 'visible' : 'hidden' }>
-                    <text  x={x_adjusted} y={y} fill='#707070' fontSize={10} fontFamily='var(--font-Inter-Regular)'>{label}</text>
+                    <text  x={x_adjusted} y={y} fill='#707070' fontSize={10} fontFamily='var(--font-Inter-Regular)' >{label}</text>
                     <svg  x={x_adjusted-12} y={y-9}  xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 16 16" fill="none">
                         <circle cx="6.45" cy="6.45" r="4" fill={iconColor}/>
                     </svg>
@@ -72,7 +85,8 @@ export default function PieGraph() {
                 <p>Courses hebdomadaire réalisées</p>
             </section>
             <section className={styles.PieChart}>
-                <PieChart width={306} height={190} margin={ 'left: 25' }>
+            <ResponsiveContainer width="100%" height="100%">
+                <PieChart margin={ 'left: 25' }>
                     <Pie
                     data={pieObjData}
                     labelLine={false}
@@ -88,6 +102,7 @@ export default function PieGraph() {
                     ))}
                     </Pie>
                 </PieChart>
+            </ResponsiveContainer>
             </section>
         </div>
     )

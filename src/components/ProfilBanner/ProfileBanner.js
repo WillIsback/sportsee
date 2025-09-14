@@ -1,18 +1,12 @@
 import styles from './ProfileBanner.module.css';
-import Loader from '@/components/Loader/Loader';
-import { usePathname } from 'next/navigation';
-import { useUserProfile } from '@hooks/useUserData';
+import { UserProfileContext } from '@context/UserContext';
 import { convertDateToString } from '@/lib/utils';
+import { use } from 'react';
+
 
 export default function ProfileBanner() {
-    const userData = useUserProfile();
-    const pathname = usePathname();
-    // console.log(pathname);
-
-
-    if(userData?.loading) return <Loader />;
-    if(userData?.error) return <div><p> Error : {userData?.error?.user || userData?.error?.dev} </p></div>;
-    const { createdAt, lastName, firstName, profilePicture } = userData?.userProfileData;
+    const userData = use(UserProfileContext);
+    const { createdAt, lastName, firstName, profilePicture } = userData?.dataProfile;
     // console.log("profile :", userData);
 
     return (

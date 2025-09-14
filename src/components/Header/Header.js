@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import ICLogo from '@/components/Logo/Logo';
 
 import styles from './Hearder.module.css';
 import Link from 'next/link';
@@ -23,7 +24,9 @@ export default function Header() {
 
     return (
         <header className={styles.Header}>
-            <h1><img src="/image/Logo.png" alt="logo sportsee" className={styles.logo}/></h1>
+            <div className={styles.logo}>
+                <ICLogo />
+            </div>
             <nav className={styles.Menu}>
                 <ul>
                     <li>

@@ -1,51 +1,37 @@
 import styles from './UserRecapGrid.module.css';
-import { useUserProfile, useUserStats, useUserSessions, useUserAllSessions } from '@hooks/useUserData';
+import { UserProfileContext, UserStatsContext } from '@context/UserContext';
+import { useUserAllSessions } from '@hooks/useUserData';
 import { convertDateToISO, convertDateToString, getDeltaDays, convertMMTimeToHHMM } from '@/lib/utils';
-import Loader from '../Loader/Loader';
 import RecapCard from './RecapCard/RecapCard';
-import { useMemo } from 'react';
+import { use, useMemo } from 'react';
+import Loader from '../Loader/Loader';
 
 export default function UserRecapGrid() {
-    const userDataProfile = useUserProfile();
-    const userDataProfileStats = useUserStats(); 
-    const userDataSession = useUserAllSessions(); 
-    if(userDataProfile?.loading || userDataProfileStats?.loading ||userDataSession?.loading) return <Loader />;
-    if(userDataProfile?.error || userDataProfileStats?.error || userDataSession?.error) return <div>
-            <p> 
-                Error : {userDataProfile?.error?.user || userDataProfile?.error?.dev ||
-                userDataProfileStats?.error?.user || userDataProfileStats?.error?.dev ||
-                typeof error === 'string' ? error : error?.user || error?.dev} 
-            </p>
-        </div>;
+    const userDataProfile = use(UserProfileContext);
+    const userDataStats = use(UserStatsContext); 
+    const { data, isPending } = useUserAllSessions(); 
+
+    if(isPending)return <Loader />
     
-    const { createdAt, ...rest } = userDataProfile?.userProfileData;
-    const { totalDistance, totalSessions, totalDuration } = userDataProfileStats?.userStatsData;
-    const { error , loading, sessionData } = userDataSession;
+    const { createdAt, ...rest } = userDataProfile?.dataProfile;
+    const { totalDistance, totalSessions, totalDuration } = userDataStats?.dataStats;
 
-
-
-
+    // console.log("data", data);
     // Calculate totalRunningDate
-    // const listUniqueRunningDate= sessionData.flatMap((item) => item.date).sort();
-    // console.log('listUniqueRunningDate :', listUniqueRunningDate);
-
-    
-    // console.log("statistics :", userDataProfileStats);
-    // console.log("profile :", userDataProfile);
-    // console.log("getAllRunningData: " , sessionData)
-
-    // Calculate totalRunningDate
-    const listUniqueRunningDate= sessionData.flatMap((item) => item.date).sort();
-    // console.log('listUniqueRunningDate length :', listUniqueRunningDate.length);
+    const listUniqueRunningDate = () => {
+        return data.flatMap((item) => item.date).sort();
+    };
+    const uniqueRunningDates = listUniqueRunningDate();
+    // console.log('listUniqueRunningDate length :', uniqueRunningDates.length);
     const totalPeriodDays = getDeltaDays(createdAt, convertDateToISO((new Date (Date.now()))));
     // console.log('totalPeriodDays :', totalPeriodDays);
-    const numberOfRestDays = totalPeriodDays - listUniqueRunningDate.length;
+    const numberOfRestDays = totalPeriodDays - uniqueRunningDates.length;
     // console.log('numberOfRestDays :', numberOfRestDays);
 
     const { hourQ, minuteR } = convertMMTimeToHHMM(totalDuration);
 
     // Calculate totalCalories
-    const totalCalories = Math.round(sessionData.reduce(
+    const totalCalories = Math.round(data.reduce(
         (sum, session) => sum + session.caloriesBurned,
         0
     ).toFixed(1));

@@ -45,3 +45,30 @@
     font-weight: 400;
     line-height: normal;
 }
+
+
+@media (max-width: 679px) and (min-width: 360px) {
+    .Header{
+        flex-direction: column;
+        .Menu {
+            margin-top: 15px;
+            flex-direction: column;
+            padding: 16px 24px;
+            ul {
+                width: 100%;
+                padding-right: 0px;
+                gap: 15px;
+                .divider {
+                    display: none;
+                }
+                flex-wrap: wrap;
+                li {
+                    width: 45%;
+                    white-space: nowrap;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+}

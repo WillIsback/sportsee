@@ -1,0 +1,67 @@
+.achievementBox {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+}
+.achievementBox p {
+    color: var(--Tokens-Typographie-Secondary, #707070);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal; 
+}
+.achievemenTag {
+    display: flex;
+    padding: 28px 27px;
+    align-items: center;
+    gap: 19px;
+    border-radius: 10px;
+    border: 1px solid var(--Tokens-Surface-Bleu, #0B23F4);
+    background: var(--Tokens-Surface-Bleu, #0B23F4);
+    width: 50%;
+}
+.achievemenTag h3 {
+    color: var(--Tokens-Surface-White, #FFF);
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+@media (max-width: 1140px) and (min-width: 680px) {
+    .achievementBox{
+        gap: 5px;
+        flex-direction: column;
+        .achievemenTag {
+            justify-content: center;
+            width: 80%;
+            h3 {
+                font-size: 14px;
+            }
+            svg{
+                min-width: none;
+                min-height: auto;
+            }
+        }
+    }
+}
+
+@media (max-width: 679px) and (min-width: 360px) {
+    .achievementBox{
+        gap: 5px;
+        flex-direction: column;
+        .achievemenTag {
+            justify-content: center;
+            width: 80%;
+            h3 {
+                font-size: 14px;
+            }
+            svg{
+                min-width: none;
+                min-height: auto;
+            }
+        }
+    }
+}

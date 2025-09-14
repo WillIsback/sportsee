@@ -1,0 +1,57 @@
+/* Logo.module.css */
+
+.logoIC_container {
+  display: flex;
+  position: relative;
+  width: 19px;
+  height: 20.656px;
+}
+
+
+/* Phase A - État déplié */
+.ICLogoA {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  gap: 1px;
+  transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  /* opacity: 1; */
+}
+
+/* Phase B - État replié */
+.ICLogoB {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  gap: 1px;
+  top: 1;
+  left: 0;
+  transition: 
+    transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 700ms;
+  z-index: 10;
+  /* opacity: 0; */
+}
+
+/* Classe utilitaire pour le logo complet */
+.logo {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.logoIC_container:hover {
+    .ICLogoB {
+        transform: translateY(3);
+        /* opacity: 1; */
+        
+    }
+    .ICLogoA {
+        transform: scaleY(0.5);
+        /* opacity: 0; */
+    }
+    
+}

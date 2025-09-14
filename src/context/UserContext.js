@@ -7,46 +7,35 @@
 */
 'use client';
 
-import { createContext, useEffect, useState } from 'react'
+import { createContext } from 'react'
 import { FetchUserInfo } from '@/lib/userData';
+import { useQuery } from '@tanstack/react-query'
+
+
+
 export const UserProfileContext = createContext();
 export const UserStatsContext = createContext();
 
+
+
 export function UserDataProvider({ children }) {
-    const [userProfileData, setUserProfileData] = useState(null);
-    const [userStatsData, setUserStatsData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { isPending, error, data, isFetching } = useQuery({
+        queryKey: ['userData'],
+        queryFn: async () => {
+            const response = await FetchUserInfo();
+            return response;
+        },
+    });
+    if (isPending) return 'Loading...'
+    if (error) return 'An error has occurred: ' + error?.message;
 
-    useEffect(() => {
-        setLoading(true);
-        const userInfo = async () => {
-            const res = await FetchUserInfo();
-            return res// (res.success ?  res?.data :  res?.error);
-        };
-        userInfo()
-        .then((info) => {
-            if (info.success) {
-                setUserProfileData(info.data.profile);
-                setUserStatsData(info.data.statistics);
-            } else {
-                setError(info.error);
-            }
-        })
-        .catch((networkError) => {
-            // Vraies erreurs JavaScript (réseau, etc.)
-            console.error("Network/JS error:", networkError);
-            setError("Erreur de connexion");
-        })
-        .finally(() => {
-            setLoading(false);
-        })
-    }, []);
-
-
+    const dataProfile = data?.data.profile;
+    const dataStats = data?.data.statistics;
+    // console.log("data : ", data);
+    // console.log("dataProfile : ", dataProfile, "dataStats :", dataStats);
     return (
-        <UserProfileContext.Provider value={{ userProfileData, loading, error }}>
-            <UserStatsContext.Provider value={{ userStatsData, loading, error }}>
+        <UserProfileContext.Provider value={{ isPending, error, dataProfile, isFetching }}>
+            <UserStatsContext.Provider value={{ isPending, error, dataStats, isFetching }}>
             {children}
             </UserStatsContext.Provider>
         </UserProfileContext.Provider>

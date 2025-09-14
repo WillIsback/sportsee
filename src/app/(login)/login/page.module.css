@@ -1,9 +1,10 @@
 .page {
-  width: 1440px;
+  max-width: 1440px;
   height: 1024px;
   display: flex;
   flex-direction: row;
   margin: 0 auto;
+  position: relative;
 }
 .bannerLogin {
   width: 56%;
@@ -11,6 +12,23 @@
   box-sizing: border-box;
 }
 
+.logo {
+  position: absolute;
+  left: 100;
+  top: 55;
+  z-index: 10;
+}
+
 .SignInForm{
   width: 44%;
+}
+
+@media (max-width: 679px) and (min-width: 360px) {
+  .bannerLogin{
+    display: none;
+  }
+  .SignInForm{
+    width: 100%;
+  }
+
 }

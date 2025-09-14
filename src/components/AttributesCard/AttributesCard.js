@@ -1,13 +1,12 @@
 import styles from './AttributesCard.module.css';
-import { useUserProfile } from '@hooks/useUserData';
+import { UserProfileContext } from '@context/UserContext';
 import { convertCMHeightToMcM, translateGender } from '@/lib/utils';
-import Loader from '../Loader/Loader';
+import { use } from 'react';
+
 
 export default function AttributesCard() {
-    const userData = useUserProfile();
-    if(userData?.loading) return <Loader />;
-    if(userData?.error) return <div><p> Error : {userData?.error?.user || userData?.error?.dev} </p></div>;
-    const { age, gender, height, weight } = userData?.userProfileData;
+    const userData = use(UserProfileContext);
+    const { age, gender, height, weight } = userData?.dataProfile;
 
 
 

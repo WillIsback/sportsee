@@ -1,30 +1,24 @@
 import { useUserSessions } from '@hooks/useUserData';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
 import styles from './WeeklyRecap.module.css';
 
 
 export default function WeeklyRecap() {
-    const [startWeek, setStartWeek, endWeek, setEndWeek, { error , loading, sessionData }] = useUserSessions();
-    if(useUserSessions?.loading) return <Loader />;
-    if(useUserSessions?.error) return <div><p> Error : {useUserSessions?.error?.user || useUserSessions?.error?.dev} </p></div>;
-
-
-    useEffect(() => {
-        setStartWeek(decrementWeek(convertDateToISO(Date.now())));
-        setEndWeek(convertDateToISO(Date.now()));
-    }, []);
+    const startWeek = decrementWeek(convertDateToISO(Date.now()));
+    const endWeek = convertDateToISO(Date.now());
+    const { isPending, data } = useUserSessions(startWeek, endWeek);
 
     const getCurrentWeekRecap = useMemo(() => {
-        if(!sessionData) return null;
+        if(!data) return null;
         let totalDis = 0;
         let totalDur = 0;
-        Object.values(sessionData).forEach((item) => {
+        Object.values(data).forEach((item) => {
                 totalDis = totalDis + item.distance;
                 totalDur = totalDur + item.duration;
             });
         return {totalDis, totalDur};
-    }, [loading]);
+    }, [isPending]);
 
     // console.log('getCurrentWeekRecap :', getCurrentWeekRecap);
 

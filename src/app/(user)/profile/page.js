@@ -9,7 +9,6 @@ export default function Profile() {
   // console.log("statistics :", userData);
   return (
     <div className={styles.page}>
-      <main>
         <article className={styles.MyProfile}>
             <section className={styles.section_profilebanner}>
               <ProfileBanner/>
@@ -19,9 +18,8 @@ export default function Profile() {
             </section>
         </article>
         <div className={styles.UserRecapGrid}>
-          <UserRecapGrid />
+            <UserRecapGrid />
         </div>
-      </main>
     </div>
   );
 }

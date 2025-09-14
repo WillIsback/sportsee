@@ -31,10 +31,10 @@ export const getDeltaWeek = (dateStart, dateSend) => {
 
 
 
-export const decrementWeek = (date) => {
+export const decrementWeek = (date, weeks=1) => {
     const dateA = new Date(date);
     const dateB = new Date(dateA);
-    return convertDateToISO(dateB.setDate(dateA.getDate() - 7));
+    return convertDateToISO(dateB.setDate(dateA.getDate() - (7*weeks)));
 };
 
 export const incrementWeek = (date) => {
@@ -139,4 +139,9 @@ export const translateGender = (gender) => {
             return gender;
         }
     };
+}
+
+
+export const getUpdateTimestamp = () => {
+    return Date.now();
 }

@@ -6,124 +6,45 @@
     lastUpdate : 09/09/2025
 */
 
-import { UserProfileContext, UserStatsContext } from '../context/UserContext';
-import { useContext, useEffect, useState } from 'react';
-import { convertDateToISO, incrementWeek, decrementWeek } from '@/lib/utils';
+import { useState } from 'react';
+import { convertDateToISO } from '@/lib/utils';
 import { FetchUserActivity } from '@/lib/userData';
+import { useQuery } from '@tanstack/react-query';
 
-export const useUserProfile = () => {
-    const context = useContext(UserProfileContext); 
-    if (!context) {
-        throw new Error('useUser doit être utilisé dans un UserProvider');
-    }
-    return context;
-};
-
-export const useUserStats = () => {
-    const context = useContext(UserStatsContext); 
-    if (!context) {
-        throw new Error('useUser doit être utilisé dans un UserProvider');
-    }
-    return context;
-};
-
-
-export const useUserSessions = () => {
-    const [sessionData, setSessionData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [startWeek, setStartWeek] = useState(convertDateToISO(decrementWeek(Date.now())));
-    const [endWeek, setEndWeek] = useState(convertDateToISO(Date.now()));
-
-    useEffect(() => {
-
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const res = await FetchUserActivity(startWeek, endWeek);
-                if (res.success) {
-                    // console.log("Fetching session data from ", startWeek, " to ", endWeek , "donne : ", res.data);
-                    setSessionData(res.data);
-                } else {
-                    setError(res.error);
-                }
-            } catch (networkError) {
-                setError("Erreur de connexion");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (startWeek && endWeek) {
-            fetchData();
-        }
-    }, [startWeek, endWeek]);
-
-    return [startWeek, setStartWeek, endWeek, setEndWeek, { error , loading, sessionData } ];
-};
-
-
-
-
-export const useCurrentWeek = () => {
-    const [currentWeek, setCurrentWeek] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const startWeek = decrementWeek(convertDateToISO(Date.now()));
-    const endWeek = convertDateToISO(Date.now());
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const res = await FetchUserActivity(startWeek, endWeek);
-                if (res.success) {
-                    // console.log("Fetching session data from ", startWeek, " to ", endWeek , "donne : ", res.data);
-                    setSessionData(res.data);
-                } else {
-                    setError(res.error);
-                }
-            } catch (networkError) {
-                setError("Erreur de connexion");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (startWeek && endWeek) {
-            fetchData();
-        }
-    }, []);
+export const useDateState = (defStartWeek, defEndWeek) => {
+    const [startWeek, setStartWeek] = useState(defStartWeek);
+    const [endWeek, setEndWeek] = useState(defEndWeek);
+    return [ startWeek, setStartWeek, endWeek, setEndWeek ];
 }
 
-export const useUserAllSessions = () => {
-    const [sessionData, setSessionData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+export const useUserSessions = (startWeek, endWeek) => {
+    // console.log("useUserSessions startWeek, endWeek :",startWeek, endWeek );
+    const { isPending, error, data, isFetching } = useQuery({
+        queryKey: [`${startWeek}-${endWeek}`],
+        queryFn : async () => {
+            const response = await FetchUserActivity(startWeek, endWeek);
+            return response.data; 
+        },
+    });
+    if (isPending) return { isPending, error: null, data: null, isFetching };
+    if (error) return { isPending: false, error, data: null, isFetching: false };
+    // console.log("useUserSessions data :", data);
+    return { isPending, error, data, isFetching };
+};
 
+
+export const useUserAllSessions = () => {
     const startWeek = convertDateToISO('2000-01-01');
     const endWeek = convertDateToISO(Date.now());
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const res = await FetchUserActivity(startWeek, endWeek);
-                if (res.success) {
-                    // console.log("Fetching session data from ", startWeek, " to ", endWeek , "donne : ", res.data);
-                    setSessionData(res.data);
-                } else {
-                    setError(res.error);
-                }
-            } catch (networkError) {
-                setError("Erreur de connexion");
-            } finally {
-                setLoading(false);
-            }
-        };
-        if (startWeek && endWeek) {
-            fetchData();
-        }
-    }, []);
-    return { error , loading, sessionData } ;
+    const { isPending, error, data, isFetching } = useQuery({
+        queryKey: ['allSessionData'],
+        queryFn : async () => {
+            const response = await FetchUserActivity(startWeek, endWeek);
+            return response.data; 
+        },
+    });
+    if (isPending) return { isPending, error: null, data: null, isFetching };
+    if (error) return { isPending: false, error, data: null, isFetching: false };
+    return { isPending, error, data, isFetching };
 
 };

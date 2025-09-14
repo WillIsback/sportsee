@@ -40,9 +40,9 @@ export const FetchUserInfo = cache(async () => {
         }
     }
     return { success: false, error: "erreur user non authentifié"}
-})
+});
 
-export const FetchUserActivity = async (startWeek, endWeek) => {
+export const FetchUserActivity = cache(async (startWeek, endWeek) => {
     // 1. Auth Check
     const session = await verifySession();  
 
@@ -65,5 +65,5 @@ export const FetchUserActivity = async (startWeek, endWeek) => {
         }
     }
     return { success: false, error: "erreur user non authentifié"}
-}
+});
 

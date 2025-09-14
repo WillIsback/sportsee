@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: 10.5px;
+    width: 82%
 }
 
 .header p {
@@ -31,6 +32,7 @@
 }
 
 .header div nav {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,4 +64,29 @@
     font-weight: 400;
     line-height: normal;
     white-space: nowrap;
+}
+
+
+
+@media (max-width: 1440px) and (min-width: 1141px) {
+    .header div {
+        gap: 0px;
+    }
+    .header div nav {
+        transform: scale(0.8);
+    }
+
+}
+
+@media (max-width: 1140px) and (min-width: 680px) {
+    .header div {
+        flex-direction: column-reverse;
+    }
+}
+
+
+@media (max-width: 679px) and (min-width: 360px) {
+    .header div {
+        flex-direction: column-reverse;
+    }
 }
