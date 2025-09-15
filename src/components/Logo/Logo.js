@@ -171,6 +171,19 @@ export function LogoName() {
     );
 };
 
+
+export function ICLogoOnly() {
+
+    return (
+        <div className={styles.logo}>
+            <div className={styles.logoIC_container}>
+                <ICLogoA />
+                <ICLogoB />
+            </div>
+        </div>
+    );
+}
+
 export default function ICLogo() {
 
     return (
@@ -183,3 +196,5 @@ export default function ICLogo() {
         </div>
     );
 }
+
+

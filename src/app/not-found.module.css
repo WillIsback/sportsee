@@ -1,0 +1,45 @@
+.page {
+  max-width: 1440px;
+  height: 1024px;
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  position: relative;
+  justify-content: space-around;
+  gap: 25px;
+}
+
+.page__div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bannerLogin {
+  width: 56%;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.logo {
+  position: absolute;
+  left: 100;
+  top: 55;
+  z-index: 10;
+}
+
+.page h1 {
+  color: var(--Tokens-Surface-Bleu, #0B23F4);
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@media (max-width: 679px) and (min-width: 360px) {
+  .bannerLogin{
+    display: none;
+  }
+
+
+}

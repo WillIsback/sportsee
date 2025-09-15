@@ -1,0 +1,25 @@
+.Footer {
+  display: flex;
+  max-width: 1440px;
+  padding: 10px 100px;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  width: 100%;
+  margin-top: 10px;
+  height: auto;
+}
+
+.Footer__brand_disclaimer{
+  display: flex;
+  flex-direction: row;
+  gap: 9px;
+  align-items: center;
+}
+
+.Footer__contact_cgv {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+}

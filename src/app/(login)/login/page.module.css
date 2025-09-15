@@ -6,10 +6,46 @@
   margin: 0 auto;
   position: relative;
 }
-.bannerLogin {
+
+.page_right_panel {
   width: 56%;
+  height: 100%;
+  display: flex;
+  position: relative;
+}
+
+.bannerLogin {
+  width: 100%;
   object-fit: cover;
   box-sizing: border-box;
+  aspect-ratio: 86/109;
+}
+
+.page_right_panel__tagline {
+  position: absolute;
+  right:24;
+  bottom: 29;
+  border-radius: 50px;
+  background: #FFF;
+  display: inline-flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  p {
+    color:#0B23F4;
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;  
+  }
+}
+
+.page_left_panel {
+  display: flex;
+  width: 44%;
+  position: relative;
 }
 
 .logo {
@@ -20,7 +56,7 @@
 }
 
 .SignInForm{
-  width: 44%;
+  width: 100%;
 }
 
 @media (max-width: 679px) and (min-width: 360px) {

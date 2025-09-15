@@ -9,6 +9,7 @@ body {
   max-width: 1440px;
   margin: 0 auto;
   background: var(--Tokens-Surface-Secondary, #F2F3FF);
+  height: auto;
 }
 
 

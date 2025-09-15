@@ -1,4 +1,5 @@
 import Header from "@/components/Header/Header"
+import Footer from "@/components/Footer/Footer";
 import Loader from "@/components/Loader/Loader";
 import { Suspense } from "react";
 import WrapperUseQuery from "@/components/WrapperUseQuery/WrapperUseQuery";
@@ -13,5 +14,6 @@ export default function UserLayout({ children }) {
         {children}
       </Suspense>
     </WrapperUseQuery>
+    <Footer />
   </main>
 )}
