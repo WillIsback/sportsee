@@ -1,7 +1,11 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { useTransition, useState } from 'react';
+import { createPortal } from 'react-dom';
+
+import ChatModal from '../ChatModal/ChatModal';
+
 import ICLogo from '@/components/Logo/Logo';
 
 import styles from './Hearder.module.css';
@@ -10,6 +14,7 @@ export default function Header() {
     const pathname = usePathname();
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
+    const [showModal, setShowModal] = useState(false);
 
     const onClick = () => {
         startTransition(async () => {
@@ -35,7 +40,15 @@ export default function Header() {
                         </Link>
                     </li>
                     <li>
-                        <p>Coach AI</p>
+                        <button
+                            onClick={() => setShowModal(true)}
+                        >
+                            <span>Coach AI</span>
+                        </button>
+                        {showModal && createPortal(
+                            <ChatModal onClose={() => setShowModal(false)} />,
+                            document.body
+                        )}
                     </li>
                     <li>
                         <Link href='/profile'>

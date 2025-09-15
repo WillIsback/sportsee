@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import WrapperUseQuery from "@/components/WrapperUseQuery/WrapperUseQuery";
 import styles from './layout.module.css';
 
-export default function UserLayout({ children }) {
+export default function UserLayout({ children}) {
   return (
   <main className={styles.main}>
     <Header />

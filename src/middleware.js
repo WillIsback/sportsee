@@ -8,13 +8,21 @@
 
 import { NextResponse } from "next/server";
 import { verifySession } from '@/services/session.services';
+import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/lib/constants';
 
 export async function middleware(request) {
+
+  const path = request.nextUrl.pathname
   console.log("Middleware intercepte:", request.nextUrl.pathname);
-  // console.debug("REQUEST HEADERS:::: ", request.headers.get('Origin'));
+
+  const isProtectedRoute = PROTECTED_ROUTES.includes(path)
+  const isPublicRoute = PUBLIC_ROUTES.includes(path)
+
   const session = await verifySession();
   console.log("is session auth ? : ", session?.isAuth)
-  if(session?.isAuth && request.nextUrl.pathname.startsWith('/login')){
+
+
+  if(session?.isAuth && isPublicRoute && !request.nextUrl.pathname.startsWith('/dashboard')){
     return NextResponse.redirect(new URL('/dashboard', request.url));
   } 
   // Utilisateur authentifié sur / → rediriger vers dashboard

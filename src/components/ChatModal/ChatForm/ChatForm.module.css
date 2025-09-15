@@ -1,0 +1,45 @@
+.ChatForm {
+  display: flex;
+  height: 139px;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid var(--Tokens-Surface-Background, #E7E7E7);
+  /* cards hover */
+  box-shadow: 0 4px 54px -18px rgba(157, 167, 251, 0.60);
+}
+
+.ChatForm__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.ChatForm__header p {
+  color: var(--Tokens-Typographie-Secondary, #707070);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.ChatForm__textarea{
+  display: flex;
+  padding: 0 10px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.ChatForm__textarea_button {
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
