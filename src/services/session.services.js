@@ -53,10 +53,10 @@ export const verifySession = async () => {
   const session = await decrypt(cookie);
 
   if (!session?.userId) {
-    return { isAuth: false, error: "The user is not Authenfied" };
+    return { isAuth: false, error: "The user is not Authenticated" };
   }
 
-  return { isAuth: true, userId: Number(session.userId), token: session.token };
+  return { isAuth: true, userId: session.userId, token: session.token };
 }
 
 export const updateSession = async () => {

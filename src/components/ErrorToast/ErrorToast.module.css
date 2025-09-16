@@ -1,0 +1,13 @@
+.ErrorToast {
+  display: flex;
+  z-index: 1030;
+  border-radius: 25px;
+  opacity: 0.5;
+  background: #FF908C;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), 0 4px 4px 0 rgba(0, 0, 0, 0.25), 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  width: auto;
+  padding: 5px 5px 5px 5px;
+  justify-content: center;
+  margin-bottom: 15px;
+
+}

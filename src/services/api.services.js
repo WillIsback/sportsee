@@ -207,7 +207,7 @@ export async function getUserActivity(token, startWeek, endWeek) {
 
         // Succès
         const data = await response.json()
-        console.log('data reçu : ', data)
+        // console.log('data reçu : ', data)
         return { success: true, data }
 
     } catch (error) {

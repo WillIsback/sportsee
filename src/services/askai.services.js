@@ -7,14 +7,21 @@ const client = new Mistral({apiKey: apiKey});
 
 export default async function askai(message) {
     const request = message ? message : "Qu'elle est la capitale de la France";
-    const chatResponse = await client.chat.complete({
-        model: "magistral-medium-latest",
-        messages: userPrompt(request)
-    });
-    const resp = chatResponse.choices?.[0]?.message?.content?.[1]?.text;
-    // const jsonResp = JSON.stringify(chatResponse);
-    console.log('Chat AI réponse :', resp);
-    // console.log('jsonResp  :', jsonResp);
-    return resp;
+    console.log("le message envoyé a mistral est :", request);
+    try {
+        const chatResponse = await client.chat.complete({
+            model: "magistral-medium-latest",
+            messages: userPrompt(request)
+        });
+        const resp = chatResponse.choices?.[0]?.message?.content?.[1]?.text;
+        // const jsonResp = JSON.stringify(chatResponse);
+        console.log('Chat AI réponse :', resp);
+        // console.log('jsonResp  :', jsonResp);
+        return new Response ((JSON.stringify(resp)), { status: 200, statusText: "OK!" });
+    
+    } catch (e) {
+        console.log("error : ", e);
+        return new Response(JSON.stringify({ error: "An error occurred", details: e.message }), { status: 500, statusText: "Internal Server Error" });
+    }
 }
 

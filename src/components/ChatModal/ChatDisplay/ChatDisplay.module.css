@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 40px;
+  width: 100%;
 }
 
 .chat__user {
@@ -15,7 +16,7 @@
   align-self: stretch;
 }
 
-.chat__user_buble {
+.chat__user_bubble {
   display: flex;
   max-width: 600px;
   padding: 14px 20px;
@@ -36,8 +37,9 @@
 
 .chat__ai{
   display: flex;
-  height: 487px;
-  align-items: flex-end;
+  flex-direction: column;
+  height: auto;
+  align-items: flex-start;
   gap: 18px;
   align-self: stretch;
   span {
@@ -55,7 +57,7 @@
   }
 }
 
-.chat__ai_buble {
+.chat__ai_bubble {
   display: flex;
   max-width: 600px;
   padding: 14px 20px;
@@ -73,4 +75,14 @@
     line-height: 20px; /* 133.333% */
     letter-spacing: -0.075px;
   }
+}
+
+.chat__user_placeholder {
+  min-height: 40px; 
+  visibility: hidden;
+}
+
+.chat__ai_placeholder {
+  min-height: 40px;
+  visibility: hidden;
 }

@@ -8,18 +8,63 @@
 */
 import askai from '@/services/askai.services';
 import { verifySession } from '@/services/session.services';
+import { MISTRAL_RATE_LIMIT } from '@/lib/constants';
+import { rateLimitByKey } from '@/lib/askai.lib';
+
+/*
+    Fetch Error Message Handlers
+*/
+export const ErrorMessage = (statusCode) => {
+    switch(statusCode) {
+        case 400: return {
+            user: "Non authentifié",
+            dev: "400: auth check pas validé"
+        }
+        case 401: return {
+            user: "Identifiants incorrects",
+            dev: "401: userId pas lisible" 
+        } 
+        case 403: return {
+            user: "Limite de requête atteinte",
+            dev: "403: RateLimit exceeded"
+        } 
+        case 404: return {
+            user: "Service temporairement indisponible",
+            dev: "404: Resource not found"
+        } 
+        case 500: return {
+            user: "Erreur technique, veuillez réessayer",
+            dev: "500: Server error"
+        }
+        default: return {
+            user: "Une erreur inattendue s'est produite",
+            dev: `Unknown error code: ${statusCode}`
+        }
+    }
+}
+
 
 export async function POST(request) {
-    const session = await verifySession();  
-    if (session?.isAuth){
+  const { tier, limit, timeframe } = MISTRAL_RATE_LIMIT[0];
+  console.log("limit, timeframe : ", limit, timeframe);
+  const session = await verifySession();  
+  if (session?.isAuth){
+    try{
+      await rateLimitByKey(session?.userId, limit, timeframe);
       try {
-        const response = await askai(request);
-        return Response.json({ messageAi: response.messageId })
+        const message = await request.text();
+        console.log("/api/chat message : ", message);
+        const res = await askai(message);
+        const response = await res.text()
+        console.log("réponse reçu par /api/chat : ", response);
+        return new Response ((JSON.stringify(response)), { status: 200, statusText: "OK!" });
       } catch (reason) {
-        const error =
-          reason instanceof Error ? reason.message : 'Unexpected exception'
-        return new Response(error, { status: 500 })
+        return new Response(ErrorMessage(500).user, { status: 500 })
       }
+    } catch(e){
+      console.error("ErrorMessage :", e);
+      return new Response(ErrorMessage(403).user, { status: 403 })
     }
-    return { success: false, error: "erreur user non authentifié"}
+  }
+  return new Response(ErrorMessage(400).user, { status: 400 })
 }

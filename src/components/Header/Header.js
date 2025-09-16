@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTransition, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -11,7 +11,6 @@ import ICLogo from '@/components/Logo/Logo';
 import styles from './Hearder.module.css';
 import Link from 'next/link';
 export default function Header() {
-    const pathname = usePathname();
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [showModal, setShowModal] = useState(false);
