@@ -37,19 +37,41 @@
 
 .chat__ai{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: auto;
-  align-items: flex-start;
+
   gap: 18px;
-  align-self: stretch;
-  span {
+
+}
+
+.chat__ai_bubble {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  p{
+    border-radius: 20px 20px 20px 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.00);
+    background: var(--Tokens-Surface-Background, #E7E7E7);
+    color: var(--Tokens-Typographie-Primary, #111);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 133.333% */
+    letter-spacing: -0.075px;
+    padding: 14px 20px;
+  }
+    span {
     display: flex;
     max-width: 600px;
+    width: 100%;
     padding: 0 10px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     color: var(--Tokens-Typographie-Secondary, #707070);
-    font-family: Inter;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -57,32 +79,12 @@
   }
 }
 
-.chat__ai_bubble {
+.AiAgentCoin {
   display: flex;
-  max-width: 600px;
-  padding: 14px 20px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 20px 20px 20px 0;
-  border: 1.5px solid rgba(255, 255, 255, 0.00);
-  background: var(--Tokens-Surface-Background, #E7E7E7);
-  p{
-    color: var(--Tokens-Typographie-Primary, #111);
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px; /* 133.333% */
-    letter-spacing: -0.075px;
-  }
-}
+  align-self: end;
+  padding: 8px;
+  gap: 4.211px;
+  border-radius: 21.053px;
+  background: var(--Tokens-Surface-Orange, #F4320B);
 
-.chat__user_placeholder {
-  min-height: 40px; 
-  visibility: hidden;
-}
-
-.chat__ai_placeholder {
-  min-height: 40px;
-  visibility: hidden;
 }

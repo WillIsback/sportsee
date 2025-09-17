@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { useChatBuffer } from '@hooks/useChatBuffer';
+import { AiAgentCoin } from '@/lib/icon';
+import LoadingDot from '@/components/LoadingDot/LoadingDot';
 import styles from './ChatDisplay.module.css';
 
-export default function ChatDisplay({ userMessage, aiMessage }) {
+export default function ChatDisplay({ userMessage, aiMessage, isPending }) {
   const [messages, addUserMessage, addAiMessage] = useChatBuffer(4);
   const isEmpty = (message) => !message?.trim();
   const hasUserMessage = !isEmpty(userMessage);
@@ -34,8 +36,9 @@ export default function ChatDisplay({ userMessage, aiMessage }) {
             )
             : (
               <>
-                {<span>Coach AI</span>}
+                {<div className={styles.AiAgentCoin}><AiAgentCoin /></div>}
                 <div className={styles.chat__ai_bubble}>
+                  {<span>Coach AI</span>}
                   {<p>{message.text}</p>}
                 </div>
               </>
@@ -43,6 +46,14 @@ export default function ChatDisplay({ userMessage, aiMessage }) {
           }
         </div>
       ))}
+      { isPending && (
+          <div className={ styles.chat__ai}>
+                  <div className={styles.AiAgentCoin}><AiAgentCoin /></div>
+                  <div className={styles.chat__ai_bubble}>
+                    <LoadingDot />
+                    </div>
+          </div>)
+      }
     </div>
   );
 }

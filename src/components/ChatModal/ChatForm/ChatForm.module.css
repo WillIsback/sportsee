@@ -9,6 +9,7 @@
   border: 1px solid var(--Tokens-Surface-Background, #E7E7E7);
   /* cards hover */
   box-shadow: 0 4px 54px -18px rgba(157, 167, 251, 0.60);
+  margin-top: 30px;
 }
 
 .ChatForm__header {

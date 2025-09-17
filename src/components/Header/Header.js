@@ -38,12 +38,8 @@ export default function Header() {
                         <p>Dashboard</p>
                         </Link>
                     </li>
-                    <li>
-                        <button
-                            onClick={() => setShowModal(true)}
-                        >
-                            <span>Coach AI</span>
-                        </button>
+                    <li onClick={() => setShowModal(true)} className={styles.chatModal}>
+                            <p>Coach AI</p>
                         {showModal && createPortal(
                             <ChatModal onClose={() => setShowModal(false)} />,
                             document.body

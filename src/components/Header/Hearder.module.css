@@ -44,8 +44,12 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
 }
 
+.chatModal{
+    cursor: pointer;
+}
 
 @media (max-width: 679px) and (min-width: 360px) {
     .Header{

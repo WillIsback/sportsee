@@ -1,0 +1,15 @@
+.dotBox {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  gap: 3px;
+}
+
+.dot {
+  transition: 250ms ease-in-out;
+}
+
+.active {
+  transform: translateY(-5px);
+}

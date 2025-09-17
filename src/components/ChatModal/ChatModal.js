@@ -3,7 +3,7 @@ import ChatDisplay from './ChatDisplay/ChatDisplay';
 import ChatForm from './ChatForm/ChatForm';
 import ErrorToast from '../ErrorToast/ErrorToast';
 import { IconX } from '@/lib/icon';
-import { useState, useTransition, useEffect } from 'react';
+import { useState, useTransition, useEffect, useRef } from 'react';
 import { sanitizeRequest } from '@/lib/askai.lib';
 import { ErrorMessage } from 'app/(user)/api/chat/route';
 import { MISTRAL_RATE_LIMIT } from '@/lib/constants';
@@ -82,7 +82,7 @@ export default function ChatModal({ onClose }) {
             {isRateLimited.state && <ErrorToast message={`Rate Limit reach please wait ... ${timeframe/1000}s`}/>}
           </section>
           <section className={styles.ChatModal__display}>
-            <ChatDisplay userMessage={userMessage} aiMessage={aiMessage} />
+            <ChatDisplay userMessage={userMessage} aiMessage={aiMessage} isPending={isPending} />
           </section>
           <section className={styles.ChatModal__form}>
             <ChatForm isPending={isPending} addNewRequest={addNewRequest}/>
