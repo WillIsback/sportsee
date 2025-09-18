@@ -22,6 +22,7 @@ export default function ChatForm({ isPending, addNewRequest }) {
           type='text'
           id='message'
           name='message'
+          autoComplete='off'
         />
         {/* {(isPending) && "Chargement en cours..."} */}
         <button 

@@ -2,71 +2,59 @@ import styles from './ChatModal.module.css';
 import ChatDisplay from './ChatDisplay/ChatDisplay';
 import ChatForm from './ChatForm/ChatForm';
 import ErrorToast from '../ErrorToast/ErrorToast';
-import { IconX } from '@/lib/icon';
-import { useState, useTransition, useEffect, useRef } from 'react';
-import { sanitizeRequest } from '@/lib/askai.lib';
-import { ErrorMessage } from 'app/(user)/api/chat/route';
+import useRateLimit from '@hooks/useRateLimit';
+import useSanitization from '@hooks/useSanitization';
+import useChatRequest from '@hooks/useChatRequest';
+
 import { MISTRAL_RATE_LIMIT } from '@/lib/constants';
+import { IconX } from '@/lib/icon';
+import { useEffect, useState } from 'react';
+
+
 
 export default function ChatModal({ onClose }) {
   const [isNew, setIsNew] = useState(true);
-  const [isPending, startTransition] = useTransition(false);
+  const [isRateLimited,  activateRateLimit] = useRateLimit();
+  const [pending, result, executeSanitization] = useSanitization();
+  const [isPending, response, executePostFetch] = useChatRequest();
   const [userMessage, setUserMessage] = useState('');
   const [aiMessage, setAiMessage] = useState('');
-  const [isRateLimited, setRateLimited] = useState({state:false,timeStamp:0});
   const { timeframe } = MISTRAL_RATE_LIMIT[0];
-  const timeoutIdRef = useRef(null);
 
-  useEffect(() => {
-    return () => {
-      if (timeoutIdRef.current) clearTimeout(timeoutIdRef.current);
-    };
-  }, []);   
+  useEffect(() =>{
+    if(!pending && result?.data && !result?.error){
+      if(result?.data.length > 0){
+        setUserMessage(result?.data);
+        console.log("executeSanitization return message :", result?.data);
+        executePostFetch(result?.data);
+      }
+    }
+    if(!pending && result?.error){
+      setUserMessage('');
+      console.error(result?.error);
+    }
+  }, [pending]);
+
+  useEffect(() =>{
+    if(!isPending){
+      if(response.error === 403){
+        activateRateLimit();
+        console.error(response.error);
+      }
+      else if (!response.error && response?.aiMessage){
+        if(response?.aiMessage.length > 0){
+          setAiMessage(JSON.parse(response?.aiMessage));
+          console.log("executePostFetch return message :", JSON.parse(response?.aiMessage));
+        }
+      }
+    }
+  }, [isPending]);
 
   const addNewRequest = (formData) => {
     setIsNew(false);
     const message = formData.get('message');
-    if(message){
-      startTransition(async () => {
-        const cleanMess = await sanitizeRequest(message);
-        console.log("cleanMess : ", cleanMess);
-        setUserMessage(cleanMess);
-        try{
-          const rep =  await fetch('/api/chat', {
-            method: "POST",
-            body: JSON.stringify(cleanMess)
-            });
-            // Gestion des erreurs HTTP
-            if (!rep.ok) {
-              if(rep.status===403){
-                setRateLimited({
-                  state: true,
-                  timeStamp: Date.now()+timeframe,
-                });
-                console.log("isRateLimited : ", isRateLimited, "for :", timeframe/1000, 'seconds');
-                timeoutIdRef.current = setTimeout(() => {
-                  setRateLimited({
-                    state: false,
-                    timeStamp: 0,
-                  });
-                }, timeframe);    
-              }
-              const errorMessages = ErrorMessage(rep.status);
-              console.error("[addNewRequest]", errorMessages.dev);
-            }
-          if(rep.ok){
-            const response = await rep.json();
-            console.log("addNewRequest response : ", response);
-            setAiMessage(response);
-          }
-        }catch(e){
-          console.error("Error : ", e)
-        }
-      });
-    }
-    else{
-      return "Impossible d’envoyer le message";
-    }
+    console.log("ChatModal input message :", message);
+    executeSanitization(message);
   }
 
   return (

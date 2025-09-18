@@ -51,19 +51,6 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-
-  p{
-    border-radius: 20px 20px 20px 0;
-    border: 1.5px solid rgba(255, 255, 255, 0.00);
-    background: var(--Tokens-Surface-Background, #E7E7E7);
-    color: var(--Tokens-Typographie-Primary, #111);
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px; /* 133.333% */
-    letter-spacing: -0.075px;
-    padding: 14px 20px;
-  }
     span {
     display: flex;
     max-width: 600px;
@@ -77,6 +64,19 @@
     font-weight: 400;
     line-height: normal;
   }
+}
+
+.chat__ai_bubble_message{
+  border-radius: 20px 20px 20px 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.00);
+  background: var(--Tokens-Surface-Background, #E7E7E7);
+  color: var(--Tokens-Typographie-Primary, #111);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 133.333% */
+  letter-spacing: -0.075px;
+  padding: 14px 20px;
 }
 
 .AiAgentCoin {

@@ -1,14 +1,19 @@
 import { useEffect } from 'react';
 import { useChatBuffer } from '@hooks/useChatBuffer';
 import { AiAgentCoin } from '@/lib/icon';
+
+import Markdown from 'react-markdown'
 import LoadingDot from '@/components/LoadingDot/LoadingDot';
 import styles from './ChatDisplay.module.css';
 
+function AiInMarkDown({ message }) {
+  return <>
+  <Markdown>{message}</Markdown>
+  </>
+}
+
 export default function ChatDisplay({ userMessage, aiMessage, isPending }) {
   const [messages, addUserMessage, addAiMessage] = useChatBuffer(4);
-  const isEmpty = (message) => !message?.trim();
-  const hasUserMessage = !isEmpty(userMessage);
-  const hasAiMessage = !isEmpty(aiMessage);
   
   useEffect(() => {
     if (userMessage) addUserMessage(userMessage);
@@ -16,6 +21,7 @@ export default function ChatDisplay({ userMessage, aiMessage, isPending }) {
 
   useEffect(() => {
     if (aiMessage) addAiMessage(aiMessage);
+    console.log("messages dans chatbuffer : ", messages);
   }, [aiMessage]);
 
 
@@ -39,7 +45,7 @@ export default function ChatDisplay({ userMessage, aiMessage, isPending }) {
                 {<div className={styles.AiAgentCoin}><AiAgentCoin /></div>}
                 <div className={styles.chat__ai_bubble}>
                   {<span>Coach AI</span>}
-                  {<p>{message.text}</p>}
+                  {<div className={styles.chat__ai_bubble_message}><AiInMarkDown message={message.text}/></div>}
                 </div>
               </>
             )

@@ -45,6 +45,9 @@
   }
 }
 
+.ChatForm__textarea_input{
+  padding-left: 15px;
+}
 .ChatForm__textarea_button {
   display: flex;
   padding: 16px;

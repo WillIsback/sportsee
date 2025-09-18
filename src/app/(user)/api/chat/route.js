@@ -56,7 +56,7 @@ export async function POST(request) {
         console.log("/api/chat message : ", message);
         const res = await askai(message);
         const response = await res.text()
-        console.log("réponse reçu par /api/chat : ", response);
+        console.log("réponse reçu par /api/chat : ", JSON.parse(response));
         return new Response ((JSON.stringify(response)), { status: 200, statusText: "OK!" });
       } catch (reason) {
         return new Response(ErrorMessage(500).user, { status: 500 })
