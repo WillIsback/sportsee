@@ -8,10 +8,10 @@ import styles from './layout.module.css';
 export default function UserLayout({ children}) {
   return (
   <main className={styles.main}>
-    <Header />
     <WrapperUseQuery>
       <Suspense fallback={<Loader />}>
-        {children}
+        <Header />
+          {children}
       </Suspense>
     </WrapperUseQuery>
     <Footer />

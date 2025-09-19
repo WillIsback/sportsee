@@ -25,7 +25,8 @@
   left: 50%;
   transform: translateX(-50%) translateY(100%);
   animation: slide-in 0.5s ease-out forwards;
-  overflow-y: auto;
+  scroll-behavior: unset;
+  /* overflow-y: auto; */
 }
 
 .ChatModal__display {
@@ -33,6 +34,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 @keyframes slide-in {

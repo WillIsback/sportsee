@@ -147,3 +147,59 @@ export const getUpdateTimestamp = () => {
 }
 
 
+export function formatWeeklyData(session) {
+    // Vérifications de sécurité
+    if (!session) {
+        console.warn("formatWeeklyData: session is null/undefined");
+        return null;
+    }
+    
+    if (session.isPending) {
+        console.log("formatWeeklyData: session is still pending");
+        return null;
+    }
+    
+    if (!session.data || !Array.isArray(session.data) || session.data.length === 0) {
+        console.log("formatWeeklyData: no data available");
+        return "Aucune donnée de course disponible.";
+    }
+
+    const result = session.data.map((item, index) => {
+        // Vérification que les données essentielles existent
+        const date = item.date || 'Date inconnue';
+        const calories = item.caloriesBurned || 'N/A';
+        const distance = item.distance || 'N/A';
+        const duration = item.duration || 'N/A';
+        const heartRateMin = item.heartRate?.min || 'N/A';
+        const heartRateAvg = item.heartRate?.average || 'N/A';
+        const heartRateMax = item.heartRate?.max || 'N/A';
+
+        return `Course ${index + 1} :
+- Date : ${date}
+- Calories brûlées : ${calories}
+- Distance : ${distance}
+- Durée : ${duration}
+- FC min/moy/max : ${heartRateMin}/${heartRateAvg}/${heartRateMax} bpm
+
+`;
+    }).join("");
+
+    console.log("formatWeeklyData :", result);
+    return result;
+}
+
+export function formatUserDataProfile (dataProfile) {
+    // Vérification que les données essentielles existent
+    const age = dataProfile.age|| 'N/A';
+    const gender = dataProfile.gender|| 'N/A';
+    const height = dataProfile.height || 'N/A';
+    const weight = dataProfile.weight || 'N/A';
+    const lastName = dataProfile.lastName || 'N/A';
+    const firstName = dataProfile.firstName|| 'N/A';
+    return `Profil de l'utilisateur ${firstName} ${lastName} :
+    - Âge : ${age}
+    - Genre : ${gender}
+    - Taille : ${height}
+    - Poids : ${weight}
+    `;
+}

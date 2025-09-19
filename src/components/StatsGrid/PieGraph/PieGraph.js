@@ -9,7 +9,7 @@ export default function PieGraph() {
     const endWeek = convertDateToISO(Date.now());
     const { data, isPending } = useUserSessions(startWeek, endWeek)
     
-    const weeklyGoal = 5;
+    const weeklyGoal = 9;
 
     const getWeekNbSession = useMemo(() => {
         if(data) return Object.keys(data).length;

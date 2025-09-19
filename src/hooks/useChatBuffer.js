@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { string } from 'zod';
 
 export function useChatBuffer(maxSize = 4) {
   const [messages, setMessages] = useState([]);
@@ -17,6 +18,8 @@ export function useChatBuffer(maxSize = 4) {
   };
 
   const addAiMessage = (text) => {
+    console.log('addAiMessage typeof(text) :', typeof(text));
+    if (typeof(text) !== 'string') return;
     if (!text?.trim()) return;
     
     const message = {

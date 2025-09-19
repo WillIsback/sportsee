@@ -4,12 +4,12 @@ export default function useChatRequest () {
     const [isPending, startTransition] = useTransition(false);
     const [response, setResponse] = useState({});
 
-    function executePostFetch(userMessage) {
+    function executePostFetch(payload) {
         startTransition(async () => {
             try{ // bloc try/catch fetch route api/chat
                 const rep =  await fetch('/api/chat', {
                 method: "POST",
-                body: JSON.stringify(userMessage)
+                body: JSON.stringify(payload)
                 });
                 // Gestion des erreurs HTTP
                 if (!rep.ok) {

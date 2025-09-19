@@ -21,7 +21,7 @@ export default function ChatDisplay({ userMessage, aiMessage, isPending }) {
 
   useEffect(() => {
     if (aiMessage) addAiMessage(aiMessage);
-    console.log("messages dans chatbuffer : ", messages);
+    // console.log("messages dans chatbuffer : ", aiMessage);
   }, [aiMessage]);
 
 

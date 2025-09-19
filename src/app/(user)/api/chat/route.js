@@ -52,9 +52,9 @@ export async function POST(request) {
     try{
       await rateLimitByKey(session?.userId, limit, timeframe);
       try {
-        const message = await request.text();
-        console.log("/api/chat message : ", message);
-        const res = await askai(message);
+        const payload = await request.json();
+        // console.log("/api/chat message : ", message);
+        const res = await askai(payload);
         const response = await res.text()
         console.log("réponse reçu par /api/chat : ", JSON.parse(response));
         return new Response ((JSON.stringify(response)), { status: 200, statusText: "OK!" });
