@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SportSee - Dashboard Sportif avec IA
 
-## Getting Started
+![Demo Chat IA](./docs/images/demo_chat.gif)
 
-First, run the development server:
+## 📋 Présentation du Projet
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+**SportSee** est une application de coaching sportif développée dans le cadre du projet P6 d'OpenClassrooms. L'application propose un tableau de bord personnalisé permettant aux utilisateurs de suivre leurs performances sportives avec l'assistance d'une intelligence artificielle.
+
+### Contexte du Projet
+- **Formation** : OpenClassrooms - Développeur Front-end
+- **Projet** : P6 - Développez un tableau de bord d'analytics avec React
+- **Objectif** : Créer une interface utilisateur moderne avec intégration IA pour le coaching sportif
+
+## 🚀 Fonctionnalités Principales
+
+### Dashboard Utilisateur
+- **Authentification sécurisée** avec JWT et sessions chiffrées
+- **Visualisations interactives** des données sportives (graphiques, statistiques)
+- **Profil utilisateur** avec informations personnelles et objectifs
+- **Suivi d'activité** hebdomadaire avec métriques détaillées
+
+### Intelligence Artificielle Intégrée
+- **Chat IA personnalisé** pour conseils sportifs
+- **Analyse des données** d'entraînement en temps réel
+- **Recommandations adaptées** basées sur les performances
+- **Protection contre l'injection de prompts** et sanitisation des données
+
+## 🛠️ Stack Technique
+
+### Frontend
+- **Next.js 14** - Framework React avec App Router
+- **React 18** - Bibliothèque UI avec hooks et contextes
+- **TanStack Query** - Gestion d'état serveur et cache
+- **Recharts** - Visualisations de données interactives
+- **CSS Modules** - Styles componentisés
+
+### Backend & Services
+- **Next.js API Routes** - Endpoints serveur
+- **JWT** - Authentification et autorisation
+- **Mistral AI** - Modèle de langage pour le coaching
+- **Server Actions** - Actions sécurisées côté serveur
+
+### Sécurité & Performance
+- **Rate Limiting** - Protection contre les abus
+- **Sanitisation des données** - Prévention XSS et injections
+- **Sessions chiffrées** - Sécurité des données utilisateur
+- **Middleware de protection** - Routes authentifiées
+
+## 🏗️ Architecture du Projet
+
+```
+src/
+├── app/                    # App Router Next.js
+│   ├── (login)/           # Groupe de routes - Authentification
+│   └── (user)/            # Groupe de routes - Utilisateur authentifié
+|        ├── dashboard/    # DashBoard route
+|        ├── profile/      # Profile route
+│        └── api/          # API Routes
+├── components/            # Composants React réutilisables
+├── context/              # Contextes React (UserContext)
+├── hooks/                # Hooks personnalisés
+├── lib/                  # Utilitaires et configurations
+├── middleware.js         # middleware pour la gestion des routes public et privé
+└── services/             # Services API et authentification
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Installation et Configuration
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Prérequis
+- Node.js 18+ 
+- Backend API SportSee (port 8000)
+- Clé API Mistral AI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Installation
+```bash
+# Cloner le repository
+git clone [url-du-repo]
+cd sportsee
 
-## Learn More
+# Installer les dépendances
+yarn install
 
-To learn more about Next.js, take a look at the following resources:
+# Configuration des variables d'environnement
+cp .env.example .env.local
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Variables d'Environnement
+```env
+SECRET=your-jwt-secret-key
+MISTRAL_API_KEY=your-mistral-api-key
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Démarrage
+```bash
+# Développement
+yarn run dev
+```
 
-## Deploy on Vercel
+## 🎯 Fonctionnalités Clés Implémentées
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Authentification & Sécurité
+- **Sessions JWT chiffrées** avec rotation automatique
+- **Middleware de protection** des routes sensibles
+- **Sanitisation avancée** des entrées utilisateur
+- **Rate limiting** par utilisateur
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Gestion des Données
+- **Cache intelligent** avec TanStack Query
+- **Contextes React** pour le partage d'état
+- **Server Actions** pour les opérations sécurisées
+- **Validation côté serveur** avec gestion d'erreurs
+
+### Interface Utilisateur
+- **Design responsive** adaptatif
+- **Graphiques interactifs** avec Recharts
+- **Composants modulaires** réutilisables
+- **Gestion d'état optimisée**
+
+### Intelligence Artificielle
+- **Chat contextuel** avec historique
+- **Prompts optimisés** pour le coaching sportif
+- **Protection anti-injection** de prompts
+- **Réponses personnalisées** basées sur les données utilisateur
+
+## 📊 Composants de Visualisation
+
+### Graphiques Sportifs
+- **BarGraph** - Sessions d'entraînement
+- **ComposedGraph** - Fréquence cardiaque
+- **PieGraph** - Répartition des objectifs
+- **StatsGrid** - Vue d'ensemble des métriques
+
+### Cartes d'Information
+- **RecapCard** - Résumés de performance
+- **AttributesCard** - Statistiques détaillées
+- **ProfileBanner** - Informations utilisateur
+
+## 🔐 Sécurité Implémentée
+
+### Protection des Données
+- Chiffrement des sessions utilisateur
+- Sanitisation automatique des entrées
+- Validation stricte des paramètres
+- Masquage des données sensibles
+
+### Protection IA
+- Détection d'injection de prompts
+- Limitation du contexte de requête
+- Rate limiting spécifique à l'IA
+- Filtrage des réponses générées
+
+## 🚀 Démonstration
+
+![Demo Chat IA](./docs/images/demo_chat.gif)
+
+La démonstration montre l'interaction fluide entre l'utilisateur et l'IA pour obtenir des conseils personnalisés basés sur les données d'entraînement.
+
+## 📈 Performance & Optimisation
+
+- **Code Splitting** automatique avec Next.js
+- **Cache de données** intelligent avec TanStack Query
+- **Lazy Loading** des composants
+- **Optimisation des images** Next.js
+- **Server-Side Rendering** pour le SEO
+
+## 👨‍💻 Développeur
+
+**William Derue** - Étudiant OpenClassrooms  
+Développeur Front-end spécialisé React/Next.js
+
+---
+
+*Ce projet démontre l'intégration réussie d'une intelligence artificielle dans une application React moderne, avec un focus sur la sécurité, la performance et l'expérience utilisateur.*
