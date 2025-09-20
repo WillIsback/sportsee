@@ -1,13 +1,11 @@
 # SportSee - Dashboard Sportif avec IA
 
-![Demo Chat IA](./docs/images/demo_chat.gif)
-
 ## 📋 Présentation du Projet
 
 **SportSee** est une application de coaching sportif développée dans le cadre du projet P6 d'OpenClassrooms. L'application propose un tableau de bord personnalisé permettant aux utilisateurs de suivre leurs performances sportives avec l'assistance d'une intelligence artificielle.
 
 ### Contexte du Projet
-- **Formation** : OpenClassrooms - Développeur Front-end
+- **Formation** : OpenClassrooms - Développeur IA
 - **Projet** : P6 - Développez un tableau de bord d'analytics avec React
 - **Objectif** : Créer une interface utilisateur moderne avec intégration IA pour le coaching sportif
 
@@ -81,7 +79,7 @@ cd sportsee
 yarn install
 
 # Configuration des variables d'environnement
-cp .env.example .env.local
+touch .env
 ```
 
 ### Variables d'Environnement
@@ -151,9 +149,22 @@ yarn run dev
 
 ## 🚀 Démonstration
 
-![Demo Chat IA](./docs/images/demo_chat.gif)
+### 🛑 Refus hors sujet
 
-La démonstration montre l'interaction fluide entre l'utilisateur et l'IA pour obtenir des conseils personnalisés basés sur les données d'entraînement.
+![Demo Chat IA HS](./docs/images/demo_chat.gif)
+
+La démonstration montre le refus de répondre a une question hors du spectre sportif et condition physique.
+
+### ⏱️ Rate limiting
+![Demo Chat IA RL](./docs/images/demo_rate_limit.gif)
+
+La démonstration montre la detection et la prise en charge du rate limit.
+
+### 😭 Error Boundaries
+
+![Demo Chat IA Err](./docs/images/demo_ErrorBoundary.gif)
+
+La démonstration montre la detection et la prise d'erreur de rendu.
 
 ## 📈 Performance & Optimisation
 
@@ -166,7 +177,7 @@ La démonstration montre l'interaction fluide entre l'utilisateur et l'IA pour o
 ## 👨‍💻 Développeur
 
 **William Derue** - Étudiant OpenClassrooms  
-Développeur Front-end spécialisé React/Next.js
+Développeur IA
 
 ---
 
