@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
 import { formatWeeklyData, formatUserDataProfile } from '@/lib/utils';
 import { UserProfileContext } from '@context/UserContext';
-import { use } from 'react';
+import { use, useRef } from 'react';
 
 
 
@@ -30,14 +30,11 @@ export default function ChatModal({ onClose }) {
   const userData = use(UserProfileContext);
   const { timeframe } = MISTRAL_RATE_LIMIT[0];
 
-
-
-
   useEffect(() =>{
     if(!pending && result?.data && !result?.error){
       if(result?.data.length > 0){
         setUserMessage(result?.data);
-        console.log("executeSanitization return message :", result?.data);
+        // console.log("executeSanitization return message :", result?.data);
         if(!lastWeekSession?.isPending){
             const weekFormatedData = formatWeeklyData(lastWeekSession);
             const profileFormatedData =  formatUserDataProfile(userData?.dataProfile);
@@ -59,12 +56,12 @@ export default function ChatModal({ onClose }) {
     if(!isPending){
       if(response.error === 403){
         activateRateLimit();
-        console.error(response.error);
+        console.error("Error :", response.error, "Rate limit detection : Request per second reach for this model !");
       }
       else if (!response.error && response?.aiMessage){
         if(response?.aiMessage.length > 0){
           setAiMessage(JSON.parse(response?.aiMessage));
-          console.log("executePostFetch return message :", JSON.parse(response?.aiMessage));
+          // console.log("executePostFetch return message :", JSON.parse(response?.aiMessage));
         }
       }
     }
@@ -73,8 +70,15 @@ export default function ChatModal({ onClose }) {
   const addNewRequest = (formData) => {
     setIsNew(false);
     const message = formData.get('message');
-    console.log("ChatModal input message :", message);
+    // console.log("ChatModal input message :", message);
     executeSanitization(message);
+  }
+
+  const handleOnClick = (e) => {
+    const formData = new FormData();
+    // console.log("e.target.textContent : ", e.target.textContent );
+    formData.set('message', e.target.textContent);
+    addNewRequest(formData);
   }
 
   return (
@@ -94,7 +98,13 @@ export default function ChatModal({ onClose }) {
           </section>
           <section className={styles.ChatModal__form}>
             <ChatForm isPending={isPending} addNewRequest={addNewRequest}/>
-            <div className={styles.ChatModal__form_suggested}></div>
+            <div className={styles.ChatModal__form_suggested}>
+              <ul>
+                <li><button onClick={(e) => handleOnClick(e)}>Comment améliorer mon endurance ?</button></li>
+                <li><button onClick={(e) => handleOnClick(e)}>Que signifie mon score de récupération ?</button></li>
+                <li><button onClick={(e) => handleOnClick(e)}>Peux-tu m’expliquer mon dernier graphique ?</button></li>
+              </ul>
+            </div>
           </section>
         </div>
       </div>

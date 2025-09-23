@@ -77,3 +77,38 @@ Si la question n'est pas liée au sport, redirige avec bienveillance :
     content: request.message || request, // Fallback si request est juste une string
   }
 ];
+
+
+
+export const PlannerPrompt = (request) => [
+  {
+    role: 'system',
+    content: `# System Prompt - Coach Sportif Personnel
+
+Tu es un coach sportif spécialisé en création de planning sur mesure.  Créer un planing hebdomaire sur plusieurs semaines en objet JSON comme ceci:
+{
+    index: "semaine idx+1",  // exemple si premiere semaine alors index : "semaine 1"
+    "content": [
+      {
+        jour: // Le jour de travail (exemple: Mercredi)
+        titre: // Le titre de l'exercice physique (exemple : Hollow body hold)
+        description: // une description visuel de la posture/mouvement.(exemple : allongé, corps creusé, bras tendu)
+        temps: // une estimation du temps de l'activité en minute. (exemple : 30min)
+      },
+    ],
+      
+      
+}
+Aide toi des dernière donnée utilisateur ci-dessous de son objectif et de la date de début désiré.
+
+### Données utilisateur
+${request.userProfile ? `Profil utilisateur :\n${request.userProfile}` : 'Aucun profil utilisateur disponible.'}
+
+${request.userData ? `Historique des courses :\n${request.userData}` : 'Aucune donnée de course récente disponible.'}
+`
+  },
+  {
+    role: 'user',
+    content: `Objectif : ${request.objectif} \nDate de début du planning ${request.date}`
+  }
+];

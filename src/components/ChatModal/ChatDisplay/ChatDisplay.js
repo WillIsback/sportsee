@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useChatBuffer } from '@hooks/useChatBuffer';
 import { AiAgentCoin } from '@/lib/icon';
+
 
 import Markdown from 'react-markdown'
 import LoadingDot from '@/components/LoadingDot/LoadingDot';
@@ -14,19 +15,24 @@ function AiInMarkDown({ message }) {
 
 export default function ChatDisplay({ userMessage, aiMessage, isPending }) {
   const [messages, addUserMessage, addAiMessage] = useChatBuffer(4);
-  
+  const scrollableRef  = useRef(null);
+
   useEffect(() => {
     if (userMessage) addUserMessage(userMessage);
   }, [userMessage]);
 
   useEffect(() => {
-    if (aiMessage) addAiMessage(aiMessage);
-    // console.log("messages dans chatbuffer : ", aiMessage);
+    if (aiMessage)addAiMessage(aiMessage);
   }, [aiMessage]);
+
+  useEffect(() => {
+    // Automatically scroll to the latest message when messages update
+    if(scrollableRef.current)scrollableRef.current.scrollTo(0, scrollableRef.current.scrollHeight);
+  }, [messages]);
 
 
   return (
-    <div className={styles.chat}>
+    <section className={styles.chat} ref={scrollableRef}>
       {messages.map(message => (
         <div key={message.id} className={message.type === 'user' 
           ? 
@@ -60,6 +66,6 @@ export default function ChatDisplay({ userMessage, aiMessage, isPending }) {
                     </div>
           </div>)
       }
-    </div>
+    </section>
   );
 }

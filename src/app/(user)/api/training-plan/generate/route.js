@@ -2,11 +2,11 @@
 /*
     auteur: William Derue
     Projet P6 - SportSee
-    file : src/app/(user)/api/chat/route.js
-    objectives: Route handlers pour la gestion des requetes API mistral via le endpoint /api/chat
-    lastUpdate : 15/09/2025
+    file : src/app/(user)/api/training-plan/generate/route.js
+    objectives: Route handlers pour la gestion des requetes API mistral via le endpoint /api/training-plan/generate
+    lastUpdate : 23/09/2025
 */
-import { askaiChat } from '@/services/askai.services';
+import { askaiPlan } from '@/services/askai.services';
 import { verifySession } from '@/services/session.services';
 import { MISTRAL_RATE_LIMIT } from '@/lib/constants';
 import { rateLimitByKey } from '@/lib/askai.lib';
@@ -45,7 +45,7 @@ export const ErrorMessage = (statusCode) => {
 
 
 export async function POST(request) {
-  const { tier, limit, timeframe } = MISTRAL_RATE_LIMIT[0];
+  const { limit, timeframe } = MISTRAL_RATE_LIMIT[0];
   console.log("limit, timeframe : ", limit, timeframe);
   const session = await verifySession();  
   if (session?.isAuth){
@@ -53,13 +53,14 @@ export async function POST(request) {
       await rateLimitByKey(session?.userId, limit, timeframe);
       try {
         const payload = await request.json();
-        // console.log("/api/chat message : ", message);
-        const res = await askaiChat(payload);
-        const response = await res.text()
+        // console.log("/api/training-plan/generate message : ", message);
+        const res = await askaiPlan(payload);
+        console.log("reponse brut dans /api/training-plan/generate : ", res);
+        const response = await res.json()
         // console.log("réponse reçu par /api/chat : ", JSON.parse(response));
         return new Response ((JSON.stringify(response)), { status: 200, statusText: "OK!" });
       } catch (reason) {
-        console.log("/api/chat catch reason :", reason);
+        console.log("/api/training-plan/generate catch reason :", reason);
         return new Response(ErrorMessage(500).user, { status: 500 })
       }
     } catch(e){

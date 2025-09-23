@@ -1,13 +1,13 @@
 import { useState, useTransition } from 'react';
 
-export default function useChatRequest () {
+export default function usePlanRequest () {
     const [isPending, startTransition] = useTransition(false);
     const [response, setResponse] = useState({});
 
     function executePostFetch(payload) {
         startTransition(async () => {
             try{ // bloc try/catch fetch route api/chat
-                const rep =  await fetch('/api/chat', {
+                const rep =  await fetch('/api/training-plan/generate', {
                 method: "POST",
                 body: JSON.stringify(payload)
                 });
@@ -15,7 +15,7 @@ export default function useChatRequest () {
                 if (!rep.ok) {
                     setResponse({
                         success: false,
-                        aiMessage: null,
+                        planning: null,
                         error: rep.status,
                         pending: isPending
                     });
@@ -26,7 +26,7 @@ export default function useChatRequest () {
                     // console.log("useChatRequest response : ", response);
                     setResponse({
                         success: true,
-                        aiMessage: response,
+                        planning: response,
                         error: null,
                         pending: isPending
                     });
@@ -35,7 +35,7 @@ export default function useChatRequest () {
                 console.error("Error : ", e)
                 setResponse({
                     success: false,
-                    aiMessage: null,
+                    planning: null,
                     error: e,
                     pending: isPending
                 });

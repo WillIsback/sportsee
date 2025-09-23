@@ -4,7 +4,7 @@ import StatsGrid from '@/components/StatsGrid/StatsGrid';
 import ProfileBanner from "@/components/ProfilBanner/ProfileBanner";
 import Achievements from "@/components/Achievements/Achievements";
 import AskAi from "@/components/AskAi/AskAi";
-
+import PlanningBuilder from "@/components/PlanningBuilder/PlanningBuilder";
 
 export default function Dashboard() {
   return (
@@ -18,6 +18,7 @@ export default function Dashboard() {
         </section>
         <article className={styles.StatsPerformances}>
             <StatsGrid />
+            <PlanningBuilder />
         </article>
     </div>
   );

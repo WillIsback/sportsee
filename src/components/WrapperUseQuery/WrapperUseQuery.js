@@ -2,12 +2,12 @@
 import {
   QueryClient,
   QueryClientProvider,
-  QueryErrorResetBoundary,
-  useQueryClient,
 } from '@tanstack/react-query'
 import { ErrorBoundary } from "react-error-boundary";
 import { UserDataProvider } from "@context/UserContext";
 import { getUpdateTimestamp } from '@/lib/utils';
+import Error from 'app/(user)/error';
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,16 +22,11 @@ const queryClient = new QueryClient({
 export default function WrapperUseQuery({ children }) {
   return (
   <QueryClientProvider client={queryClient}>
-    <QueryErrorResetBoundary>
-      {({ reset }) => (
-        <ErrorBoundary
-          fallbackRender={<Error />}>
-          <UserDataProvider>
-            {children}
-          </UserDataProvider>
-        </ErrorBoundary>
-      )}
-    </QueryErrorResetBoundary>
+    <ErrorBoundary fallback={<Error />}>
+      <UserDataProvider>
+        {children}
+      </UserDataProvider>
+    </ErrorBoundary>
   </QueryClientProvider>
   );
 }

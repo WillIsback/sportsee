@@ -1,0 +1,67 @@
+.PlanningDayCard__article {
+    display: flex;
+    padding: 32px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    border-radius: 10px;
+    border: 1px solid var(--Tokens-Border-Secondary, #717171);
+    background: #FFF;
+    h4 {
+        color: var(--Tokens-Typographie-Primary, #111);
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+}
+
+.PlanningDayCard__article__content {
+    display: flex;
+    height: 44px;
+    padding: 5px 0;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    span {
+        display: flex;
+        padding: 10px 17px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 30px;
+        background: var(--Tokens-Surface-Secondary, #F2F3FF);
+        color: #000;
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+}
+
+.PlanningDayCard__article__content_text {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+    h3 {
+        color: var(--Tokens-Typographie-Primary, #111);
+        text-align: start;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+    p {
+        color: var(--Tokens-Typographie-Secondary, #707070);
+        text-align: start;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+

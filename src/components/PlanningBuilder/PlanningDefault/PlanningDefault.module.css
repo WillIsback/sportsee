@@ -1,0 +1,47 @@
+.PlanningDefault {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 29;
+  padding: 40px 250px;
+  border-radius: 10px;
+  background: #FFF;
+  /* cards hover */
+  box-shadow: 0 4px 54px -18px rgba(157, 167, 251, 0.60);
+  h2 {
+    color: #000;
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  p {
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+}
+
+.PlanningDefault__button {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: var(--Tokens-Surface-action, #0B23F4);
+  cursor: pointer;
+  span {
+    color: var(--Tokens-Typographie-Tertiary, #E7E7E7);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}

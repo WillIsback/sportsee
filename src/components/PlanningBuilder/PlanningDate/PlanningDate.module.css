@@ -1,0 +1,99 @@
+.PlanningDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 29;
+  padding: 40px 250px;
+  border-radius: 10px;
+  background: #FFF;
+  /* cards hover */
+  box-shadow: 0 4px 54px -18px rgba(157, 167, 251, 0.60);
+
+
+}
+
+.PlanningDate__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    color: #000;
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  p {
+    color: #000;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}
+
+.PlanningDate__input_Box {
+  display: flex;
+  width: 304px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px; 
+}
+.PlanningDate__input_label {
+  color: var(--Tokens-Typographie-Secondary, #707070);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.PlanningDate__input_dateArea {
+  display: flex;
+  height: 58px;
+  padding: 20px 284px 21px 20px;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 0.5px solid var(--Tokens-Border-Secondary, #717171);
+  background: var(--Tokens-Surface-White, #FFF);
+}
+.PlanningDate__button_box{
+    display: flex;
+    padding: 6px 65px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}
+.PlanningDate__button_back{
+    display: flex;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px solid var(--Tokens-Border-Secondary, #717171);
+    background: var(--Tokens-Surface-White, #FFF);
+}
+.PlanningDate__button_submit {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: var(--Tokens-Surface-action, #0B23F4);
+  cursor: pointer;
+  span {
+    color: var(--Tokens-Typographie-Tertiary, #E7E7E7);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}

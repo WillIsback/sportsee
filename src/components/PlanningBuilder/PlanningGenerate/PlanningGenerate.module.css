@@ -1,0 +1,78 @@
+.Planning {
+    display: flex;
+    width: 100%;
+    padding: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-radius: 10px;
+    background: #FFF;
+}
+
+.Planning:hover {
+    /* cards hover */
+    box-shadow: 0 4px 54px -18px rgba(157, 167, 251, 0.60);
+}
+
+.Planning__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    h2 {
+        color: #000;
+        text-align: center;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    p {
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+
+.Planning__weekList{
+display: flex;
+width: 100%;
+padding: 32px;
+flex-direction: column;
+align-items: flex-start;
+gap: 25px;
+border-radius: 10px;
+/* border: 1px solid var(--Tokens-Typographie-Tertiary, #E7E7E7); */
+background: #FFF;
+}
+
+.Planning__action{
+    display: flex;
+    padding: 6px 65px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    button {
+        display: flex;
+        height: 48px;
+        padding: 16px 40px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 10px;
+        background: var(--Tokens-Surface-action, #0B23F4);
+        cursor: pointer;
+        span {
+            color: var(--Tokens-Typographie-Tertiary, #E7E7E7);
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+    }
+}
