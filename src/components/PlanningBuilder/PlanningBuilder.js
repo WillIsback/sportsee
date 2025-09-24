@@ -4,6 +4,10 @@ import PlanningGoal from './PlanningGoal/PlanningGoal';
 import PlanningDate from './PlanningDate/PlanningDate';
 import PlanningGenerate from './PlanningGenerate/PlanningGenerate';
 import usePlanRequest from '@hooks/usePlanRequest';
+import ErrorToast from '../ErrorToast/ErrorToast';
+import useRateLimit from '@hooks/useRateLimit';
+import Loader from '../Loader/Loader';
+
 import { useUserSessions } from '@hooks/useUserData';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
 import { formatWeeklyData, formatUserDataProfile } from '@/lib/utils';
@@ -11,35 +15,39 @@ import { UserProfileContext } from '@context/UserContext';
 import { useEffect, useState, use } from 'react';
 import { workoutProgramMockData } from '@/lib/constants';
 
+
 export default function PlanningBuilder () {
   const [step, setStep] = useState(0);
   const [objectif, setObjectif] = useState('');
   const [date, setDate] = useState();
   const [planning, setPlanning] = useState({});
+  const [isRateLimited,  activateRateLimit] = useRateLimit();
   const [isPending, response, executePostFetch] = usePlanRequest();
   const startWeek = decrementWeek(convertDateToISO(Date.now()), 2);
   const endWeek = convertDateToISO(Date.now());
   const lastWeekSession = useUserSessions(startWeek, endWeek);
   const userData = use(UserProfileContext);
-
-  // useEffect(()=>{
-  //   if(!isPending){
-  //     if(response.error === 403){
-  //       activateRateLimit();
-  //       console.error("Error :", response.error, "Rate limit detection : Request per second reach for this model !");
-  //     }
-  //     else if (!response.error && response?.planning){
-  //       if(response?.planning.length > 0){
-  //         setPlanning(JSON.parse(response?.planning));
-  //         console.log("executePostFetch Planning return message :", JSON.parse(response?.planning));
-  //         if(step < 3 )
-  //         {
-  //           setStep(step+1);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [isPending]);
+  const weekFormatedData = formatWeeklyData(lastWeekSession) || undefined;
+  const profileFormatedData =  formatUserDataProfile(userData?.dataProfile) || undefined;
+ 
+  useEffect(()=>{
+    if(!isPending){
+      if(response.error === 403){
+        activateRateLimit();
+        console.error("Error :", response.error, "Rate limit detection : Request per second reach for this model !");
+      }
+      else if (!response.error && response?.planning){
+        if(response?.planning.length > 0){
+          setPlanning(JSON.parse(response?.planning));
+          console.log("executePostFetch Planning return message :", JSON.parse(response?.planning));
+          if(step < 3 )
+          {
+            setStep(step+1);
+          }
+        }
+      }
+    }
+  }, [isPending]);
 
   function nextStep() {
     if(step<3){
@@ -60,29 +68,36 @@ export default function PlanningBuilder () {
     nextStep();
   };
   function handleGenerateClick() {
-      const weekFormatedData = formatWeeklyData(lastWeekSession) || undefined;
-      const profileFormatedData =  formatUserDataProfile(userData?.dataProfile) || undefined;
-      // executePostFetch({
-      //   userProfile : profileFormatedData,
-      //   userData: weekFormatedData,
-      //   objectif: objectif || undefined,
-      //   date: date || undefined,
-      // })
-      setPlanning(workoutProgramMockData);
-      nextStep();
+
+      executePostFetch({
+        userProfile : profileFormatedData,
+        userData: weekFormatedData,
+        objectif: objectif || undefined,
+        date: date || undefined,
+      })
+      // demo avec mock data
+      // setPlanning(workoutProgramMockData);
+      // nextStep();
   };
 
   function handleBackWardClick(){
     previousStep();
   }
 
+  function handleRestartClick(){
+    restart();
+  }
   function restart(){
     setStep(0);
+    setObjectif(null);
+    setDate(null);
+    setPlanning(null);
   }
+
   // console.log("objectif : ", objectif);
   // console.log("Planning selected start date :", date);
   // console.log("PlanningBuilder render, step:", step, "planning keys:", Object.keys(planning));
-
+  // console.log("isRateLimited ? :", isRateLimited.state);
   function updateStepRender () {
     switch (step) {
       case 0 :
@@ -93,15 +108,15 @@ export default function PlanningBuilder () {
           setObjectif={setObjectif}
           />
       case 2 :
-        return <PlanningDate 
+        return (isPending ? <Loader /> : <PlanningDate 
           handleBackWardClick={handleBackWardClick} 
           handleGenerateClick={handleGenerateClick}
           setDate={setDate} 
-          />
+          />)
       case 3 :
-        return <PlanningGenerate planning={planning} restart={restart} />
+        return (isRateLimited.state ? <ErrorToast />  : <PlanningGenerate planning={planning} handleRestartClick={handleRestartClick} />)
       default:
-        return <>step 1</>  
+        return <PlanningDefault handleStartClick={handleStartClick} />
     }
   }
 

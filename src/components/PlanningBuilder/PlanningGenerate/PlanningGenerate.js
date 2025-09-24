@@ -1,7 +1,7 @@
 import styles from './PlanningGenerate.module.css';
 import PlanningWeekCard from './PlanningWeekCard/PlanningWeekCard';
 
-export default function PlanningGenerate({ planning, restart }) {
+export default function PlanningGenerate({ planning, handleRestartClick }) {
     
     function handleDownload() {
         // TODO: Implémenter la logique de téléchargement
@@ -32,7 +32,7 @@ export default function PlanningGenerate({ planning, restart }) {
                 <button onClick={handleDownload} type="button">
                     <span>Télécharger</span>
                 </button>
-                <button onClick={restart} type="button">
+                <button onClick={handleRestartClick} type="button">
                     <span>Regénérer un programme</span>
                 </button>
             </div>
