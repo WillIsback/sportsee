@@ -1,0 +1,27 @@
+
+.RefreshButton_layout{
+    display: flex;
+    padding: 6px 65px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    button {
+        display: flex;
+        height: 48px;
+        padding: 16px 40px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 10px;
+        background: var(--Tokens-Surface-action, #0B23F4);
+        cursor: pointer;
+        span {
+            color: var(--Tokens-Typographie-Tertiary, #E7E7E7);
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+    }
+}

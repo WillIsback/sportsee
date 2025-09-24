@@ -7,6 +7,8 @@ import usePlanRequest from '@hooks/usePlanRequest';
 import ErrorToast from '../ErrorToast/ErrorToast';
 import useRateLimit from '@hooks/useRateLimit';
 import Loader from '../Loader/Loader';
+import RefreshButton from '../Button/RefreshButton/RefreshButton';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 import { useUserSessions } from '@hooks/useUserData';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
@@ -22,7 +24,7 @@ export default function PlanningBuilder () {
   const [date, setDate] = useState();
   const [planning, setPlanning] = useState({});
   const [isRateLimited,  activateRateLimit] = useRateLimit();
-  const [isPending, response, executePostFetch] = usePlanRequest();
+  const [isPending, error, response, executePostFetch] = usePlanRequest();
   const startWeek = decrementWeek(convertDateToISO(Date.now()), 2);
   const endWeek = convertDateToISO(Date.now());
   const lastWeekSession = useUserSessions(startWeek, endWeek);
@@ -32,22 +34,21 @@ export default function PlanningBuilder () {
  
   useEffect(()=>{
     if(!isPending){
-      if(response.error === 403){
-        activateRateLimit();
-        console.error("Error :", response.error, "Rate limit detection : Request per second reach for this model !");
-      }
-      else if (!response.error && response?.planning){
-        if(response?.planning.length > 0){
-          setPlanning(JSON.parse(response?.planning));
-          console.log("executePostFetch Planning return message :", JSON.parse(response?.planning));
-          if(step < 3 )
-          {
-            setStep(step+1);
-          }
-        }
+      if (!response.error && response?.planning){
+        setPlanning(response?.planning);
+        console.log("executePostFetch Planning return message :", response?.planning);
+        nextStep();
       }
     }
-  }, [isPending]);
+    if(response.error === 403){
+        activateRateLimit();
+        console.error("Error :", response.error, "Rate limit detection : Request per second reach for this model !");
+    }
+    else if(error){
+        console.error("Error :", response.error);
+        setStep(-10);
+    }
+  }, [isPending, error]);
 
   function nextStep() {
     if(step<3){
@@ -87,6 +88,7 @@ export default function PlanningBuilder () {
   function handleRestartClick(){
     restart();
   }
+
   function restart(){
     setStep(0);
     setObjectif(null);
@@ -114,13 +116,19 @@ export default function PlanningBuilder () {
           setDate={setDate} 
           />)
       case 3 :
-        return (isRateLimited.state ? <ErrorToast />  : <PlanningGenerate planning={planning} handleRestartClick={handleRestartClick} />)
+        return (isRateLimited.state 
+          ? <ErrorToast />  
+          : <PlanningGenerate 
+                planning={planning} 
+                startDate={date}
+                handleRestartClick={handleRestartClick}
+              />)
       default:
-        return <PlanningDefault handleStartClick={handleStartClick} />
+        return <><ErrorMessage message={"Le chargement du planning a échoué"}/> <RefreshButton /> </>
     }
   }
 
-  console.log("step :", step)
+  // console.log("step :", step)
 
   return (
   <section className={styles.PlanningBuilder}>

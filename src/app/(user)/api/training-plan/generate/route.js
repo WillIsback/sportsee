@@ -32,6 +32,10 @@ export const ErrorMessage = (statusCode) => {
             user: "Service temporairement indisponible",
             dev: "404: Resource not found"
         } 
+        case 405: return {
+          user: "Mauvais format de réponse du model IA",
+          dev: "L'objet JSON reçu par le server est incorrect"
+        }
         case 500: return {
             user: "Erreur technique, veuillez réessayer",
             dev: "500: Server error"
@@ -56,9 +60,20 @@ export async function POST(request) {
         // console.log("/api/training-plan/generate message : ", message);
         const res = await askaiPlan(payload);
         console.log("reponse brut dans /api/training-plan/generate : ", res);
-        const response = await res.json()
         // console.log("réponse reçu par /api/chat : ", JSON.parse(response));
-        return new Response ((JSON.stringify(response)), { status: 200, statusText: "OK!" });
+        if(res.status === 200){
+          const response = await res.json()
+          return new Response ((JSON.stringify(response)), { status: 200, statusText: "OK!" });
+        }
+        else{
+          if (res.status === 405){
+            const { error, details } = await res.json();
+            console.error(" status: ", res.status, "statusText: ", res.statusText, "details :", details);
+            return new Response ((ErrorMessage(405).user+details), { status: res.status, statusText: res.statusText });
+          }
+          console.error(" status: ", res.status, "statusText: ", res.statusText);
+          return new Response ((res.statusText), { status: res.status, statusText: res.statusText });
+        }
       } catch (reason) {
         console.log("/api/training-plan/generate catch reason :", reason);
         return new Response(ErrorMessage(500).user, { status: 500 })

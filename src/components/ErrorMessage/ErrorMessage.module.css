@@ -1,0 +1,26 @@
+.ErrorMessage__layout {
+    display: flex;
+    width: 100%;
+    padding: 40px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-radius: 10px;
+    background: #FFF;
+    h2 {
+        color: #000;
+        text-align: center;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+    p {
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}

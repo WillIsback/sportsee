@@ -160,7 +160,7 @@ export function formatWeeklyData(session) {
     }
     
     if (!session.data || !Array.isArray(session.data) || session.data.length === 0) {
-        console.log("formatWeeklyData: no data available");
+        console.error("formatWeeklyData: no data available");
         return "Aucune donnée de course disponible.";
     }
 
@@ -184,7 +184,7 @@ export function formatWeeklyData(session) {
 `;
     }).join("");
 
-    console.log("formatWeeklyData :", result);
+    // console.log("formatWeeklyData :", result);
     return result;
 }
 

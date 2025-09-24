@@ -1,5 +1,8 @@
 import { Mistral } from '@mistralai/mistralai';
 import { userPrompt, coachNuserPrompt, PlannerPrompt } from '@/lib/prompt';
+import { validateNGenerateResponse } from '@/lib/askai.lib';
+import { workoutProgramMockData, DEMO } from '@/lib/constants';
+import { generateICSFromPlanning } from '@/lib/askai.lib';
 
 const apiKey = process.env.MISTRAL_API_KEY;
 
@@ -34,18 +37,23 @@ export async function askaiPlan(request) {
     const message = PlannerPrompt(request);
     // console.log("la request envoyé a mistral est :", message);
     try {
-        const chatResponse = await client.chat.complete({
-            model: "mistral-small-2402",
-            messages: PlannerPrompt(request),
-            maxTokens: 4096,
-            responseFormat: {type: 'json_object'},
-        });
+        if (!DEMO){
+            const chatResponse = await client.chat.complete({
+                model: "mistral-small-2402",
+                messages: PlannerPrompt(request),
+                maxTokens: 4096,
+                responseFormat: {type: 'json_object'},
+            });
+            const resp = JSON.parse(chatResponse?.choices[0]?.message?.content);
 
-        console.log('Contenu parsé:', chatResponse?.choices[0]?.message?.content);
-        const resp = (chatResponse?.choices[0]?.message?.content);
-        // console.log('jsonResp  :', jsonResp);
-        return new Response ((JSON.stringify(resp)), { status: 200, statusText: "OK!" });
-    
+            console.log("Type de la réponse de l'api mistral :", typeof(resp));
+            // console.log("Premier exercice semaine 1:", resp['semaine 1'].content[0]);
+            console.log("Structure complète:", JSON.stringify(resp['semaine 1'].content[0], null, 2));
+            return validateNGenerateResponse(resp);
+        } else {
+            const resp = await workoutProgramMockData(); // demo
+            return validateNGenerateResponse(resp);
+        }
     } catch (e) {
         console.log("error catch in Plan  askai.services : ", e.statusCode);
         throw new Response(JSON.stringify({ error: "An error occurred", details: e.message }), { status: e.statusCode, statusText: e.message });

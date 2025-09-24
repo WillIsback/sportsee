@@ -6,9 +6,10 @@ export const MISTRAL_RATE_LIMIT = [
         tier: 'free', limit: 1, timeframe: 10000, // le temps est en ms soit 1000 = 1s
     },
 ]
+export const DEMO = false;
 
-
-export const workoutProgramMockData = {
+/** Planning mock Data **/
+export const workoutProgramMockData = async() =>{ return ({
     "semaine 1": {
         "content": [
             {
@@ -193,5 +194,5 @@ export const workoutProgramMockData = {
             }
         ]
     }
-};
+})};
 

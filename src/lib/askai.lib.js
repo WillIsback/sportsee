@@ -1,4 +1,5 @@
 'use server';
+import * as z from "zod";
 
 // Détection de prompt injection
 function detectPromptInjection(input) {
@@ -148,4 +149,45 @@ export async function rateLimitByKey(key, limit, window){
     throw new Error("Rate limit exceeded");
   }
 
+}
+
+
+export async function validationPlanningFormat (objet) {
+  const day = z.strictObject({
+    jour: z.string(),
+    titre: z.string(),
+    description: z.string(),
+    temps: z.union([
+      z.number(),
+      z.string().transform(str => {
+        const match = str.match(/\d+/);
+        return match ? parseInt(match[0]) : 0;
+      })
+    ])
+  });
+  const week = z.strictObject({
+    content: z.array(day),
+  });
+  const planning = z.record(z.string(), week);
+  try {
+    return planning.parse(objet); // Retourne l'objet validé
+  } catch(error){
+    if(error instanceof z.ZodError){
+      throw new Error(JSON.stringify(error.issues)); 
+    }
+    throw error;
+  }
+}
+
+
+export async function validateNGenerateResponse(resp){
+  try {
+      await validationPlanningFormat(resp);
+  } catch(error) {
+      return new Response(JSON.stringify({ error: "Validation failed", details: error.message }), { 
+          status: 405, 
+          statusText: "Validation Error" 
+      });
+  };
+  return new Response ((JSON.stringify(resp)), { status: 200, statusText: "OK!" });
 }

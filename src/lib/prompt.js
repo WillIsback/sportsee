@@ -97,9 +97,7 @@ Structure la réponse sur plusieurs semaines en objet JSON comme ceci:
         description: // une courte description visuel de l'activité. (exemple : allongé, corps creusé, bras tendu)
         temps: // une estimation du temps de l'activité en minute. (exemple : 30min)
       },
-    ],
-      
-      
+    ], 
 }
 Aide toi des dernière donnée utilisateur ci-dessous.
 
