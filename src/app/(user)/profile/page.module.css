@@ -22,7 +22,7 @@
     display: flex;
     width: 100%;
     padding: 24px 52px 24px 32px;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     gap: 24px;
     border-radius: 10px;

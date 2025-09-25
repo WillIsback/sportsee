@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
+    width: 79%;
     height: 49px;
     margin: 0 auto;
     margin-top: 35;
@@ -12,9 +12,10 @@
 
 .Menu {
     display: flex;
+    width: 49.5%;
     padding: 16px 48px;
     flex-direction: row;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     gap: 10px;
     border-radius: 40px;
     background: rgba(255, 255, 255, 0.90);
@@ -23,9 +24,21 @@
 .Menu ul {
     display: flex;
     flex-direction: row;
-    padding-right: 40px;
+    flex-shrink: 1;
+    /* padding-right: 40px; */
     align-items: center;
     gap: 40px;
+}
+
+.Menu ul li {
+    p{
+        color: var(--Tokens-Typographie-Primary, #111);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        white-space: nowrap;
+    }
 }
 
 .Menu ul li p:hover {
@@ -36,7 +49,10 @@
   border-left: 1px solid #0B23F4;
   height: 17px;
 }
-
+/* .Menu ul button {
+    display: flex;
+    width: 50%;
+} */
 .Menu ul button span {
     color: var(--Tokens-Surface-Bleu, #0B23F4);
     /* Body span edited */
@@ -45,12 +61,46 @@
     font-weight: 400;
     line-height: normal;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .chatModal{
     cursor: pointer;
 }
 
+@media (max-width: 1439px) and (min-width: 1141px) {
+    .Menu ul button span {
+        white-space: wrap;
+    }
+    .Menu ul {
+        gap: 10%;
+    }
+
+}
+@media (max-width: 1140px) and (min-width: 680px) {
+    .Header{
+        flex-direction: column;
+        .Menu {
+            margin-top: 15px;
+            flex-direction: column;
+            padding: 16px 24px;
+            ul {
+                width: 100%;
+                padding-right: 0px;
+                gap: 15px;
+                .divider {
+                    display: none;
+                }
+                flex-wrap: wrap;
+                li {
+                    width: 45%;
+                    white-space: nowrap;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
 @media (max-width: 679px) and (min-width: 360px) {
     .Header{
         flex-direction: column;
@@ -74,5 +124,4 @@
             }
         }
     }
-
 }

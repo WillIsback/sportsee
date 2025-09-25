@@ -1,6 +1,6 @@
 'use client';
 import { ChevronLeft, ChevronRight } from '@/lib/icon';
-import { getDeltaWeek, convertDateToString } from '@/lib/utils';
+import { convertDateToString } from '@/lib/utils';
 import styles from './ChartsHeader.module.css';
 
 /**
@@ -11,18 +11,18 @@ import styles from './ChartsHeader.module.css';
  * @param {Function} handleClickOnSlideRight - Fonction pour naviguer vers la période suivante
  * @returns {JSX.Element} En-tête avec titre, navigation temporelle et description de période
  */
-export default function ChartsHeader({ startWeek, endWeek, handleClickOnSlideLeft, handleClickOnSlideRight }) {
+export default function ChartsHeader({ startWeek, endWeek, handleClickOnSlideLeft, handleClickOnSlideRight, title, sousTitre }) {
     return (
         <section className={styles.header}>
             <div>
-                <h3>18km en moyenne</h3>
+                <h3>{title}</h3>
                 <nav>
                     <button type='button' onClick={handleClickOnSlideLeft}><ChevronLeft /></button>
                     <label>{convertDateToString(startWeek, true)} - {convertDateToString(endWeek, true)}</label>
                     <button type='button' onClick={handleClickOnSlideRight}><ChevronRight /></button>
                 </nav>
             </div> 
-            <p>Total kilomètres {getDeltaWeek(startWeek,endWeek)+1} dernières semaines.</p>
+            <p>{sousTitre}</p>
         </section>
     );
 }

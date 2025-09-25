@@ -9,12 +9,10 @@
     line-height: normal;
 }
 
-.ComposedChart {
-    margin-top: 32px;
-}
 .ComposedChart svg {
     position: inherit;
-    left: -40px;
+    left: -15;
+    bottom: +5;
 }
 
 .ComposedChart span {
@@ -31,6 +29,9 @@
     flex-direction: row;
     align-items: center;
     gap: 16px;
+    bottom: -38;
+    left: 25;
+    position: absolute;
 }
 
 .Legend li {
@@ -43,4 +44,15 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+
+@media (max-width: 1140px) and (min-width: 680px) {
+    .Legend {
+        bottom: -10;
+    }
+}
+@media (max-width: 679px) and (min-width: 360px) {
+    .Legend {
+        bottom: -10;
+    }
 }

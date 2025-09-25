@@ -1,5 +1,5 @@
 .StatsGrid {
-    margin-top: 108px;
+    margin-top: 98px;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -25,13 +25,18 @@
     line-height: normal;
 }
 
-.ChartsBox {
+.ChartsBox_1 {
     display: flex;
     align-items: center;
     width: 100%;
     gap: 24px;
 }
-
+.ChartsBox_2 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+}
 .thisWeek {
     width: 100%;
 }
@@ -43,7 +48,7 @@
     gap: 9px;
     width: 100%;
 }
-.thisWeek .ChartsBox div {
+.thisWeek .ChartsBox_2 div {
     width: 42.3%;
 }
 .thisWeekTitle h2 {
@@ -65,12 +70,12 @@
 
 
 
-@media (max-width: 679px) and (min-width: 360px) {
+@media (max-width: 1140px) and (min-width: 680px) {
     .lastPerformances {    
         h2 {
             text-align: center;
         }
-        .ChartsBox {
+        .ChartsBox_1 {
             flex-direction: column;
             div{
                 width: 100%;
@@ -80,7 +85,33 @@
     .thisWeek{
         width: 100%;
         justify-content: center;
-        .ChartsBox{
+        .ChartsBox_2 {
+            flex-direction: column;
+            width: 100%;
+            div {
+                width: 100%;
+            }
+        }
+
+    }
+
+}
+@media (max-width: 679px) and (min-width: 360px) {
+    .lastPerformances {    
+        h2 {
+            text-align: center;
+        }
+        .ChartsBox_1 {
+            flex-direction: column;
+            div{
+                width: 100%;
+            }
+        }
+    }
+    .thisWeek{
+        width: 100%;
+        justify-content: center;
+        .ChartsBox_2{
             flex-direction: column;
             width: 100%;
             div {

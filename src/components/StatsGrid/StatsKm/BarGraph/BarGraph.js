@@ -14,11 +14,7 @@ export default function BarGraph({ barFillColor, sessionData}) {
 
     if(sessionData === undefined || !sessionData) return <Loader />;
 
-    /**
-     * Brief: Transforme les données de session en ajoutant des indices pour l'affichage
-     * @returns {Array} Données transformées avec indices S0, S1, etc. pour les semaines
-     */
-    /**
+    /*
      * Brief: Transforme les données de session en ajoutant des indices pour l'affichage
      * @returns {Array} Données transformées avec indices S0, S1, etc. pour les semaines
      */
@@ -29,11 +25,7 @@ export default function BarGraph({ barFillColor, sessionData}) {
             });
     }, [sessionData]);
 
-    /**
-     * Brief: Convertit un indice de semaine en période de dates formatée
-     * @param {string} IndiceDate - Indice de la forme "S0", "S1", etc.
-     * @returns {Function} Fonction qui retourne la période formatée ou null
-     */
+
     /**
      * Brief: Convertit un indice de semaine en période de dates formatée
      * @param {string} IndiceDate - Indice de la forme "S0", "S1", etc.
@@ -83,15 +75,29 @@ export default function BarGraph({ barFillColor, sessionData}) {
 
    
     return (
-        <ResponsiveContainer width={'100%'} height={262}>    
+        <ResponsiveContainer width={'100%'} height={325}>    
             <BarChart  
                 data={updateSession}   
                 className={styles.BarGraph} 
             >
                 <CartesianGrid strokeDasharray="2" vertical={false}/>
-                <XAxis dataKey={"IndiceDate"} tickLine={false} className={styles.Axis}/>
-                <YAxis tickCount={4} tickLine={false} className={styles.Axis}/>
-                <Legend align='left' iconSize={8}/>
+                <XAxis 
+                    dataKey={"IndiceDate"} 
+                    tickLine={false} 
+                    tickMargin={15}
+                    className={styles.Axis}
+                />
+                <YAxis 
+                    tickCount={4} 
+                    tickLine={false} 
+                    padding={{ bottom: 5 }}
+                    className={styles.Axis}
+                />
+                <Legend 
+                    align='left' 
+                    verticalAlign='bottom'
+                    iconSize={8}
+                />
                 <Tooltip wrapperStyle={{ zIndex: 1 }} 
                     cursor={false}  
                     content={CustomTooltip}

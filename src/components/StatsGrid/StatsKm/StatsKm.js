@@ -3,8 +3,8 @@ import ChartsHeader from '../ChartsHeader/ChartsHeader';
 import BarGraph from './BarGraph/BarGraph';
 import Loader from '@/components/Loader/Loader';
 import { useDateState, useUserSessions} from '@hooks/useUserData';
-import { useState } from 'react';
-import { convertDateToISO, incrementWeek, decrementWeek } from '@/lib/utils';
+import { useState, useMemo } from 'react';
+import { convertDateToISO, incrementWeek, decrementWeek, getDeltaWeek } from '@/lib/utils';
 
 /**
  * Brief: Composant pour afficher les statistiques de distance parcourue avec graphique en barres
@@ -17,15 +17,22 @@ export default function StatsKm({defStartWeek, defEndWeek}) {
     const [startWeek, setStartWeek, endWeek, setEndWeek ] = useDateState(defStartWeek, defEndWeek);
     const { data, isPending } = useUserSessions(startWeek, endWeek);
 
-    if(isPending)return <Loader />;
-    
-    // console.log("data", data)
-    
-
     /**
-     * Brief: Gère le clic pour naviguer vers la semaine précédente
-     * @returns {Promise<void>}
+     * Brief: calcul la distance moyenne de la session
+     * @param {Array} data - data sous forme de tableau
+     * @returns {Number} valeur averageDistance 
      */
+    const averageDistance = useMemo(() => {
+        if (!data?.length) return 0;
+        
+        const totalDistance = data.reduce((sum, data) => {
+            return sum + (data.distance || 0);
+        }, 0);
+        
+        return Math.ceil(totalDistance / data.length);
+    }, [data]);
+
+    if(isPending)return <Loader />;
     /**
      * Brief: Gère le clic pour naviguer vers la semaine précédente
      * @returns {Promise<void>}
@@ -52,6 +59,8 @@ export default function StatsKm({defStartWeek, defEndWeek}) {
  
     // console.log("is it re-rendered during hover ?");
     const barFillColor = ( isHovered ? '#0B23F4' : '#B6BDFC' );
+    const title = `${averageDistance}km en moyenne`
+    const sousTitre = `Total kilomètres ${getDeltaWeek(startWeek,endWeek)+1} dernières semaines.`
     return (
         <div className={styles.StatsKm}
             onMouseEnter={() => setIshovered(true)}
@@ -61,6 +70,8 @@ export default function StatsKm({defStartWeek, defEndWeek}) {
                 endWeek={endWeek}
                 handleClickOnSlideLeft={handleClickOnSlideLeft}
                 handleClickOnSlideRight ={handleClickOnSlideRight}
+                title={title}
+                sousTitre={sousTitre}
             />
             <BarGraph barFillColor={barFillColor} sessionData={data} />
 

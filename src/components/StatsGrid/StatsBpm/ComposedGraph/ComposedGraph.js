@@ -47,13 +47,13 @@ export default function ComposedGraph({ lineStrokeColor, sessionData}) {
         // console.log("sessionDatae :", sessionData);
         const WeekHeartRate = sessionData.map((r) => {
             const days = [
-                'Dimanche',
-                'Lundi',
-                'Mardi',
-                'Mercredi',
-                'Jeudi',
-                'Vendredi',
-                'Samedi',
+                'Dim',
+                'Lun',
+                'Mar',
+                'Mer',
+                'Jeu',
+                'Ven',
+                'Sam',
             ];
             const date = new Date(r.date);
             const dayIdx = date.getDay();
@@ -67,22 +67,33 @@ export default function ComposedGraph({ lineStrokeColor, sessionData}) {
 
 
     return ( 
-    <ResponsiveContainer width={'100%'} height={262}>      
+    <ResponsiveContainer width={'110%'} height={300}>      
         <ComposedChart   
             data={graphData}   
+            barGap={-25}
+            margin={' top: 5, right: 5, bottom: 5, left: 0 '}
+
             className={styles.ComposedChart} 
         >
             <CartesianGrid strokeDasharray="2" vertical={false}/>
-            <XAxis dataKey="jourSemaine" tickLine={false} className={styles.Axis}/>
+            <XAxis 
+                dataKey="jourSemaine" 
+                tickLine={false} 
+                tickMargin={15}
+                padding={{ right: 10 }}
+                className={styles.Axis}
+            />
             <YAxis 
                 tickCount={4} 
                 tickLine={false} 
+                padding={{ bottom: 5 }}
                 className={styles.Axis} 
                 domain={['dataMin - 10', 'dataMax + 10']}
                 interval={"preserveStartEnd"}
             />
             <Legend 
                 align='left' 
+                verticalAlign='bottom'
                 iconSize={8}
                 fill='#0B23F4'
                 content={renderLegend}

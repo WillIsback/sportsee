@@ -31,7 +31,7 @@ export default function StatsGrid() {
     return <div className={styles.StatsGrid}>
         <section className={styles.lastPerformances}>
             <h2>Vos dernières performances</h2>
-            <div className={styles.ChartsBox}>
+            <div className={styles.ChartsBox_1}>
                 <StatsKm 
                     defStartWeek={(decrementWeek(convertDateToISO(Date.now()),4))}
                     defEndWeek={(convertDateToISO(Date.now()))}
@@ -47,7 +47,7 @@ export default function StatsGrid() {
                 <h2>Cette semaine</h2>
                 <p>Du {startWeek} au {endWeek}</p>
             </div>
-            <div className={styles.ChartsBox}>
+            <div className={styles.ChartsBox_2}>
                 <PieGraph />
                 <WeeklyRecap />
             </div>

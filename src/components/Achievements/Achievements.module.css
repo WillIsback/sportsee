@@ -10,16 +10,19 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal; 
+    width: 100%;
+    text-align: end;
 }
 .achievemenTag {
     display: flex;
-    padding: 28px 27px;
+    padding: 28px 28px;
     align-items: center;
     gap: 19px;
     border-radius: 10px;
     border: 1px solid var(--Tokens-Surface-Bleu, #0B23F4);
     background: var(--Tokens-Surface-Bleu, #0B23F4);
-    width: 50%;
+    width: 60%;
+    max-height: 90px;
 }
 .achievemenTag h3 {
     color: var(--Tokens-Surface-White, #FFF);

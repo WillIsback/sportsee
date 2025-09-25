@@ -10,7 +10,7 @@
 }
 
 .BarGraph {
-    margin-top: 32px;
+    box-sizing: border-box;
 }
 .BarGraph svg {
     position: inherit;

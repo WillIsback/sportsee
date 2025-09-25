@@ -1,10 +1,10 @@
 .StatsBpm {
     display: flex;
     width: 55.4%;
+    min-height: 484;
     padding: 16px 40px 24px 40px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     border-radius: 10px;
     background: var(--White, #FFF);
     /* cards */

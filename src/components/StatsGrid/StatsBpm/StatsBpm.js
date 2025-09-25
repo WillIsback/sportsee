@@ -4,7 +4,7 @@ import ComposedChart from './ComposedGraph/ComposedGraph';
 import Loader from '@/components/Loader/Loader';
 import { useDateState, useUserSessions } from '@hooks/useUserData';
 import { convertDateToISO, incrementWeek, decrementWeek } from '@/lib/utils';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 /**
  * Brief: Composant pour afficher les statistiques de battements par minute avec graphique combiné
@@ -16,10 +16,25 @@ export default function StatsBpm({defStartWeek, defEndWeek}) {
     const [isHovered, setIshovered] = useState(false);
     const [startWeek, setStartWeek, endWeek, setEndWeek ] = useDateState(defStartWeek, defEndWeek);
     const { data, isPending } = useUserSessions(startWeek, endWeek);
+    
+    /**
+     * Brief: calcul le battement par minute moyen
+     * @param {Array} data.heartRate - data sous forme de tableau
+     * @returns {Number} valeur averageBPM
+     */
+    const averageBPM = useMemo(() => {
+        if (!isPending && !data?.length) return 0;
+            const totalAverageBPM = data?.reduce((sum, data) => {
+                // console.log("sum :", sum, "heartRate average :", item.heartRate.average);
+                return sum + (data?.heartRate?.average || 0);
+            }, 0);
+            // console.log("totalAverageBPM :", totalAverageBPM, "data.length :", data?.length);
+            return Math.ceil(totalAverageBPM / data?.length);
+    }, [data]);
 
     if(isPending)return <Loader />;
     
-    
+    // console.log("data :", data)
     /**
      * Brief: Gère le clic pour naviguer vers la semaine précédente
      * @returns {Promise<void>}
@@ -50,6 +65,8 @@ export default function StatsBpm({defStartWeek, defEndWeek}) {
 
     // console.log("is it re-rendered during hover ?");
     const lineStrokeColor = ( isHovered ? '#0B23F4' : '#F2F3FF' );
+    const title = `${averageBPM} BPM`;
+    const sousTitre = "Fréquence cardiaque moyenne";
     return (
         <div className={styles.StatsBpm}
             onMouseEnter={() => setIshovered(true)}
@@ -60,6 +77,8 @@ export default function StatsBpm({defStartWeek, defEndWeek}) {
                 endWeek={endWeek}
                 handleClickOnSlideLeft={handleClickOnSlideLeft}
                 handleClickOnSlideRight ={handleClickOnSlideRight}
+                title={title}
+                sousTitre={sousTitre}
             />
             <ComposedChart  lineStrokeColor={lineStrokeColor} sessionData={data} />
         </div>

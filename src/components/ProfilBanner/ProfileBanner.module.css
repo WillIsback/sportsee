@@ -32,7 +32,6 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-
 }
 
 .content h2 {
@@ -48,6 +47,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    align-self: stretch;
 }
 
 

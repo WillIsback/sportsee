@@ -6,7 +6,7 @@
     align-items: flex-start;
     border-radius: 10px;
     background: var(--White, #FFF);
-
+    min-height: 484;
     /* cards */
     box-shadow: 0 4px 84px -40px rgba(157, 167, 251, 0.40);
 }
@@ -14,5 +14,6 @@
 .BarChart {
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
 }
 

@@ -1,7 +1,7 @@
 .page {
     display: flex;
     width: 100%;
-    padding: 35px 10.4% 0 10.4%;
+    padding: 0px 10.4% 0 10.4%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -19,18 +19,19 @@
 
 .MyProfile {
     display: flex;
-    width: 100%;
+    width: 92%;
     padding: 32px 52px;
     justify-content: space-between;
     align-items: center;
     border-radius: 20px;
     background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) -8.38%, #FFF 100%);
-    margin-top: 40px;
+    margin-top: 30px;
+    border-radius: 20px;
 }
 
 .StatsPerformances {
     display: flex;
-    width: 100%;
+    width: 92%;
     flex-direction: column;
     align-items: center;
     justify-content: center;

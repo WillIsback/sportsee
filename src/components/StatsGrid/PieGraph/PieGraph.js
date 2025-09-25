@@ -125,6 +125,8 @@ export default function PieGraph() {
                     endAngle={480}
                     innerRadius={40}
                     outerRadius={80}
+                    cx={'54%'}
+                    cy={'54%'}
                     fill="#0B23F4"
                     dataKey="value"          >
                     {pieObjData.map((entry, index) => (

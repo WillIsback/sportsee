@@ -12,12 +12,13 @@ import { ICfinishLine } from '@/lib/icon';
 export default function Achievements() {
     const userData = use(UserStatsContext);
     const { totalDistance, ...rest} = userData?.dataStats;
+    const roundedTotalDistance = Math.floor(totalDistance);
     return(
     <div className={styles.achievementBox}>
         <p>Distance totale parcourue</p>
         <div className={styles.achievemenTag}>
             <ICfinishLine />
-            <h3>{totalDistance} km</h3>
+            <h3>{roundedTotalDistance} km</h3>
         </div>
     </div>
     )
