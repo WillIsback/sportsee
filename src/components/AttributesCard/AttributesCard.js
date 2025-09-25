@@ -1,3 +1,4 @@
+'use client';
 import styles from './AttributesCard.module.css';
 import { UserProfileContext } from '@context/UserContext';
 import { convertCMHeightToMcM, translateGender } from '@/lib/utils';

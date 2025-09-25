@@ -1,3 +1,4 @@
+'use client';
 import styles from './AskAi.module.css';
 import { IconAi } from '@/lib/icon';
 import ChatModal from '../ChatModal/ChatModal';

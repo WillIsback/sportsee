@@ -1,3 +1,4 @@
+'use client';
 import styles from './Achievements.module.css'
 import { UserStatsContext } from '@context/UserContext';
 import { use } from "react";

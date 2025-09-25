@@ -20,6 +20,8 @@
     background: var(--Tokens-Surface-White, #FFF);
     backdrop-filter: blur(57px);
     width: 63%;
+    margin-top: 50px; /*Correct pixel perfect*/
+    margin-right: 35px; /*Correct pixel perfect*/
 }
 
 .form h2 {

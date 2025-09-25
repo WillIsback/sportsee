@@ -16,7 +16,6 @@ import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/lib/constants';
  * @returns {Promise<NextResponse>} Réponse avec redirection appropriée ou continuation normale
  */
 export async function middleware(request) {
-
   const path = request.nextUrl.pathname
   console.log("Middleware intercepte:", request.nextUrl.pathname);
 

@@ -1,3 +1,4 @@
+'use client';
 import styles from './ChatModal.module.css';
 import ChatDisplay from './ChatDisplay/ChatDisplay';
 import ChatForm from './ChatForm/ChatForm';
@@ -13,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
 import { formatWeeklyData, formatUserDataProfile } from '@/lib/utils';
 import { UserProfileContext } from '@context/UserContext';
-import { use, useRef } from 'react';
+import { use } from 'react';
 
 /**
  * Brief: Composant modal de chat avec l'IA incluant gestion des messages et limitations

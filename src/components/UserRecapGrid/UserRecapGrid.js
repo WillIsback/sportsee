@@ -1,9 +1,10 @@
+'use client';
 import styles from './UserRecapGrid.module.css';
 import { UserProfileContext, UserStatsContext } from '@context/UserContext';
 import { useUserAllSessions } from '@hooks/useUserData';
 import { convertDateToISO, convertDateToString, getDeltaDays, convertMMTimeToHHMM } from '@/lib/utils';
 import RecapCard from './RecapCard/RecapCard';
-import { use, useMemo } from 'react';
+import { use } from 'react';
 import Loader from '../Loader/Loader';
 
 /**

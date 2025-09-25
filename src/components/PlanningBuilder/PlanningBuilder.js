@@ -1,3 +1,4 @@
+'use client';
 import styles from './PlanningBuilder.module.css';
 import PlanningDefault from './PlanningDefault/PlanningDefault';
 import PlanningGoal from './PlanningGoal/PlanningGoal';
