@@ -4,6 +4,10 @@ import { Cell, PieChart, Pie, ResponsiveContainer } from 'recharts';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
 import { useMemo } from 'react';
 
+/**
+ * Brief: Composant graphique en secteurs pour afficher le progrès des sessions d'entraînement hebdomadaires
+ * @returns {JSX.Element} Graphique circulaire avec labels personnalisés montrant les sessions réalisées vs objectif
+ */
 export default function PieGraph() {
     const startWeek = decrementWeek(convertDateToISO(Date.now()));
     const endWeek = convertDateToISO(Date.now());
@@ -11,6 +15,10 @@ export default function PieGraph() {
     
     const weeklyGoal = 9;
 
+    /**
+     * Brief: Calcule le nombre de sessions réalisées dans la semaine courante
+     * @returns {number} Nombre de sessions d'entraînement effectuées
+     */
     const getWeekNbSession = useMemo(() => {
         if(data) return Object.keys(data).length;
         return 0;
@@ -26,14 +34,31 @@ export default function PieGraph() {
 
     const COLORS = ['#0B23F4', '#B6BDFC'];
     const RADIAN = Math.PI / 180;
+    
+    /**
+     * Brief: Rendu personnalisé des labels avec positionnement intelligent pour éviter les zones mortes
+     * @param {Object} props - Propriétés du label incluant position, angles et valeurs
+     * @returns {JSX.Element} Label SVG personnalisé avec icône et texte positionnés
+     */
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, index, value }) => {
         const radius = innerRadius + (outerRadius - innerRadius) * 1.5;
         // console.log("midAngle :", midAngle, "cx :", cx, "cy :", cy);
+        
+        /**
+         * Brief: Calcule les coordonnées x,y à partir d'un angle pour le positionnement des labels
+         * @param {number} midAngle - Angle médian du secteur en degrés
+         * @returns {Object} Coordonnées {x, y} calculées
+         */
         const computeXY = (midAngle) => {
             const x = cx + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
             const y = cy + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
             return {x, y};
         };
+        
+        /**
+         * Brief: Ajuste la position des labels pour éviter les zones mortes (nord/sud) du graphique
+         * @returns {Object} Coordonnées ajustées {x, y} évitant les zones de conflit
+         */
         const computeXY_deadzone = () => {
             const { x, y } = computeXY(midAngle);
             if(y > (cy * 2)){ // is in north dead zone
@@ -49,6 +74,11 @@ export default function PieGraph() {
         const { x , y } = computeXY_deadzone();
         const x_offset = ((x < cx )? 35 : 0 );
         const x_adjusted = x - x_offset;
+        
+        /**
+         * Brief: Génère le contenu personnalisé du label selon l'index du secteur
+         * @returns {Object} Objet contenant iconColor et label formatés
+         */
         const customLable = () => {
             if(index === 1){
 

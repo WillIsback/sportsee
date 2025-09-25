@@ -1,6 +1,13 @@
 import styles from './PlanningDate.module.css';
 import { ICalendar } from '@/lib/icon';
 
+/**
+ * Brief: Composant pour sélectionner la date de début d'un programme sportif
+ * @param {Function} handleBackWardClick - Fonction pour revenir à l'étape précédente
+ * @param {Function} handleGenerateClick - Fonction pour générer le planning avec la date sélectionnée
+ * @param {Function} setDate - Fonction pour mettre à jour la date sélectionnée
+ * @returns {JSX.Element} Interface de sélection de date avec calendrier et boutons de navigation
+ */
 export default function PlanningDate ({ handleBackWardClick, handleGenerateClick, setDate }) {
 
     return (

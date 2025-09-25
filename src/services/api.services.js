@@ -11,6 +11,12 @@ const backendApiUrl =  "http://localhost:8000/api/"
 /*
     Fetch Error Message Handlers
 */
+/**
+ * Brief: Convertit un code de statut HTTP en message d'erreur utilisateur et développeur
+ * 
+ * @param {number} statusCode - Code de statut HTTP de la réponse de l'API
+ * @returns {Object} Objet contenant {user: string, dev: string} avec messages d'erreur
+ */
 export const getErrorMessage = (statusCode) => {
     switch(statusCode) {
         case 400: return {
@@ -43,6 +49,13 @@ export const getErrorMessage = (statusCode) => {
 /*
     fonction générique Request pour les differentes opérations CRUD
 */
+/**
+ * Brief: Fonction générique pour effectuer des requêtes HTTP vers l'API backend
+ * 
+ * @param {string} endpoint - Endpoint de l'API à appeler (relatif à l'URL de base)
+ * @param {Object} payload - Configuration de la requête {method, headers, body, authorization}
+ * @returns {Request} Objet Request configuré pour l'appel à l'API
+ */
 const request = (endpoint, payload) => {
     const { method, headers, body, authorization } = payload
     const request = new Request(`${backendApiUrl}${endpoint}`, {
@@ -61,6 +74,13 @@ const request = (endpoint, payload) => {
     Required body: { "username": "string", "password": "string" }
     Returns: { success: boolean, data?: any, error?: { user: string, dev: string } }
 */
+/**
+ * Brief: Authentifie un utilisateur auprès de l'API et retourne un token JWT
+ * 
+ * @param {string} username - Nom d'utilisateur pour l'authentification
+ * @param {string} password - Mot de passe pour l'authentification
+ * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec le résultat de l'authentification
+ */
 export async function postLogin(username, password) {
     const route = "login"
     // Validation des paramètres
@@ -113,6 +133,12 @@ export async function postLogin(username, password) {
     Required "Authorization: Bearer your-jwt-token"
     Returns user profile information, statistics, and goals.
 */
+/**
+ * Brief: Récupère les informations complètes du profil utilisateur depuis l'API
+ * 
+ * @param {string} token - Token JWT d'authentification
+ * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec les informations utilisateur
+ */
 export async function getUserInfo(token) {
     const route = "user-info"
     // Validation des paramètres
@@ -163,6 +189,14 @@ export async function getUserInfo(token) {
         - startWeek: Start date (ISO format)
         - endWeek: End date (ISO format)
 */
+/**
+ * Brief: Récupère les activités/sessions utilisateur entre deux dates depuis l'API
+ * 
+ * @param {string} token - Token JWT d'authentification
+ * @param {string} startWeek - Date de début au format ISO (YYYY-MM-DD)
+ * @param {string} endWeek - Date de fin au format ISO (YYYY-MM-DD)
+ * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec les données d'activité
+ */
 export async function getUserActivity(token, startWeek, endWeek) {
     const isISODate = (dateString) => {
         const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
@@ -228,6 +262,12 @@ export async function getUserActivity(token, startWeek, endWeek) {
     Returns the user's profile image path.
     Parameters: None
 */
+/**
+ * Brief: Récupère le chemin de l'image de profil utilisateur depuis l'API
+ * 
+ * @param {string} token - Token JWT d'authentification
+ * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec le chemin de l'image
+ */
 export async function getUserProPic(token) {
     const route = 'profile-image'
     // Validation des paramètres
@@ -276,6 +316,13 @@ export async function getUserProPic(token) {
     Endpoint to access uploaded files.
     Parameters: <filename>
 */
+/**
+ * Brief: Récupère un fichier utilisateur spécifique depuis l'API
+ * 
+ * @param {string} token - Token JWT d'authentification
+ * @param {string} filename - Nom du fichier à récupérer
+ * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec le fichier
+ */
 export async function getUserFile(token, filename) {
     const route = `profile-image/${filename}`
     // Validation des paramètres

@@ -10,11 +10,20 @@ import ICLogo from '@/components/Logo/Logo';
 
 import styles from './Hearder.module.css';
 import Link from 'next/link';
+
+/**
+ * Brief: Composant header de navigation avec logo, liens et bouton de déconnexion
+ * 
+ * @returns {JSX.Element} Header complet avec navigation et fonctionnalités utilisateur
+ */
 export default function Header() {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [showModal, setShowModal] = useState(false);
 
+    /**
+     * Brief: Gère la déconnexion utilisateur et redirection vers login
+     */
     const onClick = () => {
         startTransition(async () => {
             const logout = await fetch('/logout', {

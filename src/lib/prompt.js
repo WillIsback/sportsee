@@ -1,8 +1,20 @@
+/**
+ * Brief: Génère un prompt utilisateur simple pour l'IA
+ * 
+ * @param {string} request - Requête de l'utilisateur
+ * @returns {Array} Tableau avec message formaté pour l'IA
+ */
 export const userPrompt = (request) => [{
   role: 'user', 
   content: `${request}`
 }];
 
+/**
+ * Brief: Génère un prompt système de coach sportif avec contexte utilisateur
+ * 
+ * @param {Object} request - Objet contenant message, userProfile et userData
+ * @returns {Array} Tableau de messages formatés pour l'IA coach sportif
+ */
 export const coachNuserPrompt = (request) => [
   {
     role: 'system',
@@ -80,6 +92,12 @@ Si la question n'est pas liée au sport, redirige avec bienveillance :
 
 
 
+/**
+ * Brief: Génère un prompt système pour la création de plannings d'entraînement personnalisés
+ * 
+ * @param {Object} request - Objet contenant profil utilisateur, données et objectifs
+ * @returns {Array} Tableau de messages formatés pour générer un planning JSON
+ */
 export const PlannerPrompt = (request) => [
   {
     role: 'system',

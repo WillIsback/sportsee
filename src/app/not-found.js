@@ -1,6 +1,11 @@
 import styles from './not-found.module.css';
 import ICLogo from '@/components/Logo/Logo';
 import Link from 'next/link';
+
+/**
+ * Brief: Page d'erreur 404 personnalisée pour les URLs non trouvées
+ * @returns {JSX.Element} Page d'erreur avec logo, message 404 et image de fond
+ */
 export default function NotFound() {
   return (
     <div className={styles.page}>

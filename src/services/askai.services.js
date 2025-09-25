@@ -8,6 +8,12 @@ const apiKey = process.env.MISTRAL_API_KEY;
 
 const client = new Mistral({apiKey: apiKey});
 
+/**
+ * Brief: Communique avec l'IA Mistral pour obtenir des réponses de coaching sportif
+ * 
+ * @param {Object} request - Requête utilisateur contenant le message et le contexte
+ * @returns {Response} Réponse HTTP avec le contenu généré par l'IA
+ */
 export async function askaiChat(request) {
     // console.log("la request envoyé a mistral est :", request);
     const message = coachNuserPrompt(request);
@@ -32,6 +38,12 @@ export async function askaiChat(request) {
 }
 
 
+/**
+ * Brief: Génère un planning d'entraînement personnalisé via l'IA Mistral
+ * 
+ * @param {Object} request - Requête contenant profil utilisateur, données et objectifs
+ * @returns {Response} Planning d'entraînement validé au format JSON
+ */
 export async function askaiPlan(request) {
     // console.log("la request envoyé a mistral est :", request);
     const message = PlannerPrompt(request);

@@ -1,10 +1,20 @@
 import { useState, useTransition } from 'react';
 
+/**
+ * Brief: Hook personnalisé pour gérer les requêtes de génération de plannings d'entraînement
+ * 
+ * @returns {Array} Tableau contenant [isPending, error, response, executePostFetch] pour gérer l'état de la requête
+ */
 export default function usePlanRequest () {
     const [isPending, startTransition] = useTransition(false);
     const [error, setError] = useState(false);
     const [response, setResponse] = useState({});
 
+    /**
+     * Brief: Fonction interne pour exécuter la requête POST de génération de planning
+     * 
+     * @param {Object} payload - Données à envoyer à l'API contenant userProfile, userData, objectif, date
+     */
     function executePostFetch(payload) {
         startTransition(async () => {
             try{ // bloc try/catch fetch route api/chat

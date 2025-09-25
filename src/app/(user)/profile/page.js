@@ -4,7 +4,10 @@ import ProfileBanner from "@/components/ProfilBanner/ProfileBanner";
 import AttributesCard from '@/components/AttributesCard/AttributesCard';
 import UserRecapGrid from '@/components/UserRecapGrid/UserRecapGrid';
 
-
+/**
+ * Brief: Page de profil utilisateur avec informations personnelles et récapitulatif des statistiques
+ * @returns {JSX.Element} Interface de profil avec bannière, attributs et grille de statistiques
+ */
 export default function Profile() {
   // console.log("statistics :", userData);
   return (

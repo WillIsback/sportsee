@@ -6,6 +6,10 @@ import RecapCard from './RecapCard/RecapCard';
 import { use, useMemo } from 'react';
 import Loader from '../Loader/Loader';
 
+/**
+ * Brief: Composant de grille de récapitulatif des statistiques utilisateur globales
+ * @returns {JSX.Element} Grille de cartes avec statistiques de temps, calories, distance, repos et sessions
+ */
 export default function UserRecapGrid() {
     const userDataProfile = use(UserProfileContext);
     const userDataStats = use(UserStatsContext); 
@@ -18,6 +22,11 @@ export default function UserRecapGrid() {
 
     // console.log("data", data);
     // Calculate totalRunningDate
+    
+    /**
+     * Brief: Extrait et trie les dates uniques de toutes les sessions de course
+     * @returns {Array} Liste triée des dates uniques de course
+     */
     const listUniqueRunningDate = () => {
         return data.flatMap((item) => item.date).sort();
     };

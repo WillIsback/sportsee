@@ -11,7 +11,11 @@ import { login } from '@/services/auth.services';
 import styles from './SignInForm.module.css';
 import Link from 'next/link'
 
-
+/**
+ * Brief: Composant de formulaire de connexion utilisateur avec gestion des états
+ * 
+ * @returns {JSX.Element} Formulaire de connexion avec champs username/password
+ */
 export default function SignInForm() {
   const [formState, formAction, isPending] = useActionState(login, null);
 

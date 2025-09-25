@@ -2,8 +2,19 @@ import styles from './PlanningGenerate.module.css';
 import PlanningWeekCard from './PlanningWeekCard/PlanningWeekCard';
 import generateICSFromPlanning from '@/lib/ics';
 
+/**
+ * Brief: Composant pour afficher et télécharger un planning d'entraînement généré
+ * @param {Object} planning - Données du planning organisées par jour de la semaine
+ * @param {string} startDate - Date de début du planning au format ISO
+ * @param {Function} handleRestartClick - Fonction pour regénérer un nouveau programme
+ * @returns {JSX.Element} Interface d'affichage du planning avec options de téléchargement et regénération
+ */
 export default function PlanningGenerate({ planning, startDate, handleRestartClick }) {
     
+    /**
+     * Brief: Gère le téléchargement du planning au format ICS (calendrier)
+     * @returns {void}
+     */
     function handleDownload() {
         const icsContent = generateICSFromPlanning(planning, startDate);
         

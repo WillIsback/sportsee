@@ -14,6 +14,12 @@ import { rateLimitByKey } from '@/lib/askai.lib';
 /*
     Fetch Error Message Handlers
 */
+
+/**
+ * Brief: Génère des messages d'erreur appropriés selon le code de statut HTTP pour la génération de plan
+ * @param {number} statusCode - Code de statut HTTP de l'erreur
+ * @returns {Object} Objet contenant messages d'erreur pour utilisateur et développeur
+ */
 export const ErrorMessage = (statusCode) => {
     switch(statusCode) {
         case 400: return {
@@ -47,7 +53,11 @@ export const ErrorMessage = (statusCode) => {
     }
 }
 
-
+/**
+ * Brief: Handler POST pour la génération de plans d'entraînement IA avec authentification et rate limiting
+ * @param {Request} request - Objet Request contenant les paramètres du plan d'entraînement
+ * @returns {Promise<Response>} Réponse HTTP avec le plan d'entraînement généré ou un message d'erreur
+ */
 export async function POST(request) {
   const { limit, timeframe } = MISTRAL_RATE_LIMIT[0];
   console.log("limit, timeframe : ", limit, timeframe);

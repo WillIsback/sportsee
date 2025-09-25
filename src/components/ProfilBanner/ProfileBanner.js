@@ -5,7 +5,11 @@ import { UserProfileContext } from '@context/UserContext';
 import { convertDateToString } from '@/lib/utils';
 import { use } from 'react';
 
-
+/**
+ * Brief: Composant d'affichage de la bannière de profil utilisateur
+ * 
+ * @returns {JSX.Element} Bannière avec photo, nom et date d'inscription de l'utilisateur
+ */
 export default function ProfileBanner() {
     const userData = use(UserProfileContext);
     const { createdAt, lastName, firstName, profilePicture } = userData?.dataProfile;

@@ -1,9 +1,19 @@
 import { useState, useTransition } from 'react';
 
+/**
+ * Brief: Hook personnalisé pour gérer les requêtes de chat avec l'IA
+ * 
+ * @returns {Array} Tableau contenant [isPending, response, executePostFetch] pour gérer l'état du chat
+ */
 export default function useChatRequest () {
     const [isPending, startTransition] = useTransition(false);
     const [response, setResponse] = useState({});
 
+    /**
+     * Brief: Fonction interne pour exécuter la requête POST vers l'API de chat
+     * 
+     * @param {Object} payload - Données à envoyer contenant le message utilisateur et le contexte
+     */
     function executePostFetch(payload) {
         startTransition(async () => {
             try{ // bloc try/catch fetch route api/chat

@@ -1,6 +1,11 @@
 import styles from './Footer.module.css';
 import { ICLogoOnly } from '@/components/Logo/Logo';
 
+/**
+ * Brief: Composant footer avec informations légales et logo de l'application
+ * 
+ * @returns {JSX.Element} Footer avec mentions légales et branding
+ */
 export default function Footer() {
   return (
   <footer className={styles.Footer}>

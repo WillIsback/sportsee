@@ -1,6 +1,14 @@
 // https://usehooks.com/useLocalStorage/
 "use client";
 import { useState } from "react";
+
+/**
+ * Brief: Hook personnalisé pour gérer la synchronisation d'une valeur avec localStorage
+ * 
+ * @param {string} key - Clé utilisée pour stocker la valeur dans localStorage
+ * @param {*} initialValue - Valeur initiale à utiliser si aucune valeur n'existe dans localStorage
+ * @returns {Array} Tableau contenant [storedValue, setValue] similaire à useState
+ */
 export function useLocalStorage(key, initialValue) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once

@@ -4,9 +4,20 @@ import { RoundedBar, getSvgLegend } from '@/lib/utils';
 import styles from './ComposedGraph.module.css';
 import Loader from '@/components/Loader/Loader';
 
+/**
+ * Brief: Composant graphique combiné (barres + ligne) pour afficher les statistiques de fréquence cardiaque
+ * @param {string} lineStrokeColor - Couleur de la ligne du graphique
+ * @param {Array} sessionData - Données des sessions contenant les informations de fréquence cardiaque
+ * @returns {JSX.Element} Graphique combiné avec barres min/max et ligne de tendance
+ */
 export default function ComposedGraph({ lineStrokeColor, sessionData}) {
     if(sessionData === undefined || !sessionData) return <Loader />;
 
+    /**
+     * Brief: Rendu personnalisé de la légende avec ordre spécifique des éléments
+     * @param {Object} props - Propriétés de la légende contenant le payload
+     * @returns {JSX.Element} Liste HTML personnalisée pour la légende
+     */
     const renderLegend = useCallback((props) => {
         const { payload } = props;
         const orderedPayload = [
@@ -27,6 +38,11 @@ export default function ComposedGraph({ lineStrokeColor, sessionData}) {
             </ul>
         );
     })
+    
+    /**
+     * Brief: Transforme les données de session en données organisées par jour de la semaine
+     * @returns {Array} Données formatées avec jour de semaine et fréquence cardiaque
+     */
     const graphData = useMemo(() => {
         // console.log("sessionDatae :", sessionData);
         const WeekHeartRate = sessionData.map((r) => {

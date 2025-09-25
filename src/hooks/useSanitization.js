@@ -1,10 +1,19 @@
 import { sanitizeRequest } from '@/lib/askai.lib';
 import { useState, useTransition } from 'react';
 
-
+/**
+ * Brief: Hook personnalisé pour gérer la validation et la sanitisation des messages utilisateur
+ * 
+ * @returns {Array} Tableau contenant [isPending, result, executeSanitization] pour la sanitisation
+ */
 export default function useSanitization () {
     const [result, setResult] = useState({});
     const [isPending, startTransition] = useTransition(false);
+    /**
+     * Brief: Fonction interne pour exécuter la sanitisation d'un message utilisateur
+     * 
+     * @param {string} message - Message utilisateur à valider et sanitiser
+     */
     function executeSanitization (message) {
         startTransition(async() => {
             try{

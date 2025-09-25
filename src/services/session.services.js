@@ -12,6 +12,12 @@ import { redirect } from 'next/navigation';
 const secretKey = process.env.SECRET;
 const key = new TextEncoder().encode(secretKey);
 
+/**
+ * Brief: Chiffre un payload en token JWT avec expiration d'une heure
+ * 
+ * @param {Object} payload - Données à chiffrer dans le token
+ * @returns {string} Token JWT chiffré
+ */
 export const encrypt = async (payload) => {
     return new SignJWT(payload)
         .setProtectedHeader({ alg: 'HS256' })
@@ -20,6 +26,12 @@ export const encrypt = async (payload) => {
         .sign(key)
 }
 
+/**
+ * Brief: Déchiffre et vérifie un token de session JWT
+ * 
+ * @param {string} session - Token JWT chiffré à déchiffrer
+ * @returns {Object|null} Payload déchiffré ou null si invalide
+ */
 export const decrypt = async (session) => {
   try {
     const { payload } = await jwtVerify(session, key, {
@@ -31,6 +43,13 @@ export const decrypt = async (session) => {
   }
 }
 
+/**
+ * Brief: Crée une session utilisateur sécurisée et redirige vers le dashboard
+ * 
+ * @param {Object} params - Paramètres de session contenant {token, userId}
+ * @param {string} params.token - Token JWT de l'API externe
+ * @param {string} params.userId - Identifiant utilisateur
+ */
 export const createSession = async ({ token, userId }) => {
   const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
   const session = await encrypt({ token, userId, expiresAt });
@@ -47,6 +66,11 @@ export const createSession = async ({ token, userId }) => {
   redirect('/dashboard');
 }
 
+/**
+ * Brief: Vérifie la validité de la session utilisateur actuelle
+ * 
+ * @returns {Object} Objet {isAuth: boolean, userId?: string, token?: string, error?: string}
+ */
 export const verifySession = async () => {
   const cookieStore = await cookies()
   const cookie = cookieStore.get('session')?.value;
@@ -59,6 +83,11 @@ export const verifySession = async () => {
   return { isAuth: true, userId: session.userId, token: session.token };
 }
 
+/**
+ * Brief: Met à jour la durée de vie d'une session existante
+ * 
+ * @returns {null} Fonction de maintenance de session
+ */
 export const updateSession = async () => {
   const session = cookies().get('session')?.value;
   const payload = await decrypt(session);
@@ -77,6 +106,9 @@ export const updateSession = async () => {
   });
 }
 
+/**
+ * Brief: Supprime la session utilisateur (déconnexion)
+ */
 export const deleteSession = async () => {
   (await cookies()).delete('session');
 }

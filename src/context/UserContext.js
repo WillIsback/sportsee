@@ -11,13 +11,23 @@ import { createContext } from 'react'
 import { FetchUserInfo } from '@/lib/userData';
 import { useQuery } from '@tanstack/react-query'
 
-
-
+/**
+ * Brief: Contexte React pour partager le profil utilisateur
+ */
 export const UserProfileContext = createContext();
+
+/**
+ * Brief: Contexte React pour partager les statistiques utilisateur
+ */
 export const UserStatsContext = createContext();
 
-
-
+/**
+ * Brief: Composant Provider pour fournir les données utilisateur aux composants enfants
+ * 
+ * @param {Object} props - Propriétés du composant
+ * @param {React.ReactNode} props.children - Composants enfants
+ * @returns {JSX.Element} Provider avec données utilisateur ou état de chargement
+ */
 export function UserDataProvider({ children }) {
     const { isPending, error, data, isFetching } = useQuery({
         queryKey: ['userData'],

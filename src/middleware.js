@@ -10,6 +10,11 @@ import { NextResponse } from "next/server";
 import { verifySession } from '@/services/session.services';
 import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/lib/constants';
 
+/**
+ * Brief: Middleware Next.js pour la gestion des routes protégées et redirections d'authentification
+ * @param {NextRequest} request - Objet Request Next.js contenant l'URL et les informations de requête
+ * @returns {Promise<NextResponse>} Réponse avec redirection appropriée ou continuation normale
+ */
 export async function middleware(request) {
 
   const path = request.nextUrl.pathname

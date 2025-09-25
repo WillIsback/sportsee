@@ -7,10 +7,19 @@ import WeeklyRecap from '@/components/StatsGrid/WeeklyRecap/WeeklyRecap';
 import { decrementWeek, convertDateToISO, convertISODateToSlash } from '@/lib/utils';
 import { useRef } from 'react';
 
+/**
+ * Brief: Composant principal pour afficher la grille de statistiques sportives de l'utilisateur
+ * @returns {JSX.Element} Grille avec sections de performances passées et statistiques de la semaine courante
+ */
 export default function StatsGrid() {
  
     const renderCounter = useRef(0);
     renderCounter.current++;
+    
+    /**
+     * Brief: Calcule les dates de début et fin de la semaine courante
+     * @returns {Object} Objet contenant startWeek et endWeek formatées pour l'affichage
+     */
     const getCurrentWeekDate= () => {
         const startWeek = convertISODateToSlash(decrementWeek(convertDateToISO(Date.now())));
         const endWeek = convertISODateToSlash(convertDateToISO(Date.now()));

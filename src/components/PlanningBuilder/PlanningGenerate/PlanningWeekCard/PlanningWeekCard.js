@@ -2,10 +2,26 @@ import styles from './PlanningWeekCard.module.css';
 import { useState } from 'react';
 import PlanningDayCard from './PlanningDayCard/PlanningDayCard';
 
+/**
+ * Brief: Composant pour afficher une carte de semaine de planning avec possibilité de déplier/replier
+ * @param {string} titre - Titre de la semaine (nom de la semaine)
+ * @param {Object} data - Données de la semaine contenant les activités par jour
+ * @returns {JSX.Element} Carte de semaine avec boutons de dépliage et liste des jours
+ */
 export default function PlanningWeekCard({  titre, data }) {
     const [collapse, setCollapse] = useState(true);
+    
+    /**
+     * Brief: Met en forme une chaîne en capitalisant la première lettre
+     * @param {string} str - Chaîne de caractères à formatter
+     * @returns {string} Chaîne avec première lettre en majuscule
+     */
     const capitalizeFirst = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 
+    /**
+     * Brief: Basculer l'état de dépliage/repliage de la carte
+     * @returns {void}
+     */
     function toggleCollapse(){
         setCollapse(!collapse);
     }

@@ -3,7 +3,11 @@ import { UserProfileContext } from '@context/UserContext';
 import { convertCMHeightToMcM, translateGender } from '@/lib/utils';
 import { use } from 'react';
 
-
+/**
+ * Brief: Composant de carte d'affichage des attributs du profil utilisateur
+ * 
+ * @returns {JSX.Element} Carte avec les informations personnelles (âge, genre, taille, poids)
+ */
 export default function AttributesCard() {
     const userData = use(UserProfileContext);
     const { age, gender, height, weight } = userData?.dataProfile;

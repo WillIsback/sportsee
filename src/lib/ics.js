@@ -1,4 +1,10 @@
-// Fonction pour wrapper les lignes longues selon RFC 5545
+/**
+ * Brief: Enroule les lignes longues selon la norme RFC 5545 pour les fichiers ICS
+ * 
+ * @param {string} line - Ligne à enrouler
+ * @param {number} maxLength - Longueur maximale par ligne (défaut: 75)
+ * @returns {string} Ligne enroulée avec sauts de ligne appropriés
+ */
 function wrapLine(line, maxLength = 75) {
   if (line.length <= maxLength) return line;
   
@@ -18,6 +24,11 @@ function wrapLine(line, maxLength = 75) {
 }
 
 // Génération du DTSTAMP (timestamp de création)
+/**
+ * Brief: Génère un timestamp DTSTAMP au format ICS pour la création d'événements
+ * 
+ * @returns {string} Timestamp formaté pour les fichiers ICS
+ */
 function generateDTSTAMP() {
   return new Date().toISOString()
     .replace(/[-:]/g, '')
@@ -25,6 +36,12 @@ function generateDTSTAMP() {
 }
 
 // Format de date simple pour les tâches quotidiennes
+/**
+ * Brief: Convertit une date au format ICS (YYYYMMDD)
+ * 
+ * @param {Date} date - Date à convertir
+ * @returns {string} Date au format ICS
+ */
 function toICSDateOnly(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -33,6 +50,14 @@ function toICSDateOnly(date) {
 }
 
 // Calcul de date pour les exercices
+/**
+ * Brief: Calcule la date d'un exercice basée sur le jour de la semaine et l'index de semaine
+ * 
+ * @param {string|Date} startDate - Date de début du planning
+ * @param {string} dayName - Nom du jour en français (ex: "Lundi", "Mardi")
+ * @param {number} weekIndex - Index de la semaine (0 = première semaine)
+ * @returns {Date} Date calculée pour l'exercice
+ */
 function calculateExerciseDate(startDate, dayName, weekIndex) {
   const dayMapping = {
     'Lundi': 1, 'Mardi': 2, 'Mercredi': 3, 'Jeudi': 4,
@@ -55,6 +80,12 @@ function calculateExerciseDate(startDate, dayName, weekIndex) {
   
   return exerciseDate;
 }
+/**
+ * Brief: Nettoie le texte UTF-8 en remplaçant les caractères accentués par des équivalents ASCII
+ * 
+ * @param {string} text - Texte à nettoyer
+ * @returns {string} Texte nettoyé sans caractères spéciaux
+ */
 function cleanUTF8(text) {
   return text
     .replace(/[àáâãäå]/g, 'a')
@@ -66,6 +97,14 @@ function cleanUTF8(text) {
     .replace(/[ñ]/g, 'n');
 }
 // Génération d'un UID unique
+/**
+ * Brief: Génère un identifiant unique (UID) pour un événement ICS
+ * 
+ * @param {Object} exercise - Objet exercice contenant les détails
+ * @param {Date} date - Date de l'exercice
+ * @param {number} index - Index de l'exercice
+ * @returns {string} UID unique formaté pour ICS
+ */
 function generateUID(exercise, date, index) {
   const dateStr = toICSDateOnly(date);
   const cleanTitle = exercise.titre.toLowerCase().replace(/\s+/g, '-');
@@ -73,6 +112,13 @@ function generateUID(exercise, date, index) {
 }
 
 // Fonction pour ajouter une ligne avec wrapping automatique
+/**
+ * Brief: Ajoute une ligne formatée ICS avec enroulement automatique
+ * 
+ * @param {Array} lines - Tableau de lignes ICS
+ * @param {string} property - Propriété ICS (ex: "SUMMARY", "DTSTART")
+ * @param {string} value - Valeur de la propriété (optionnel)
+ */
 function addICSLine(lines, property, value = '') {
   const line = value ? `${property}:${value}` : property;
   const wrapped = wrapLine(line);
@@ -80,6 +126,13 @@ function addICSLine(lines, property, value = '') {
 }
 
 // Fonction principale corrigée selon RFC 5545
+/**
+ * Brief: Génère un fichier ICS complet à partir d'un planning d'entraînement
+ * 
+ * @param {Object} planning - Objet planning avec semaines et exercices
+ * @param {string|Date} startDate - Date de début du planning
+ * @returns {string} Contenu du fichier ICS formaté
+ */
 export default function generateICSFromPlanning(planning, startDate) {
   const icsLines = [];
   const dtstamp = generateDTSTAMP();

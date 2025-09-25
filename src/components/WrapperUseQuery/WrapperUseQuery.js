@@ -19,6 +19,12 @@ const queryClient = new QueryClient({
   },
 })
 
+/**
+ * Brief: Composant wrapper pour fournir QueryClient, gestion d'erreur et contexte utilisateur
+ * @param {Object} props - Propriétés du composant
+ * @param {React.ReactNode} props.children - Composants enfants à wrapper
+ * @returns {JSX.Element} Wrapper avec QueryClientProvider, ErrorBoundary et UserDataProvider
+ */
 export default function WrapperUseQuery({ children }) {
   return (
   <QueryClientProvider client={queryClient}>

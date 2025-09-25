@@ -15,8 +15,13 @@ import { formatWeeklyData, formatUserDataProfile } from '@/lib/utils';
 import { UserProfileContext } from '@context/UserContext';
 import { use, useRef } from 'react';
 
-
-
+/**
+ * Brief: Composant modal de chat avec l'IA incluant gestion des messages et limitations
+ * 
+ * @param {Object} props - Propriétés du composant
+ * @param {Function} props.onClose - Fonction appelée pour fermer la modal
+ * @returns {JSX.Element} Modal complète de chat avec formulaire et affichage des messages
+ */
 export default function ChatModal({ onClose }) {
   const [isNew, setIsNew] = useState(true);
   const [isRateLimited,  activateRateLimit] = useRateLimit();

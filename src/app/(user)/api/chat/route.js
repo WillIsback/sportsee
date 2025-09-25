@@ -14,6 +14,12 @@ import { rateLimitByKey } from '@/lib/askai.lib';
 /*
     Fetch Error Message Handlers
 */
+
+/**
+ * Brief: Génère des messages d'erreur appropriés selon le code de statut HTTP
+ * @param {number} statusCode - Code de statut HTTP de l'erreur
+ * @returns {Object} Objet contenant messages d'erreur pour utilisateur et développeur
+ */
 export const ErrorMessage = (statusCode) => {
     switch(statusCode) {
         case 400: return {
@@ -43,7 +49,11 @@ export const ErrorMessage = (statusCode) => {
     }
 }
 
-
+/**
+ * Brief: Handler POST pour les requêtes de chat IA avec vérification d'authentification et rate limiting
+ * @param {Request} request - Objet Request contenant le payload de la requête
+ * @returns {Promise<Response>} Réponse HTTP avec le résultat du chat IA ou un message d'erreur
+ */
 export async function POST(request) {
   const { tier, limit, timeframe } = MISTRAL_RATE_LIMIT[0];
   console.log("limit, timeframe : ", limit, timeframe);

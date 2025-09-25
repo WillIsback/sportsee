@@ -17,7 +17,11 @@ import { UserProfileContext } from '@context/UserContext';
 import { useEffect, useState, use } from 'react';
 import { workoutProgramMockData } from '@/lib/constants';
 
-
+/**
+ * Brief: Composant principal de création de plannings d'entraînement avec IA
+ * 
+ * @returns {JSX.Element} Interface multi-étapes pour générer un planning personnalisé
+ */
 export default function PlanningBuilder () {
   const [step, setStep] = useState(0);
   const [objectif, setObjectif] = useState('');
@@ -50,12 +54,18 @@ export default function PlanningBuilder () {
     }
   }, [isPending, error]);
 
+  /**
+   * Brief: Passe à l'étape suivante du processus de création de planning
+   */
   function nextStep() {
     if(step<3){
       setStep(step+1);
     };
   };
 
+  /**
+   * Brief: Revient à l'étape précédente du processus de création
+   */
   function previousStep(){
     if(step>0){
       setStep(step-1);
@@ -68,6 +78,9 @@ export default function PlanningBuilder () {
   function handleGoalNextTo () {
     nextStep();
   };
+  /**
+   * Brief: Lance la génération du planning d'entraînement via l'IA
+   */
   function handleGenerateClick() {
 
       executePostFetch({
@@ -89,6 +102,9 @@ export default function PlanningBuilder () {
     restart();
   }
 
+  /**
+   * Brief: Remet à zéro le processus de création de planning
+   */
   function restart(){
     setStep(0);
     setObjectif(null);

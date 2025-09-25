@@ -3,6 +3,11 @@ import { UserStatsContext } from '@context/UserContext';
 import { use } from "react";
 import { ICfinishLine } from '@/lib/icon';
 
+/**
+ * Brief: Composant d'affichage des achievements utilisateur (distance totale)
+ * 
+ * @returns {JSX.Element} Section affichant la distance totale parcourue par l'utilisateur
+ */
 export default function Achievements() {
     const userData = use(UserStatsContext);
     const { totalDistance, ...rest} = userData?.dataStats;

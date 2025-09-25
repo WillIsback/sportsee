@@ -3,12 +3,19 @@ import { useMemo } from 'react';
 import { decrementWeek, convertDateToISO } from '@/lib/utils';
 import styles from './WeeklyRecap.module.css';
 
-
+/**
+ * Brief: Composant de récapitulatif hebdomadaire affichant durée totale et distance parcourue
+ * @returns {JSX.Element} Section avec articles de statistiques de durée et distance de la semaine courante
+ */
 export default function WeeklyRecap() {
     const startWeek = decrementWeek(convertDateToISO(Date.now()));
     const endWeek = convertDateToISO(Date.now());
     const { isPending, data } = useUserSessions(startWeek, endWeek);
 
+    /**
+     * Brief: Calcule les totaux de distance et durée pour la semaine courante
+     * @returns {Object|null} Objet contenant totalDis et totalDur, ou null si pas de données
+     */
     const getCurrentWeekRecap = useMemo(() => {
         if(!data) return null;
         let totalDis = 0;

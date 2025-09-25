@@ -6,6 +6,11 @@
     lastUpdate: 09/09/2025
 */
 
+/**
+ * Brief: Icône flèche gauche (chevron left)
+ * 
+ * @returns {JSX.Element} SVG d'une flèche pointant vers la gauche
+ */
 export const ChevronLeft = () => {
     return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -15,6 +20,11 @@ export const ChevronLeft = () => {
 };
 
 
+/**
+ * Brief: Icône flèche droite (chevron right)
+ * 
+ * @returns {JSX.Element} SVG d'une flèche pointant vers la droite
+ */
 export const ChevronRight = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -23,6 +33,11 @@ export const ChevronRight = () => {
     );
 };
 
+/**
+ * Brief: Icône ligne d'arrivée pour représenter les objectifs sportifs
+ * 
+ * @returns {JSX.Element} SVG d'une ligne d'arrivée avec des drapeaux
+ */
 export const ICfinishLine = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="35" viewBox="0 0 34 35" fill="none">
@@ -40,6 +55,11 @@ export const ICfinishLine = () => {
     );
 };
 
+/**
+ * Brief: Icône IA avec étoiles pour représenter l'intelligence artificielle
+ * 
+ * @returns {JSX.Element} SVG d'étoiles scintillantes symbolisant l'IA
+ */
 export const IconAi = () => {
     return (
     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="21" viewBox="0 0 19 21" fill="none">
@@ -51,6 +71,11 @@ export const IconAi = () => {
 };
 
 
+/**
+ * Brief: Icône de fermeture (X) pour boutons de fermeture
+ * 
+ * @returns {JSX.Element} SVG d'une croix pour fermer
+ */
 export const IconX = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
@@ -60,6 +85,11 @@ export const IconX = () => {
     );
 };
 
+/**
+ * Brief: Icône étoile décorative pour les éléments visuels
+ * 
+ * @returns {JSX.Element} SVG d'étoiles décoratives colorées
+ */
 export const Istar = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="21" viewBox="0 0 19 21" fill="none">
@@ -70,6 +100,11 @@ export const Istar = () => {
     );
 };
 
+/**
+ * Brief: Icône flèche de téléchargement pointant vers le bas
+ * 
+ * @returns {JSX.Element} SVG d'une flèche de téléchargement
+ */
 export const ArrowDownload = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

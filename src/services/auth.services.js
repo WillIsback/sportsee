@@ -13,6 +13,13 @@ import { createSession, deleteSession } from '@/services/session.services';
 /*
     Fonction de base de gestion du l'authentifacation a l'API
 */
+/**
+ * Brief: Gère l'authentification utilisateur avec l'API backend et la création de session
+ * 
+ * @param {*} prevState - État précédent du formulaire (peut être null)
+ * @param {FormData} queryData - Données du formulaire contenant username et password
+ * @returns {Object} Objet {success, message, error} indiquant le résultat de l'authentification
+ */
 export const login = async (prevState, queryData) => {
     if(!queryData){ return { success: false, error: "Echec de la récupération du Formadata" }};
 
@@ -35,6 +42,9 @@ export const login = async (prevState, queryData) => {
     }
 }
 
+/**
+ * Brief: Déconnecte l'utilisateur en supprimant sa session
+ */
 export const logout = async () => {
   await deleteSession();
 }

@@ -4,7 +4,11 @@ import ChatModal from '../ChatModal/ChatModal';
 import { createPortal } from 'react-dom';
 import { useState } from 'react';
 
-
+/**
+ * Brief: Composant d'interface pour lancer des conversations avec l'IA sportive
+ * 
+ * @returns {JSX.Element} Section avec bouton pour ouvrir la modal de chat IA
+ */
 export default function AskAi() {
     const [showModal, setShowModal] = useState(false);
     

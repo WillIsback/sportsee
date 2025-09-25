@@ -6,7 +6,12 @@ import { useDateState, useUserSessions} from '@hooks/useUserData';
 import { useState } from 'react';
 import { convertDateToISO, incrementWeek, decrementWeek } from '@/lib/utils';
 
-
+/**
+ * Brief: Composant pour afficher les statistiques de distance parcourue avec graphique en barres
+ * @param {string} defStartWeek - Date de début de semaine par défaut au format ISO
+ * @param {string} defEndWeek - Date de fin de semaine par défaut au format ISO
+ * @returns {JSX.Element} Graphique de statistiques de distance avec navigation temporelle et effet de survol
+ */
 export default function StatsKm({defStartWeek, defEndWeek}) {
     const [isHovered, setIshovered] = useState(false);
     const [startWeek, setStartWeek, endWeek, setEndWeek ] = useDateState(defStartWeek, defEndWeek);
@@ -17,6 +22,14 @@ export default function StatsKm({defStartWeek, defEndWeek}) {
     // console.log("data", data)
     
 
+    /**
+     * Brief: Gère le clic pour naviguer vers la semaine précédente
+     * @returns {Promise<void>}
+     */
+    /**
+     * Brief: Gère le clic pour naviguer vers la semaine précédente
+     * @returns {Promise<void>}
+     */
     const handleClickOnSlideLeft = async () => {
         (startWeek < endWeek 
             ? setStartWeek(decrementWeek(startWeek))
@@ -24,6 +37,10 @@ export default function StatsKm({defStartWeek, defEndWeek}) {
         );
     }
 
+    /**
+     * Brief: Gère le clic pour naviguer vers la semaine suivante (limitée à la date actuelle)
+     * @returns {Promise<void>}
+     */
     const handleClickOnSlideRight = async () => {
         const upperLimit = Date.now();
         (endWeek < (convertDateToISO(upperLimit)) 

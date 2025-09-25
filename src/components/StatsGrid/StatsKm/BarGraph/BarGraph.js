@@ -4,11 +4,24 @@ import styles from './BarGraph.module.css';
 import Loader from '@/components/Loader/Loader';
 import { useCallback, useMemo } from 'react';
 
+/**
+ * Brief: Composant graphique en barres pour afficher les statistiques de distance parcourue
+ * @param {string} barFillColor - Couleur de remplissage des barres du graphique
+ * @param {Array} sessionData - Données des sessions d'entraînement contenant dates et distances
+ * @returns {JSX.Element} Graphique en barres avec tooltip personnalisé et navigation temporelle
+ */
 export default function BarGraph({ barFillColor, sessionData}) {
 
     if(sessionData === undefined || !sessionData) return <Loader />;
 
-
+    /**
+     * Brief: Transforme les données de session en ajoutant des indices pour l'affichage
+     * @returns {Array} Données transformées avec indices S0, S1, etc. pour les semaines
+     */
+    /**
+     * Brief: Transforme les données de session en ajoutant des indices pour l'affichage
+     * @returns {Array} Données transformées avec indices S0, S1, etc. pour les semaines
+     */
     const updateSession = useMemo(() => {
             return sessionData.map(({ date, ...rest }, index) => {
                 const IndiceDate = date.replace(regexDateISO, `S${index}`)
@@ -16,7 +29,16 @@ export default function BarGraph({ barFillColor, sessionData}) {
             });
     }, [sessionData]);
 
-
+    /**
+     * Brief: Convertit un indice de semaine en période de dates formatée
+     * @param {string} IndiceDate - Indice de la forme "S0", "S1", etc.
+     * @returns {Function} Fonction qui retourne la période formatée ou null
+     */
+    /**
+     * Brief: Convertit un indice de semaine en période de dates formatée
+     * @param {string} IndiceDate - Indice de la forme "S0", "S1", etc.
+     * @returns {Function} Fonction qui retourne la période formatée ou null
+     */
     const getDateFromIndice = useCallback((IndiceDate) => sessionData.map(({ date, ...rest }, index) => {
             if(String(index) === IndiceDate.slice(1).trim()){
                 const startPeriod = convertDateToDDMM(date).replace('/', '.');
@@ -26,6 +48,13 @@ export default function BarGraph({ barFillColor, sessionData}) {
             else return null;
     }), [sessionData]);
 
+    /**
+     * Brief: Tooltip personnalisé pour afficher les détails d'une barre au survol
+     * @param {boolean} active - État d'activation du tooltip
+     * @param {Array} payload - Données de la barre survolée
+     * @param {string} label - Label de la barre (indice de semaine)
+     * @returns {JSX.Element} Tooltip avec période et distance formatées
+     */
     const CustomTooltip = useCallback(({ active, payload, label }) => {
         const isVisible = active && payload && payload.length && getDateFromIndice(label);
         return (

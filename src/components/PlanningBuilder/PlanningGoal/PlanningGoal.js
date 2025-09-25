@@ -1,6 +1,12 @@
 import styles from './PlanningGoal.module.css';
 import { ICtarget } from '@/lib/icon';
 
+/**
+ * Brief: Composant pour définir l'objectif principal de l'utilisateur pour son programme sportif
+ * @param {Function} handleGoalNextTo - Fonction pour passer à l'étape suivante après saisie de l'objectif
+ * @param {Function} setObjectif - Fonction pour mettre à jour l'objectif saisi par l'utilisateur
+ * @returns {JSX.Element} Interface de saisie d'objectif avec champ texte et bouton de validation
+ */
 export default function PlanningGoal ({ handleGoalNextTo, setObjectif }) {
   return (
     <article className={styles.PlanningGoal}>

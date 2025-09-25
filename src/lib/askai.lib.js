@@ -1,7 +1,12 @@
 'use server';
 import * as z from "zod";
 
-// Détection de prompt injection
+/**
+ * Brief: Détecte les tentatives d'injection de prompt dans l'input utilisateur
+ * 
+ * @param {string} input - Texte d'entrée à vérifier
+ * @returns {boolean} True si une injection de prompt est détectée
+ */
 function detectPromptInjection(input) {
   const suspiciousPatterns = [
     /ignore\s+previous\s+instructions/i,
@@ -27,6 +32,12 @@ function detectPromptInjection(input) {
 }
 
 // Sanitisation des données
+/**
+ * Brief: Nettoie et sécurise l'input utilisateur contre les attaques XSS
+ * 
+ * @param {string} input - Texte d'entrée à nettoyer
+ * @returns {string} Texte nettoyé et sécurisé
+ */
 function sanitizeInput(input) {
   if (typeof input !== 'string') {
     return '';
@@ -42,6 +53,12 @@ function sanitizeInput(input) {
 }
 
 // Sanitisation spécifique pour l'IA
+/**
+ * Brief: Nettoie spécifiquement le texte pour l'IA en masquant les informations sensibles
+ * 
+ * @param {string} text - Texte à nettoyer pour l'IA
+ * @returns {string} Texte nettoyé avec informations sensibles masquées
+ */
 function sanitizeForAI(text) {
   return text
     .slice(0, 10000) // Limite la longueur à 10k caractères
@@ -54,6 +71,12 @@ function sanitizeForAI(text) {
 
 
 // Version sans Zod - validation manuelle
+/**
+ * Brief: Valide manuellement l'input utilisateur selon des règles métier
+ * 
+ * @param {string} input - Input utilisateur à valider
+ * @returns {Object} Objet {isValid: boolean, errors: Array, data: string|null}
+ */
 function validateInput(input) {
   const errors = [];
   
@@ -86,6 +109,12 @@ function validateInput(input) {
 }
 
 // Fonction principale de traitement
+/**
+ * Brief: Fonction principale de validation et sanitisation des requêtes utilisateur
+ * 
+ * @param {string} rawInput - Input brut de l'utilisateur
+ * @returns {Object} Objet {success: boolean, data?: string, error?: string} avec le résultat de la sanitisation
+ */
 export async function sanitizeRequest(rawInput) {
   try {
     // 1. Validation
@@ -126,6 +155,14 @@ export async function sanitizeRequest(rawInput) {
 
 const trackers = {};
 // from this tutorial -> https://www.youtube.com/watch?v=D770heiyxdc&t=143s
+/**
+ * Brief: Implémente un système de limitation du taux de requêtes par clé
+ * 
+ * @param {string} key - Identifiant unique pour le rate limiting
+ * @param {number} limit - Nombre maximum de requêtes autorisées
+ * @param {number} window - Fenêtre de temps en millisecondes
+ * @returns {boolean} True si la requête est autorisée, false sinon
+ */
 export async function rateLimitByKey(key, limit, window){
   if (!key) {
     throw new Error ("key not found");
@@ -152,6 +189,13 @@ export async function rateLimitByKey(key, limit, window){
 }
 
 
+/**
+ * Brief: Valide le format d'un planning d'entraînement avec Zod
+ * 
+ * @param {Object} objet - Objet planning à valider
+ * @returns {Object} Planning validé et parsé
+ * @throws {Error} Erreur si la validation échoue
+ */
 export async function validationPlanningFormat (objet) {
   const day = z.strictObject({
     jour: z.string(),
@@ -180,6 +224,12 @@ export async function validationPlanningFormat (objet) {
 }
 
 
+/**
+ * Brief: Valide un planning et génère une réponse HTTP formatée
+ * 
+ * @param {Object} resp - Réponse du planning à valider
+ * @returns {Response} Réponse HTTP avec le planning validé ou une erreur
+ */
 export async function validateNGenerateResponse(resp){
   try {
       await validationPlanningFormat(resp);
