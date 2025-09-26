@@ -1,8 +1,8 @@
 import { Mistral } from '@mistralai/mistralai';
-import { userPrompt, coachNuserPrompt, PlannerPrompt } from '@/lib/prompt';
+import { coachNuserPrompt, PlannerPrompt } from '@/lib/prompt';
 import { validateNGenerateResponse } from '@/lib/askai.lib';
-import { workoutProgramMockData, DEMO } from '@/lib/constants';
-import { generateICSFromPlanning } from '@/lib/askai.lib';
+import { workoutProgramMockData, DEMO, MISTRAL_CONFIG } from '@/lib/constants';
+import { withModelConfig } from '@/lib/askai.lib';
 
 const apiKey = process.env.MISTRAL_API_KEY;
 
@@ -14,13 +14,13 @@ const client = new Mistral({apiKey: apiKey});
  * @param {Object} request - Requête utilisateur contenant le message et le contexte
  * @returns {Response} Réponse HTTP avec le contenu généré par l'IA
  */
-export async function askaiChat(request) {
+async function rawAskaiChat(request) {
     // console.log("la request envoyé a mistral est :", request);
     const message = coachNuserPrompt(request);
     console.log("la request envoyé a mistral est :", message);
     try {
         const chatResponse = await client.chat.complete({
-            model: "mistral-small-2402",
+            model: MISTRAL_CONFIG.model,
             messages: coachNuserPrompt(request),
             maxTokens: 1024,
         });
@@ -37,6 +37,7 @@ export async function askaiChat(request) {
     }
 }
 
+export const askaiChat = withModelConfig(rawAskaiChat);
 
 /**
  * Brief: Génère un planning d'entraînement personnalisé via l'IA Mistral
@@ -44,14 +45,14 @@ export async function askaiChat(request) {
  * @param {Object} request - Requête contenant profil utilisateur, données et objectifs
  * @returns {Response} Planning d'entraînement validé au format JSON
  */
-export async function askaiPlan(request) {
+async function rawAskaiPlan(request) {
     // console.log("la request envoyé a mistral est :", request);
     const message = PlannerPrompt(request);
     // console.log("la request envoyé a mistral est :", message);
     try {
         if (!DEMO){
             const chatResponse = await client.chat.complete({
-                model: "mistral-small-2402",
+                model: MISTRAL_CONFIG.model,
                 messages: PlannerPrompt(request),
                 maxTokens: 4096,
                 responseFormat: {type: 'json_object'},
@@ -72,3 +73,4 @@ export async function askaiPlan(request) {
     }
 }
 
+export const askaiPlan = withModelConfig(rawAskaiPlan);

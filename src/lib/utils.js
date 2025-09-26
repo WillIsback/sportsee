@@ -306,3 +306,21 @@ export function formatUserDataProfile (dataProfile) {
     - Poids : ${weight}
     `;
 }
+
+/**
+ * Brief: Formate le profil utilisateur pour l'IA avec vérifications de sécurité
+ * 
+ * @param {Number} errorCode - code Erreur 
+ * @param {String} errorMessage - Message de l'erreur               
+ * @returns {String} getUserFriendlyError error custom string.
+ */
+export function getUserFriendlyError(errorCode, errorMessage) {
+  switch(errorCode) {
+    case 500:
+      return "Le serveur rencontre des difficultés. Réessayez dans quelques minutes.";
+    case 0:
+      return "Problème de connexion internet. Vérifiez votre réseau.";
+    default:
+      return errorMessage || "Une erreur inattendue s'est produite.";
+  }
+}

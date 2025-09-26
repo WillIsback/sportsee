@@ -8,6 +8,12 @@ export const MISTRAL_RATE_LIMIT = [
 ]
 export const DEMO = false;
 
+export const MISTRAL_CONFIG = {
+  model: process.env.MISTRAL_MODEL || 'mistral-small-2402',
+  maxTokens: 4096,
+  maxUserInputLength: 2000 // Limite simple et fixe
+};
+
 /** Planning mock Data **/
 export const workoutProgramMockData = async() =>{ return ({
     "semaine 1": {

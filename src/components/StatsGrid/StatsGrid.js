@@ -37,7 +37,7 @@ export default function StatsGrid() {
                     defEndWeek={(convertDateToISO(Date.now()))}
                 />
                 <StatsBpm 
-                    defStartWeek={(decrementWeek(convertDateToISO(Date.now()),4))}
+                    defStartWeek={(decrementWeek(convertDateToISO(Date.now()),6))}
                     defEndWeek={(convertDateToISO(Date.now()))}
                 />
             </div>

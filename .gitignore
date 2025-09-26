@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Copilot instruc file 
+.github/*
+.github/instructions/
+.github/instructions/context.instructions.md

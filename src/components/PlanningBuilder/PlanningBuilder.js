@@ -4,19 +4,18 @@ import PlanningDefault from './PlanningDefault/PlanningDefault';
 import PlanningGoal from './PlanningGoal/PlanningGoal';
 import PlanningDate from './PlanningDate/PlanningDate';
 import PlanningGenerate from './PlanningGenerate/PlanningGenerate';
-import usePlanRequest from '@hooks/usePlanRequest';
 import ErrorToast from '../ErrorToast/ErrorToast';
 import useRateLimit from '@hooks/useRateLimit';
 import Loader from '../Loader/Loader';
 import RefreshButton from '../Button/RefreshButton/RefreshButton';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
+import { useMistralAPIRequest } from '@hooks/useMistralAPIRequest';
 import { useUserSessions } from '@hooks/useUserData';
-import { decrementWeek, convertDateToISO } from '@/lib/utils';
+import { decrementWeek, convertDateToISO, getUserFriendlyError } from '@/lib/utils';
 import { formatWeeklyData, formatUserDataProfile } from '@/lib/utils';
 import { UserProfileContext } from '@context/UserContext';
 import { useEffect, useState, use } from 'react';
-import { workoutProgramMockData } from '@/lib/constants';
 
 /**
  * Brief: Composant principal de création de plannings d'entraînement avec IA
@@ -29,7 +28,9 @@ export default function PlanningBuilder () {
   const [date, setDate] = useState();
   const [planning, setPlanning] = useState({});
   const [isRateLimited,  activateRateLimit] = useRateLimit();
-  const [isPending, error, response, executePostFetch] = usePlanRequest();
+  const [isPending, response, executePostFetch] = useMistralAPIRequest("api/training-plan/generate");
+  const [errorState, setErrorState] = useState(null);
+
   const startWeek = decrementWeek(convertDateToISO(Date.now()), 2);
   const endWeek = convertDateToISO(Date.now());
   const lastWeekSession = useUserSessions(startWeek, endWeek);
@@ -37,23 +38,24 @@ export default function PlanningBuilder () {
   const weekFormatedData = formatWeeklyData(lastWeekSession) || undefined;
   const profileFormatedData =  formatUserDataProfile(userData?.dataProfile) || undefined;
  
-  useEffect(()=>{
-    if(!isPending){
-      if (!response.error && response?.planning){
-        setPlanning(response?.planning);
-        console.log("executePostFetch Planning return message :", response?.planning);
+  useEffect(() => {
+    if (!isPending) {
+      if (response.success && response.data) {
+        setPlanning(response.data);
+        setErrorState(null); // Reset l'erreur en cas de succès
         nextStep();
       }
-    }
-    if(response.error === 403){
+      else if (response.errorCode === 403) {
         activateRateLimit();
-        console.error("Error :", response.error, "Rate limit detection : Request per second reach for this model !");
-    }
-    else if(error){
-        console.error("Error :", response.error);
+      }
+      else if (!response.success && response.error) {
+        // Message d'erreur personnalisé selon le code
+        const userFriendlyMessage = getUserFriendlyError(response.errorCode, response.error);
+        setErrorState(userFriendlyMessage);
         setStep(-10);
+      }
     }
-  }, [isPending, error]);
+  }, [isPending]);
 
   /**
    * Brief: Passe à l'étape suivante du processus de création de planning
@@ -141,7 +143,12 @@ export default function PlanningBuilder () {
                 handleRestartClick={handleRestartClick}
               />)
       default:
-        return <><ErrorMessage message={"Le chargement du planning a échoué"}/> <RefreshButton /> </>
+        return (
+          <>
+            <ErrorMessage message={errorState || "Le chargement du planning a échoué"} />
+            <RefreshButton />
+          </>
+        );
     }
   }
 
