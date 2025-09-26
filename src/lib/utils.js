@@ -8,7 +8,7 @@
 
 /**
  * Brief: Convertit une date en chaîne formatée en français
- * 
+ *
  * @param {Date|string} date - Date à convertir
  * @param {boolean} short - Si true, retourne un format court (jj mois), sinon format complet
  * @returns {string} Date formatée en français
@@ -25,7 +25,7 @@ export const convertDateToString = (date, short = false) => {
 
 /**
  * Brief: Convertit une date au format ISO (YYYY-MM-DD)
- * 
+ *
  * @param {Date|string} date - Date à convertir
  * @returns {string} Date au format ISO
  */
@@ -36,7 +36,7 @@ export const convertDateToISO = (date) => {
 
 /**
  * Brief: Calcule le nombre de semaines entre deux dates
- * 
+ *
  * @param {Date|string} dateStart - Date de début
  * @param {Date|string} dateSend - Date de fin
  * @returns {number} Nombre de semaines de différence
@@ -53,7 +53,7 @@ export const getDeltaWeek = (dateStart, dateSend) => {
 
 /**
  * Brief: Décrémente une date d'un nombre de semaines spécifié
- * 
+ *
  * @param {Date|string} date - Date de référence
  * @param {number} weeks - Nombre de semaines à soustraire (défaut: 1)
  * @returns {string} Date décrementée au format ISO
@@ -66,7 +66,7 @@ export const decrementWeek = (date, weeks=1) => {
 
 /**
  * Brief: Incrémente une date d'une semaine
- * 
+ *
  * @param {Date|string} date - Date de référence
  * @returns {string} Date incrémentée au format ISO
  */
@@ -79,30 +79,30 @@ export const incrementWeek = (date) => {
 
 /**
  * Brief: Composant de barre arrondie pour les graphiques Recharts
- * 
+ *
  * @param {Object} props - Propriétés du composant contenant fill, x, y, width, height
  * @returns {JSX.Element} Rectangle SVG avec coins arrondis
  */
 export const RoundedBar = (props) => {
     const { fill, x, y, width, height } = props;
     const radius = Math.min(width / 2, 7); // Limite le rayon à 7px max
-    
+
     return (
-        <rect 
-            x={x} 
-            y={y} 
-            width={width} 
-            height={height} 
-            rx={radius} 
-            ry={radius} 
-            fill={fill} 
+        <rect
+            x={x}
+            y={y}
+            width={width}
+            height={height}
+            rx={radius}
+            ry={radius}
+            fill={fill}
         />
     );
 };
 
 /**
  * Brief: Génère une légende SVG selon l'index fourni pour les graphiques
- * 
+ *
  * @param {number} index - Index pour déterminer le type de légende (0-2)
  * @returns {JSX.Element} Élément SVG de légende coloré
  */
@@ -128,7 +128,7 @@ export const getSvgLegend = (index) => {
                         <rect x="3" y="7" width="11" height="1" fill="#B6BDFC"/>
                         <circle cx="8.5" cy="7.5" r="3" fill="#0B23F4" stroke="white"/>
                     </svg>
-                </> 
+                </>
             }
         default: {
             return <></>
@@ -143,7 +143,7 @@ export const regexDateISO = /(\w+)(\W)(\w+)(\W)(\w+)/;
 
 /**
  * Brief: Convertit une date au format DD/MM
- * 
+ *
  * @param {Date|string} date - Date à convertir
  * @returns {string} Date formatée DD/MM
  */
@@ -158,7 +158,7 @@ export const convertDateToDDMM = (date) => {
 
 /**
  * Brief: Convertit une date ISO au format avec slashes
- * 
+ *
  * @param {string} date - Date au format ISO à convertir
  * @returns {string} Date formatée avec slashes
  */
@@ -170,7 +170,7 @@ export const convertISODateToSlash = (date) => {
 
 /**
  * Brief: Calcule le nombre de jours entre deux dates
- * 
+ *
  * @param {Date|string} startDate - Date de début
  * @param {Date|string} endDate - Date de fin
  * @returns {number} Nombre de jours de différence
@@ -184,7 +184,7 @@ export const getDeltaDays = (startDate, endDate) => {
 
 /**
  * Brief: Convertit un temps en minutes au format HH:MM
- * 
+ *
  * @param {number} time - Temps en minutes
  * @returns {string} Temps formaté HH:MM
  */
@@ -196,7 +196,7 @@ export const convertMMTimeToHHMM = (time) => {
 
 /**
  * Brief: Convertit une taille en centimètres au format mètres/centimètres
- * 
+ *
  * @param {number} height - Taille en centimètres
  * @returns {string} Taille formatée comme "1m75"
  */
@@ -209,7 +209,7 @@ export const convertCMHeightToMcM = (height) => {
 
 /**
  * Brief: Traduit un genre de l'anglais vers le français
- * 
+ *
  * @param {string} gender - Genre en anglais ('male', 'female')
  * @returns {string} Genre traduit en français
  */
@@ -230,7 +230,7 @@ export const translateGender = (gender) => {
 
 /**
  * Brief: Génère un timestamp de mise à jour pour les requêtes
- * 
+ *
  * @returns {number} Timestamp actuel en millisecondes
  */
 export const getUpdateTimestamp = () => {
@@ -240,7 +240,7 @@ export const getUpdateTimestamp = () => {
 
 /**
  * Brief: Formate les données de sessions hebdomadaires pour l'IA
- * 
+ *
  * @param {Array} session - Tableau de sessions utilisateur
  * @returns {Object|null} Objet formaté avec informations de performance ou null si données invalides
  */
@@ -250,12 +250,12 @@ export function formatWeeklyData(session) {
         console.warn("formatWeeklyData: session is null/undefined");
         return null;
     }
-    
+
     if (session.isPending) {
         console.log("formatWeeklyData: session is still pending");
         return null;
     }
-    
+
     if (!session.data || !Array.isArray(session.data) || session.data.length === 0) {
         console.error("formatWeeklyData: no data available");
         return "Aucune donnée de course disponible.";
@@ -287,7 +287,7 @@ export function formatWeeklyData(session) {
 
 /**
  * Brief: Formate le profil utilisateur pour l'IA avec vérifications de sécurité
- * 
+ *
  * @param {Object} dataProfile - Données du profil utilisateur
  * @returns {string} Profil formaté en texte lisible pour l'IA
  */
@@ -309,9 +309,9 @@ export function formatUserDataProfile (dataProfile) {
 
 /**
  * Brief: Formate le profil utilisateur pour l'IA avec vérifications de sécurité
- * 
- * @param {Number} errorCode - code Erreur 
- * @param {String} errorMessage - Message de l'erreur               
+ *
+ * @param {Number} errorCode - code Erreur
+ * @param {String} errorMessage - Message de l'erreur
  * @returns {String} getUserFriendlyError error custom string.
  */
 export function getUserFriendlyError(errorCode, errorMessage) {
@@ -324,3 +324,6 @@ export function getUserFriendlyError(errorCode, errorMessage) {
       return errorMessage || "Une erreur inattendue s'est produite.";
   }
 }
+
+
+

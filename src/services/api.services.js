@@ -5,7 +5,7 @@
     objectives: Mettre en place le code nécessaire à l'interface CRUD avec l'API REST backend.
     LastUpdate: 07/09/2025
 */
-
+import { withTimeout } from "@/lib/server.lib"
 const backendApiUrl =  "http://localhost:8000/api/"
 
 /*
@@ -13,7 +13,7 @@ const backendApiUrl =  "http://localhost:8000/api/"
 */
 /**
  * Brief: Convertit un code de statut HTTP en message d'erreur utilisateur et développeur
- * 
+ *
  * @param {number} statusCode - Code de statut HTTP de la réponse de l'API
  * @returns {Object} Objet contenant {user: string, dev: string} avec messages d'erreur
  */
@@ -25,16 +25,16 @@ export const getErrorMessage = (statusCode) => {
         }
         case 401: return {
             user: "Identifiants incorrects",
-            dev: "401: Unauthorized (missing or invalid token)" 
-        } 
+            dev: "401: Unauthorized (missing or invalid token)"
+        }
         case 403: return {
             user: "Accès refusé",
             dev: "403: Forbidden (invalid token)"
-        } 
+        }
         case 404: return {
             user: "Service temporairement indisponible",
             dev: "404: Resource not found"
-        } 
+        }
         case 500: return {
             user: "Erreur technique, veuillez réessayer",
             dev: "500: Server error"
@@ -51,7 +51,7 @@ export const getErrorMessage = (statusCode) => {
 */
 /**
  * Brief: Fonction générique pour effectuer des requêtes HTTP vers l'API backend
- * 
+ *
  * @param {string} endpoint - Endpoint de l'API à appeler (relatif à l'URL de base)
  * @param {Object} payload - Configuration de la requête {method, headers, body, authorization}
  * @returns {Request} Objet Request configuré pour l'appel à l'API
@@ -76,7 +76,7 @@ const request = (endpoint, payload) => {
 */
 /**
  * Brief: Authentifie un utilisateur auprès de l'API et retourne un token JWT
- * 
+ *
  * @param {string} username - Nom d'utilisateur pour l'authentification
  * @param {string} password - Mot de passe pour l'authentification
  * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec le résultat de l'authentification
@@ -94,14 +94,17 @@ export async function postLogin(username, password) {
     }
 
     try {
-        const response = await fetch(request(route, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                username: username, 
-                password: password,
-            })
-        }))
+        const response = await withTimeout(
+            fetch(request(route, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                })
+            })),
+            10000 // 10s max
+        );
 
         // Gestion des erreurs HTTP
         if (!response.ok) {
@@ -135,7 +138,7 @@ export async function postLogin(username, password) {
 */
 /**
  * Brief: Récupère les informations complètes du profil utilisateur depuis l'API
- * 
+ *
  * @param {string} token - Token JWT d'authentification
  * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec les informations utilisateur
  */
@@ -152,10 +155,13 @@ export async function getUserInfo(token) {
     }
 
     try {
-        const response = await fetch(request(route, {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` } ,
-        }))
+        const response = await withTimeout(
+            fetch(request(route, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` } ,
+            })),
+            10000
+        );
 
         // Gestion des erreurs HTTP
         if (!response.ok) {
@@ -191,7 +197,7 @@ export async function getUserInfo(token) {
 */
 /**
  * Brief: Récupère les activités/sessions utilisateur entre deux dates depuis l'API
- * 
+ *
  * @param {string} token - Token JWT d'authentification
  * @param {string} startWeek - Date de début au format ISO (YYYY-MM-DD)
  * @param {string} endWeek - Date de fin au format ISO (YYYY-MM-DD)
@@ -227,10 +233,13 @@ export async function getUserActivity(token, startWeek, endWeek) {
     }
 
     try {
-        const response = await fetch(request(route, {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` } ,
-        }))
+        const response = await withTimeout(
+            fetch(request(route, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` } ,
+            })),
+            10000
+        );
 
         // Gestion des erreurs HTTP
         if (!response.ok) {
@@ -264,7 +273,7 @@ export async function getUserActivity(token, startWeek, endWeek) {
 */
 /**
  * Brief: Récupère le chemin de l'image de profil utilisateur depuis l'API
- * 
+ *
  * @param {string} token - Token JWT d'authentification
  * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec le chemin de l'image
  */
@@ -281,10 +290,13 @@ export async function getUserProPic(token) {
     }
 
     try {
-        const response = await fetch(request(route, {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` } ,
-        }))
+        const response = await withTimeout(
+            fetch(request(route, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` } ,
+            })),
+            10000
+        );
 
         // Gestion des erreurs HTTP
         if (!response.ok) {
@@ -318,7 +330,7 @@ export async function getUserProPic(token) {
 */
 /**
  * Brief: Récupère un fichier utilisateur spécifique depuis l'API
- * 
+ *
  * @param {string} token - Token JWT d'authentification
  * @param {string} filename - Nom du fichier à récupérer
  * @returns {Object} Objet {success: boolean, data?: any, error?: Object} avec le fichier
@@ -354,10 +366,13 @@ export async function getUserFile(token, filename) {
     }
 
     try {
-        const response = await fetch(request(route, {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` } ,
-        }))
+        const response = await withTimeout(
+            fetch(request(route, {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` } ,
+            })),
+            10000
+        );
 
         // Gestion des erreurs HTTP
         if (!response.ok) {

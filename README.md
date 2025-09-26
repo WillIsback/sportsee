@@ -65,7 +65,7 @@ src/
 ## 🔧 Installation et Configuration
 
 ### Prérequis
-- Node.js 18+ 
+- Node.js 18+
 - Backend API SportSee (port 8000)
 - Clé API Mistral AI
 
@@ -122,6 +122,20 @@ yarn run dev
 
 ## 📊 Composants de Visualisation
 
+### 📹 Animation css
+*Demo de l'animation du menu de navigation*
+![Demo nav animation](./docs/images/gif/animation/bouton_nav.gif)
+
+*Demo de l'animation du logo*
+![Demo logo animation](./docs/images/gif/animation/logo_animation.gif)
+
+*Demo de l'animation du bouton par defaut*
+![Demo bouton par defaut animation](./docs/images/gif/animation/default_button_animation.gif)
+
+*Demo de l'animation du chevron de navigation calendaire*
+![Demo semaine nav animation](./docs/images/gif/animation/schedule_nav_animation.gif)
+
+
 ### Graphiques Sportifs
 - **BarGraph** - Sessions d'entraînement
 - **ComposedGraph** - Fréquence cardiaque
@@ -176,7 +190,7 @@ La démonstration montre la detection et la prise d'erreur de rendu.
 
 ## 👨‍💻 Développeur
 
-**William Derue** - Étudiant OpenClassrooms  
+**William Derue** - Étudiant OpenClassrooms
 Développeur IA
 
 ---

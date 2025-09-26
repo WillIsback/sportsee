@@ -43,7 +43,7 @@
   width: 304px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px; 
+  gap: 8px;
 }
 .PlanningDate__input_label {
   color: var(--Tokens-Typographie-Secondary, #707070);

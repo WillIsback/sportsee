@@ -1,6 +1,6 @@
 import styles from './PlanningGoal.module.css';
 import { ICtarget } from '@/lib/icon';
-import DefaultButton from '@/components/Button/DefaultButton/DefaultButton';
+import FormPlanningGoal from './FormPlanningGoal/FormPlanningGoal';
 /**
  * Brief: Composant pour définir l'objectif principal de l'utilisateur pour son programme sportif
  * @param {Function} handleGoalNextTo - Fonction pour passer à l'étape suivante après saisie de l'objectif
@@ -15,24 +15,9 @@ export default function PlanningGoal ({ handleGoalNextTo, setObjectif }) {
         <h2>Quel est votre objectif principal ?</h2>
         <p>Choisissez l’objectif qui vous motive le plus</p>
       </div>
-      <div className={styles.PlanningGoal__input_Box}>
-        <label className={styles.PlanningGoal__input_label}>
-            Objectif
-        </label>
-        <input 
-          type='text'
-          className={styles.PlanningGoal__input_textArea}
-          aria-labelledby='objectif'
-          name='objectif'
-          id='objectif'
-          onChange={(e) =>setObjectif(e.target.value)}
-        />
-      </div>
-      <DefaultButton 
-        type='button'
-        isDisabled={false}
-        onClick={handleGoalNextTo}
-        content={'Suivant'}
+      <FormPlanningGoal
+        handleGoalNextTo={handleGoalNextTo}
+        setObjectif={setObjectif}
       />
     </article>
   )

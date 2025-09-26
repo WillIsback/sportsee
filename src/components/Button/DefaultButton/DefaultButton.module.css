@@ -1,6 +1,7 @@
 
 .DefaultButton {
   display: flex;
+  max-height: 60px;
   padding: 16px 40px;
   justify-content: center;
   align-items: center;
