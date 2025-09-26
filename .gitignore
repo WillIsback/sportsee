@@ -44,3 +44,7 @@ next-env.d.ts
 .github/*
 .github/instructions/
 .github/instructions/context.instructions.md
+
+
+# docs personnal 
+docs/evaluation/*

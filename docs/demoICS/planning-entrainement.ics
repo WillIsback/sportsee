@@ -1,0 +1,107 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SportSee//Training Planner//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20251006-course-à-pied-0@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Course a pied (30minmin)
+DESCRIPTION:Course a pied en exterieur ou sur tapis roulant
+DTSTART;VALUE=DATE:20251006
+DTEND;VALUE=DATE:20251006
+END:VEVENT
+BEGIN:VEVENT
+UID:20251008-hollow-body-hold-1@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Hollow body hold (30minmin)
+DESCRIPTION:Allonge, corps creuse, bras tendu
+DTSTART;VALUE=DATE:20251008
+DTEND;VALUE=DATE:20251008
+END:VEVENT
+BEGIN:VEVENT
+UID:20251010-squats-2@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Squats (20minmin)
+DESCRIPTION:Pieds ecartes a la largeur des epaules, dos droit, descendre en
+  flechissant les genoux jusqu'a ce que les cuisses soient paralleles au so
+ l, puis remonter
+DTSTART;VALUE=DATE:20251010
+DTEND;VALUE=DATE:20251010
+END:VEVENT
+BEGIN:VEVENT
+UID:20251013-course-à-pied-3@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Course a pied (35minmin)
+DESCRIPTION:Course a pied en exterieur ou sur tapis roulant
+DTSTART;VALUE=DATE:20251013
+DTEND;VALUE=DATE:20251013
+END:VEVENT
+BEGIN:VEVENT
+UID:20251015-planche-4@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Planche (30minmin)
+DESCRIPTION:Position de gainage, coudes au sol, corps aligne
+DTSTART;VALUE=DATE:20251015
+DTEND;VALUE=DATE:20251015
+END:VEVENT
+BEGIN:VEVENT
+UID:20251017-fentes-marchées-5@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Fentes marchees (20minmin)
+DESCRIPTION:Un pied devant l'autre, descendre jusqu'a ce que les deux genou
+ x forment un angle droit, puis remonter et alterner les jambes
+DTSTART;VALUE=DATE:20251017
+DTEND;VALUE=DATE:20251017
+END:VEVENT
+BEGIN:VEVENT
+UID:20251020-course-à-pied-6@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Course a pied (40minmin)
+DESCRIPTION:Course a pied en exterieur ou sur tapis roulant
+DTSTART;VALUE=DATE:20251020
+DTEND;VALUE=DATE:20251020
+END:VEVENT
+BEGIN:VEVENT
+UID:20251022-superman-hold-7@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Superman hold (30minmin)
+DESCRIPTION:Allonge sur le ventre, lever les bras et les jambes, maintenir 
+ la position
+DTSTART;VALUE=DATE:20251022
+DTEND;VALUE=DATE:20251022
+END:VEVENT
+BEGIN:VEVENT
+UID:20251024-pompes-8@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Pompes (20minmin)
+DESCRIPTION:Mains au sol, corps aligne, descendre la poitrine vers le sol e
+ n flechissant les coudes, puis remonter
+DTSTART;VALUE=DATE:20251024
+DTEND;VALUE=DATE:20251024
+END:VEVENT
+BEGIN:VEVENT
+UID:20251027-course-à-pied-9@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Course a pied (45minmin)
+DESCRIPTION:Course a pied en exterieur ou sur tapis roulant
+DTSTART;VALUE=DATE:20251027
+DTEND;VALUE=DATE:20251027
+END:VEVENT
+BEGIN:VEVENT
+UID:20251029-planche-latérale-10@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Planche laterale (30minmin)
+DESCRIPTION:Position de gainage sur le cote, coude au sol, corps aligne
+DTSTART;VALUE=DATE:20251029
+DTEND;VALUE=DATE:20251029
+END:VEVENT
+BEGIN:VEVENT
+UID:20251031-squats-sautés-11@sportsee.com
+DTSTAMP:20250926T055659Z
+SUMMARY:Squats sautes (20minmin)
+DESCRIPTION:Pieds ecartes a la largeur des epaules, descendre en flechissan
+ t les genoux, puis sauter explosivement en remontant
+DTSTART;VALUE=DATE:20251031
+DTEND;VALUE=DATE:20251031
+END:VEVENT
+END:VCALENDAR
