@@ -9,6 +9,8 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { DEMO } from '@/lib/constants';
+
 const secretKey = process.env.SECRET;
 const key = new TextEncoder().encode(secretKey);
 
@@ -72,6 +74,17 @@ export const createSession = async ({ token, userId }) => {
  * @returns {Object} Objet {isAuth: boolean, userId?: string, token?: string, error?: string}
  */
 export const verifySession = async () => {
+  // Mode DEMO : on simule une session valide
+  if (DEMO) {
+    console.log("🎭 MODE DEMO : Session simulée pour user123");
+    return { 
+      isAuth: true, 
+      userId: 'user123', 
+      token: 'demo_token_not_needed' 
+    };
+  }
+
+  // Mode PRODUCTION : logique existante
   const cookieStore = await cookies()
   const cookie = cookieStore.get('session')?.value;
   const session = await decrypt(cookie);

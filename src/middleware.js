@@ -26,7 +26,7 @@ export async function middleware(request) {
   console.log("is session auth ? : ", session?.isAuth)
 
 
-  if(session?.isAuth && isPublicRoute && !request.nextUrl.pathname.startsWith('/dashboard')){
+  if(session?.isAuth && isPublicRoute){
     return NextResponse.redirect(new URL('/dashboard', request.url));
   } 
   // Utilisateur authentifié sur / → rediriger vers dashboard

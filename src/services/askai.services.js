@@ -2,7 +2,7 @@ import { Mistral } from '@mistralai/mistralai';
 import { coachNuserPrompt, PlannerPrompt } from '@/lib/prompt';
 import { validateNGenerateResponse } from '@/lib/askai.lib';
 import { workoutProgramMockData, DEMO, MISTRAL_CONFIG } from '@/lib/constants';
-import { withModelConfig } from '@/lib/askai.lib';
+import { withModelConfig } from '@/lib/modelconfig';
 
 const apiKey = process.env.MISTRAL_API_KEY;
 

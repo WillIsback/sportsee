@@ -1,6 +1,6 @@
 import styles from './PlanningDefault.module.css';
 import { ICalendar } from '@/lib/icon';
-
+import DefaultButton from '@/components/Button/DefaultButton/DefaultButton';
 /**
  * Brief: Composant d'accueil pour la création de planning d'entraînement
  * 
@@ -14,7 +14,12 @@ export default function PlanningDefault ({ handleStartClick }) {
       <ICalendar />
       <h2>Créez votre planning d'entraînement intelligent</h2>
       <p>Notre IA vous aide à bâtir un planning 100 % personnalisé selon vos objectifs, votre niveau et votre emploi du temps.</p>
-      <button className={styles.PlanningDefault__button} onClick={handleStartClick}><span>Commencer</span></button>
+      <DefaultButton 
+        type='button'
+        isDisabled={false}
+        onClick={handleStartClick}
+        content={'Commencer'}
+      />
     </article>
   )
 }

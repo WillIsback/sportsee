@@ -1,7 +1,7 @@
 import styles from './PlanningGenerate.module.css';
 import PlanningWeekCard from './PlanningWeekCard/PlanningWeekCard';
 import generateICSFromPlanning from '@/lib/ics';
-
+import DefaultButton from '@/components/Button/DefaultButton/DefaultButton';
 /**
  * Brief: Composant pour afficher et télécharger un planning d'entraînement généré
  * @param {Object} planning - Données du planning organisées par jour de la semaine
@@ -57,13 +57,28 @@ export default function PlanningGenerate({ planning, startDate, handleRestartCli
             </div>
             
             <div className={styles.Planning__action}> 
+                <DefaultButton 
+                    type='button'
+                    isDisabled={false}
+                    onClick={handleDownload}
+                    content={'Télécharger'}
+                />
+                <DefaultButton 
+                    type='button'
+                    isDisabled={false}
+                    onClick={handleRestartClick}
+                    content={'Regénérer un programme'}
+                />
+            </div>
+        </section>
+    );
+}
+
+/*
                 <button onClick={handleDownload} type="button">
                     <span>Télécharger</span>
                 </button>
                 <button onClick={handleRestartClick} type="button">
                     <span>Regénérer un programme</span>
                 </button>
-            </div>
-        </section>
-    );
-}
+                */

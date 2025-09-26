@@ -1,7 +1,7 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useTransition, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useTransition, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import ChatModal from '../ChatModal/ChatModal';
@@ -18,8 +18,49 @@ import Link from 'next/link';
  */
 export default function Header() {
     const router = useRouter();
+    const path = usePathname();
     const [isPending, startTransition] = useTransition();
     const [showModal, setShowModal] = useState(false);
+    const [activePage, setActivePage] = useState({
+        dashboard: false,
+        modal: false,
+        profile: false,
+    });
+
+    // console.log("path hearder", path);
+    /**
+     * Brief: Gère l'etat actif de la page actuel pour le style
+     */
+    useEffect(()=>{
+        if (path==='/profile' && !showModal){
+            setActivePage({
+                dashboard: false,
+                modal: false,
+                profile: true,
+            });
+        }
+        else if (path==='/dashboard' && !showModal){
+            setActivePage({
+                dashboard: true,
+                modal: false,
+                profile: false,
+            });
+        }
+        else if (showModal){
+            setActivePage({
+                dashboard: false,
+                modal: true,
+                profile: false,
+            });
+        }
+        else {
+            setActivePage({
+                dashboard: false,
+                modal: false,
+                profile: false,
+            });
+        }
+    },[path, showModal]);
 
     /**
      * Brief: Gère la déconnexion utilisateur et redirection vers login
@@ -35,6 +76,7 @@ export default function Header() {
         })
     }
 
+    // console.log("activePage : ", activePage);
     return (
         <header className={styles.Header}>
             <div className={styles.logo}>
@@ -44,11 +86,11 @@ export default function Header() {
                 <ul>
                     <li>
                         <Link href='/dashboard'>  
-                        <p>Dashboard</p>
+                        <p className={activePage.dashboard ? `${styles.activePage}` : ''}>Dashboard</p>
                         </Link>
                     </li>
                     <li onClick={() => setShowModal(true)} className={styles.chatModal}>
-                            <p>Coach AI</p>
+                            <p className={activePage.modal ? `${styles.activePage}` : ''}>Coach AI</p>
                         {showModal && createPortal(
                             <ChatModal onClose={() => setShowModal(false)} />,
                             document.body
@@ -56,7 +98,7 @@ export default function Header() {
                     </li>
                     <li>
                         <Link href='/profile'>
-                        <p>Mon Profil</p>
+                        <p className={activePage.profile ? `${styles.activePage}` : ''}>Mon Profil</p>
                         </Link>
                     </li>
                     <div className={styles.divider}></div>

@@ -1,0 +1,27 @@
+
+.DefaultButton {
+  display: flex;
+  padding: 16px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  background: var(--Tokens-Surface-action, #0B23F4);
+  cursor: pointer;
+  span {
+    color: var(--Tokens-Typographie-Tertiary, #E7E7E7);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+.DefaultButton:focus, .DefaultButton:hover {
+background: var(--Tokens-Surface-action-hover, #5465F7);
+}
+.DefaultButton:disabled {
+    background: var(--Tokens-Surface-Background, #E7E7E7);
+    span {
+        color: var(--Tokens-Typographie-Secondary, #707070);
+    }
+}

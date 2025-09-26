@@ -1,6 +1,6 @@
 import styles from './PlanningDate.module.css';
 import { ICalendar } from '@/lib/icon';
-
+import DefaultButton from '@/components/Button/DefaultButton/DefaultButton';
 /**
  * Brief: Composant pour sélectionner la date de début d'un programme sportif
  * @param {Function} handleBackWardClick - Fonction pour revenir à l'étape précédente
@@ -38,7 +38,12 @@ export default function PlanningDate ({ handleBackWardClick, handleGenerateClick
                 </svg>
             </span>
         </button>
-        <button className={styles.PlanningDate__button_submit} onClick={handleGenerateClick}><span>Générer mon Planning</span></button>
+        <DefaultButton 
+          type='button'
+          isDisabled={false}
+          onClick={handleGenerateClick}
+          content={'Générer mon Planning'}
+        />
       </div>
     </article>
     )

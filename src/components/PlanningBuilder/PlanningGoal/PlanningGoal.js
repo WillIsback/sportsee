@@ -1,6 +1,6 @@
 import styles from './PlanningGoal.module.css';
 import { ICtarget } from '@/lib/icon';
-
+import DefaultButton from '@/components/Button/DefaultButton/DefaultButton';
 /**
  * Brief: Composant pour définir l'objectif principal de l'utilisateur pour son programme sportif
  * @param {Function} handleGoalNextTo - Fonction pour passer à l'étape suivante après saisie de l'objectif
@@ -28,7 +28,14 @@ export default function PlanningGoal ({ handleGoalNextTo, setObjectif }) {
           onChange={(e) =>setObjectif(e.target.value)}
         />
       </div>
-      <button className={styles.PlanningGoal__button} onClick={handleGoalNextTo}><span>Suivant</span></button>
+      <DefaultButton 
+        type='button'
+        isDisabled={false}
+        onClick={handleGoalNextTo}
+        content={'Suivant'}
+      />
     </article>
   )
 }
+
+//      <button className={styles.PlanningGoal__button} onClick={handleGoalNextTo}><span>Suivant</span></button>

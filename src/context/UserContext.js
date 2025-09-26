@@ -38,16 +38,17 @@ export function UserDataProvider({ children }) {
     });
     if (isPending) return 'Loading...'
     if (error) return 'An error has occurred: ' + error?.message;
-
-    const dataProfile = data?.data.profile;
-    const dataStats = data?.data.statistics;
-    // console.log("data : ", data);
-    // console.log("dataProfile : ", dataProfile, "dataStats :", dataStats);
-    return (
-        <UserProfileContext.Provider value={{ isPending, error, dataProfile, isFetching }}>
-            <UserStatsContext.Provider value={{ isPending, error, dataStats, isFetching }}>
-            {children}
-            </UserStatsContext.Provider>
-        </UserProfileContext.Provider>
-    );
+    else{
+        const dataProfile = data?.data.profile;
+        const dataStats = data?.data.statistics;
+        // console.log("data : ", data);
+        // console.log("dataProfile : ", dataProfile, "dataStats :", dataStats);
+        return (
+            <UserProfileContext.Provider value={{ isPending, error, dataProfile, isFetching }}>
+                <UserStatsContext.Provider value={{ isPending, error, dataStats, isFetching }}>
+                {children}
+                </UserStatsContext.Provider>
+            </UserProfileContext.Provider>
+        );
+    }
 }

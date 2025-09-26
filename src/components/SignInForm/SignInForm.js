@@ -10,6 +10,7 @@ import { useActionState } from 'react';
 import { login } from '@/services/auth.services';
 import styles from './SignInForm.module.css';
 import Link from 'next/link'
+import DefaultButton from '../Button/DefaultButton/DefaultButton';
 
 /**
  * Brief: Composant de formulaire de connexion utilisateur avec gestion des états
@@ -40,9 +41,11 @@ export default function SignInForm() {
             <input id="password" type="password" name="password" />
           </div>
         </div>
-        <button aria-disabled={isPending} type="submit" className={styles.connectionBtn}>
-            <span>{isPending ? 'Connection..' : 'Se Connecter'}</span>
-        </button>
+        <DefaultButton 
+          type={'submit'}
+          isDisabled={isPending}
+          content={isPending ? 'Connexion...' : 'Se Connecter'}
+        />
           {formState?.success === false &&
             <div><p>{formState?.error}</p></div>
           }
@@ -52,3 +55,8 @@ export default function SignInForm() {
   );
 }
 
+/*
+        <button aria-disabled={isPending} type="submit" className={styles.connectionBtn}>
+            <span>{isPending ? 'Connection..' : 'Se Connecter'}</span>
+        </button>
+*/

@@ -45,6 +45,10 @@
     color: var(--Tokens-Typographie-Bleu, #0B23F4);
 }
 
+.activePage{
+    color: var(--Tokens-Typographie-Bleu, #0B23F4) !important;
+}
+
 .divider{
   border-left: 1px solid #0B23F4;
   height: 17px;
