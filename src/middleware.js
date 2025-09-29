@@ -7,8 +7,8 @@
 */
 
 import { NextResponse } from "next/server";
-import { verifySession } from '@/services/session.services';
-import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/lib/constants';
+import { verifySession } from "@/services/session.services";
+import { PROTECTED_ROUTES, PUBLIC_ROUTES } from "@/lib/constants";
 
 /**
  * Brief: Middleware Next.js pour la gestion des routes protégées et redirections d'authentification
@@ -16,36 +16,34 @@ import { PROTECTED_ROUTES, PUBLIC_ROUTES } from '@/lib/constants';
  * @returns {Promise<NextResponse>} Réponse avec redirection appropriée ou continuation normale
  */
 export async function middleware(request) {
-  const path = request.nextUrl.pathname
+  const path = request.nextUrl.pathname;
   console.log("Middleware intercepte:", request.nextUrl.pathname);
 
-  const isProtectedRoute = PROTECTED_ROUTES.includes(path)
-  const isPublicRoute = PUBLIC_ROUTES.includes(path)
+  const isProtectedRoute = PROTECTED_ROUTES.includes(path);
+  const isPublicRoute = PUBLIC_ROUTES.includes(path);
 
   const session = await verifySession();
-  console.log("is session auth ? : ", session?.isAuth)
+  console.log("is session auth ? : ", session?.isAuth);
 
-
-  if(session?.isAuth && isPublicRoute){
-    return NextResponse.redirect(new URL('/dashboard', request.url));
-  } 
+  if (session?.isAuth && isPublicRoute) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
   // Utilisateur authentifié sur / → rediriger vers dashboard
-  else if(session?.isAuth && request.nextUrl.pathname === '/'){
-    return NextResponse.redirect(new URL('/dashboard', request.url));
-  }
-  else if (!session?.isAuth && !(request.nextUrl.pathname.startsWith('/login'))){
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-  else{
+  else if (session?.isAuth && request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  } else if (
+    !session?.isAuth &&
+    !request.nextUrl.pathname.startsWith("/login")
+  ) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  } else {
     return NextResponse.next();
   }
 }
-  
+
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|image).*)',
-    '/'
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|image).*)",
+    "/",
   ],
-}
-
-
+};

@@ -40,11 +40,15 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Copilot instruc file 
+# Copilot instruc file
 .github/*
 .github/instructions/
 .github/instructions/context.instructions.md
 
 
-# docs personnal 
+# docs personnal
 docs/evaluation/*
+
+docs
+docs/*
+!docs/images
